@@ -56,6 +56,12 @@ export default {
   // Content module configuration: https://go.nuxtjs.dev/config-content
   content: {},
 
+  markdown: {
+    prism: {
+      theme: 'prism-themes/themes/prism-material-oceanic.css',
+    },
+  },
+
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],

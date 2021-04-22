@@ -6,7 +6,8 @@ Lear how to use @nuxt/content
 <!--more-->
 # Article 1
 
-```js{1,3-5}[server.js]
+```
+js{1,3-5}[server.js]
 const http = require('http')
 const bodyParser = require('body-parser')
 
@@ -19,7 +20,29 @@ http.createServer((req, res) => {
 
 ---
 
+## This is a heading
+
+This is some more info
+
+### This is a sub heading
+
+This is some more info
+
+### This is another sub heading
+
+This is some more info
+
+## This is another heading
+
+This is some more info
+
 ## Links
+
+<info-box>
+  <template #info-box>
+    This is a vue component inside markdown using slots
+  </template>
+</info-box>
 
 <nuxt-link to="/articles">Nuxt Link to Blog</nuxt-link>
 
