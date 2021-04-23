@@ -2,12 +2,11 @@
 title: Introduction
 ---
 
-Lear how to use @nuxt/content
+
 <!--more-->
 # Article 1
 
-```
-js{1,3-5}[server.js]
+```typescript
 const http = require('http')
 const bodyParser = require('body-parser')
 

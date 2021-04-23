@@ -6,8 +6,7 @@ Lear how to use @nuxt/content
 <!--more-->
 # Article 3
 
-```
-js{1,3-5}[server.js]
+```typescript
 const http = require('http')
 const bodyParser = require('body-parser')
 
