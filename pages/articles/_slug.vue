@@ -1,9 +1,13 @@
 <template>
-  <div>
-    <prev-next :prev="prev" :next="next" directory="articles" />
-    <table-of-content :toc="article.toc" />
+  <v-row>
+    <v-col cols="12">
+      <prev-next :prev="prev" :next="next" directory="articles" />
+    </v-col>
+    <v-col cols="12">
+      <table-of-content :toc="article.toc" />
+    </v-col>
     <nuxt-content :document="article"></nuxt-content>
-  </div>
+  </v-row>
 </template>
 
 <script lang="ts">
@@ -29,6 +33,8 @@ export default Vue.extend({
 
         prev = prevArticle
         next = nextArticle
+
+        console.log(next)
       } catch (e) {
         ctx.error({
           statusCode: 404,
@@ -42,9 +48,6 @@ export default Vue.extend({
       prev,
       next,
     }
-  },
-  created() {
-    console.log('asdfasd')
   },
   mounted() {
     Prism.highlightAll()

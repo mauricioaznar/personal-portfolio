@@ -7,7 +7,7 @@
           <pre>
             {{ article }}
           </pre>
-          <NuxtLink :to="{ path: article.path }">
+          <NuxtLink :to="{ path: '/articles/' + article.slug }">
             <div>
               <h2>{{ article.title }}</h2>
             </div>
@@ -28,6 +28,8 @@ export default Vue.extend({
       .only(['title', 'slug'])
       .sortBy('createdAt', 'asc')
       .fetch()
+
+    console.log(articles)
 
     return {
       articles,

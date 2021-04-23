@@ -17,8 +17,6 @@
         <NuxtLink :to="`#${link.id}`">{{ link.text }}</NuxtLink>
       </li>
     </ul>
-
-    <NuxtLink to="/about">About Page</NuxtLink>
   </div>
 </template>
 

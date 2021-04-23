@@ -19,6 +19,8 @@ http.createServer((req, res) => {
 
 ---
 
+<img src="/articles/img/example.png" alt="Kitten" title="A cute kitten" style="width: 100%" />
+
 ## This is a heading
 
 This is some more info
@@ -36,12 +38,6 @@ This is some more info
 This is some more info
 
 ## Links
-
-<info-box>
-  <template #info-box>
-    This is a vue component inside markdown using slots
-  </template>
-</info-box>
 
 <nuxt-link to="/articles">Nuxt Link to Blog</nuxt-link>
 

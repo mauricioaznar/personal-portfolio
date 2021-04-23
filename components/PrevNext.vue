@@ -4,7 +4,7 @@
       <v-col>
         <NuxtLink
           v-if="prev"
-          :to="{ path: prev.path }"
+          :to="{ path: '/' + directory + '/' + prev.slug }"
           class="text-primary font-bold hover:underline"
         >
           {{ prev.title }}
@@ -23,7 +23,7 @@
       <v-col>
         <NuxtLink
           v-if="next"
-          :to="{ path: next.path }"
+          :to="{ path: '/' + directory + '/' + next.slug }"
           class="font-bold hover:underline"
         >
           {{ next.title }}
