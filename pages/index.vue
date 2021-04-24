@@ -8,15 +8,7 @@
       First load or hard refresh is done on server side.
     </p>
     <p v-if="rendering === 'client'">Navigation is done on client side.</p>
-    <article>
-      <nuxt-content :document="page" />
-    </article>
-
-    <ul>
-      <li v-for="link of page.toc" :key="link.id">
-        <NuxtLink :to="`#${link.id}`">{{ link.text }}</NuxtLink>
-      </li>
-    </ul>
+    <nuxt-content :document="page" />
   </div>
 </template>
 

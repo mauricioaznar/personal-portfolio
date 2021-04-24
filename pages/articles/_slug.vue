@@ -1,13 +1,28 @@
 <template>
-  <v-row>
-    <v-col cols="12">
-      <prev-next :prev="prev" :next="next" directory="articles" />
-    </v-col>
-    <v-col cols="12">
-      <table-of-content :toc="article.toc" />
-    </v-col>
-    <nuxt-content :document="article"></nuxt-content>
-  </v-row>
+  <v-container class="px-16">
+    <v-row justify="center">
+      <v-col cols="auto">
+        <h1>
+          {{ article.title }}
+        </h1>
+      </v-col>
+    </v-row>
+    <v-row justify="center">
+      <v-col cols="10">
+        <prev-next :prev="prev" :next="next" directory="articles" />
+      </v-col>
+    </v-row>
+    <v-row justify="center">
+      <v-col cols="8">
+        <table-of-content :toc="article.toc" />
+      </v-col>
+    </v-row>
+    <v-row justify="center">
+      <v-col cols="8">
+        <nuxt-content :document="article"></nuxt-content>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -26,7 +41,7 @@ export default Vue.extend({
         article = await ctx.$content('articles', ctx.params.slug).fetch()
         const [prevArticle = null, nextArticle = null] = (await ctx
           .$content('articles')
-          .only(['title', 'slug'])
+          .only(['title', 'slug', 'path'])
           .sortBy('createdAt', 'asc')
           .surround(ctx.params.slug)
           .fetch()) as Array<IContentDocument>

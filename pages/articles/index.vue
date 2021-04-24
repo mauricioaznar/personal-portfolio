@@ -4,10 +4,7 @@
       <h1>Articles</h1>
       <ul>
         <li v-for="article of articles" :key="article.title">
-          <pre>
-            {{ article }}
-          </pre>
-          <NuxtLink :to="{ path: '/articles/' + article.slug }">
+          <NuxtLink :to="{ path: $route.path + '/' + article.slug }">
             <div>
               <h2>{{ article.title }}</h2>
             </div>
@@ -25,11 +22,8 @@ export default Vue.extend({
   async asyncData(ctx) {
     const articles = await ctx
       .$content('articles')
-      .only(['title', 'slug'])
       .sortBy('createdAt', 'asc')
       .fetch()
-
-    console.log(articles)
 
     return {
       articles,

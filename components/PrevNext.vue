@@ -1,33 +1,43 @@
 <template>
   <v-container class="flex justify-between">
-    <v-row>
-      <v-col>
-        <NuxtLink
-          v-if="prev"
-          :to="{ path: '/' + directory + '/' + prev.slug }"
-          class="text-primary font-bold hover:underline"
-        >
-          {{ prev.title }}
-        </NuxtLink>
+    <v-row justify="space-between">
+      <v-col cols="1" class="text-right">
+        <v-tooltip v-if="prev" bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn icon small link nuxt :to="{ path: prev.path }">
+              <v-icon color="primary" dark v-bind="attrs" v-on="on">
+                mdi-arrow-left
+              </v-icon>
+            </v-btn>
+          </template>
+          <span>{{ prev.title }}</span>
+        </v-tooltip>
         <span v-else>&nbsp;</span>
       </v-col>
-      <v-col>
-        <NuxtLink
-          :to="{ path: '/' + directory }"
-          class="text-primary font-bold hover:underline"
-        >
-          {{ directory }}
-        </NuxtLink>
+      <v-col cols="1" class="text-center">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn icon small exact link nuxt :to="{ path: '/' + directory }">
+              <v-icon color="primary" dark v-bind="attrs" v-on="on">
+                mdi-home
+              </v-icon>
+            </v-btn>
+          </template>
+          <span>{{ directory }}</span>
+        </v-tooltip>
         <span>&nbsp;</span>
       </v-col>
-      <v-col>
-        <NuxtLink
-          v-if="next"
-          :to="{ path: '/' + directory + '/' + next.slug }"
-          class="font-bold hover:underline"
-        >
-          {{ next.title }}
-        </NuxtLink>
+      <v-col cols="1">
+        <v-tooltip v-if="next" bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn icon small link nuxt :to="{ path: next.path }">
+              <v-icon color="primary" dark v-bind="attrs" v-on="on">
+                mdi-arrow-right
+              </v-icon>
+            </v-btn>
+          </template>
+          <span>{{ next.title }}</span>
+        </v-tooltip>
         <span v-else>&nbsp;</span>
       </v-col>
     </v-row>
