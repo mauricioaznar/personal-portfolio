@@ -6,12 +6,15 @@
   margin-top: 2px;
 }
 
-.code-toolbar code[class*="language-"], pre[class*="language-"] {
+.code-toolbar code[class*='language-'],
+pre[class*='language-'] {
   text-shadow: 0 0 transparent;
 }
 
-.code-toolbar .token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string {
+.code-toolbar .token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
   background-color: transparent;
 }
-
-
