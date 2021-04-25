@@ -274,6 +274,38 @@ export const serve = (port: number, filename: string, dir: string, useProxy: boo
 }
 ```
 
+<br />
+
+### Concurrently
+
+Run multiple commands concurrently. Like npm run watch-js & npm run watch-less but better. ([concurrently docs](https://github.com/kimmobrunfeldt/concurrently#readme))
+
+```json
+{
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  }
+}
+```
+
+### Ngrok
+
+Ngrok exposes local servers behind NATs
+and firewalls to the public internet over secure tunnels. ([ngrok docs](https://ngrok.com/docs))
+
+Expose a web server on port 80 of your local machine to the internet
+
+```shell
+ngrok http 80
+```
+
+<br />
+
+### Nodemon
+
 ## questions?
 
 ### What is `"bin": "dist/index.js",`?
@@ -281,3 +313,5 @@ export const serve = (port: number, filename: string, dir: string, useProxy: boo
 ### what is this script used for `"prepublishOnly": "npm run build"`?
 
 ### What is the use of `"files": ["dist"],` in package.json? 
+
+### What is the use of `  "engines": { "node": "14.15.0", "npm": "6.14.8"},` in package.json?

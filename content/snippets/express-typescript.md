@@ -1,5 +1,5 @@
 ---
-title: Express Typescript
+title: Express typescript
 ---
 
 
@@ -842,8 +842,37 @@ export {router as updateTicketRouter}
 
 ### Setup
 
+package.json
+```json
+  {
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./src/test/setup.ts"
+    ]
+  },
+  "scripts": {
+    "start": "ts-node-dev src/index.ts",
+    "test": "jest --watchAll --no-cache "
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.20",
+    "@types/supertest": "^2.0.10",
+    "jest": "^26.6.3",
+    "mongodb-memory-server": "^6.9.3",
+    "supertest": "^6.1.3",
+    "ts-jest": "^26.5.1"
+  }
+}
+```
+
+<br />
+
 * This file gets run by jest before test execution
 * mongodb-memory-server is a library that let us create a mongo db inside memory
+
+setup.ts
 ```typescript
 import {MongoMemoryServer} from 'mongodb-memory-server'
 import mongoose from 'mongoose'
