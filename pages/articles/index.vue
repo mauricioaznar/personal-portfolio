@@ -20,10 +20,18 @@
 import Vue from 'vue'
 export default Vue.extend({
   async asyncData(ctx) {
-    const articles = await ctx
-      .$content('articles')
-      .sortBy('createdAt', 'asc')
-      .fetch()
+    let articles = []
+    try {
+      articles = await ctx
+        .$content('articles')
+        .sortBy('createdAt', 'asc')
+        .fetch()
+    } catch (e) {
+      ctx.error({
+        statusCode: 404,
+        message: 'Message not found',
+      })
+    }
 
     return {
       articles,

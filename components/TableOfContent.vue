@@ -2,7 +2,7 @@
   <section class="tableofcontent">
     <h3>Table of Content</h3>
     <v-list v-model="selected">
-      <v-treeview :items="items" open-all hoverable transition>
+      <v-treeview :items="items" hoverable transition>
         <template #label="{ item }">
           <v-list-item nuxt :to="`#${item.id}`">{{ item.text }}</v-list-item>
         </template>
@@ -64,11 +64,7 @@ export default {
   methods: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     resetScroll(entries, observer, isIntersecting) {
-      console.log('activate')
-      console.log(window.location.hash)
-      console.log(window.location)
       if (window.location.hash !== '' && isIntersecting) {
-        console.log(window.location.hash.length)
         this.$refs['reset-hash'].$el.click()
       }
     },

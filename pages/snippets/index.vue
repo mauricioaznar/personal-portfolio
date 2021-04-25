@@ -33,8 +33,6 @@ export default Vue.extend({
       })
     }
 
-    console.log(snippets)
-
     return {
       snippets,
     }

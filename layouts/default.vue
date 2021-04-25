@@ -49,8 +49,12 @@
       </v-slide-y-reverse-transition>
     </v-app-bar>
     <v-main>
-      <v-container class="px-16 py-4">
-        <nuxt />
+      <v-container class="py-4" fluid>
+        <v-row justify="center">
+          <v-col sm="auto" md="6">
+            <nuxt />
+          </v-col>
+        </v-row>
       </v-container>
     </v-main>
     <v-footer

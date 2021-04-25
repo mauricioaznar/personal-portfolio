@@ -23,6 +23,7 @@ import 'prismjs/plugins/show-language/prism-show-language'
 // Include additional languages
 import 'prismjs/components/prism-bash.js'
 import 'prismjs/components/prism-typescript.js'
+import 'prismjs/components/prism-shell-session.js'
 
 // Set vue SFC to markdown
 Prism.languages.vue = Prism.languages.markup

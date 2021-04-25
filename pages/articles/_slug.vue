@@ -1,24 +1,20 @@
 <template>
-  <v-container class="px-16">
+  <v-container>
     <v-row justify="center">
-      <v-col cols="auto">
-        <h1>
-          {{ article.title }}
-        </h1>
-      </v-col>
+      <v-col cols="auto">{{ article.title }}</v-col>
     </v-row>
-    <v-row justify="center">
-      <v-col cols="10">
+    <v-row>
+      <v-col>
         <prev-next :prev="prev" :next="next" directory="articles" />
       </v-col>
     </v-row>
     <v-row justify="center">
-      <v-col cols="8">
+      <v-col>
         <table-of-content :toc="article.toc" />
       </v-col>
     </v-row>
     <v-row justify="center">
-      <v-col cols="8">
+      <v-col>
         <nuxt-content :document="article"></nuxt-content>
       </v-col>
     </v-row>
