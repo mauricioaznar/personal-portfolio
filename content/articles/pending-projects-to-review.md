@@ -15,8 +15,10 @@ their original ideas into Snippets {}:
 * nodejs
     * andrew mead
     * brad traversy
+    * personal projects
 * vue3 
     * shaun pelling
+    * personal projects
 * firebase
     * shaun pelling
 * react
@@ -41,7 +43,10 @@ their original ideas into Snippets {}:
     * scripts
 * css
     * siete cenotes
+    * personal projects
 * html
     * siete cenotes
+    * personal projects
 * nuxt  
+    * persona projects
 
