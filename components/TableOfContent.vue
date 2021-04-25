@@ -4,7 +4,14 @@
     <v-list v-model="selected">
       <v-treeview :items="items" hoverable transition>
         <template #label="{ item }">
-          <v-list-item nuxt :to="`#${item.id}`">{{ item.text }}</v-list-item>
+          <v-list-item
+            nuxt
+            event=""
+            :to="`#${item.id}`"
+            @click.prevent.native="goTo"
+          >
+            {{ item.text }}
+          </v-list-item>
         </template>
       </v-treeview>
     </v-list>
@@ -67,6 +74,14 @@ export default {
       if (window.location.hash !== '' && isIntersecting) {
         this.$refs['reset-hash'].$el.click()
       }
+    },
+    goTo(e) {
+      const target = e.toElement.hash
+      this.$vuetify.goTo(target, {
+        duration: 1000,
+        offset: 20,
+        easing: 'easeInOutCubic',
+      })
     },
   },
 }

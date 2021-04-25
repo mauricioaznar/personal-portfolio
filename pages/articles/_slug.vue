@@ -1,7 +1,11 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col cols="auto">{{ article.title }}</v-col>
+      <v-col cols="auto">
+        <h1>
+          {{ article.title }}
+        </h1>
+      </v-col>
     </v-row>
     <v-row>
       <v-col>

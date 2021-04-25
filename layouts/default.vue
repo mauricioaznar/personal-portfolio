@@ -102,11 +102,6 @@ export default {
           to: '/articles',
         },
         {
-          icon: 'mdi-format-list-numbered',
-          title: 'Guides',
-          to: '/guides',
-        },
-        {
           icon: 'mdi-code-braces',
           title: 'Snippets',
           to: '/snippets',

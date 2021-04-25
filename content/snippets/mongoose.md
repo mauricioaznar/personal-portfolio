@@ -9,6 +9,8 @@ title: Mongoose
 for creating and reading documents from the underlying MongoDB database."
 [mongoose models documentation](https://mongoosejs.com/docs/models.html)
 
+<br />
+
 ## Model setups
 ### Javascript
 Explanation (Blog.js & User.js)
@@ -214,6 +216,8 @@ const Order = mongoose.model<OrderDoc, OrderModel>('Order', orderSchema);
 
 export { Order };
 ```
+
+<br />
 
 ## Querying
 
