@@ -82,6 +82,37 @@ export * from './middlewares/validate-request'
 
 A tool for managing JavaScript projects with multiple packages. [lerna docs](https://lerna.js.org/)
 
+lerna.json
+```json
+{
+  "name": "root",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  },
+  "scripts": {
+    "start": "lerna run start --parallel"
+  }
+}
+```
+
+<br />
+
+package.json
+```json
+{
+  "name": "root",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  },
+  "scripts": {
+    "start": "lerna run start --parallel"
+  }
+}
+
+```
+
 <br />
 
 ### PM2
@@ -104,3 +135,149 @@ pm2 logs
 ```bash
 pm2 monit
 ```
+
+### Commander
+
+Here is an example of how to use commander
+
+<br />
+
+package.json
+```json
+{
+  "name": "@maguas/jsnote",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "tsc --watch --preserveWatchOutput",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "esbuild src/index.ts --platform=node --outfile=dist/index.js --bundle --minify --define:process.env.NODE_ENV=\\\"production\\\""
+  },
+  "files": [
+    "dist"
+  ],
+  "bin": "dist/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@maguastupaguas/local-client": "^1.0.0"
+  },
+  "devDependencies": {
+    "@maguastupaguas/local-api": "^1.0.0",
+    "@types/node": "^14.14.31",
+    "commander": "^7.1.0",
+    "esbuild": "0.8.26",
+    "typescript": "^4.2.2"
+  }
+}
+```
+
+<br />
+
+tsconfig.json
+```json
+{
+  "compilerOptions": {
+    "target": "es5",  
+    "module": "commonjs",
+     "outDir": "./dist", 
+    "strict": true,     
+    "esModuleInterop": true,
+    "skipLibCheck": true,                       
+    "forceConsistentCasingInFileNames": true
+  }
+}
+```
+
+<br />
+
+```ts
+#!/usr/bin/env node
+
+import {program} from 'commander'
+import {serveCommand} from "./commands/serve";
+
+// comment
+
+program
+    .addCommand(serveCommand)
+
+program.parse(process.argv)
+```
+
+<br />
+
+./src/commands/serve
+```ts
+import {Command} from "commander";
+import path from "path";
+import {serve} from "@maguastupaguas/local-api";
+
+
+const isProduction = process.env.NODE_ENV === 'production'
+
+export const serveCommand = new Command()
+    .command('serve [filename]')
+    .description('Open a file for edting')
+    .option('-p, --port <number>', 'port to run server on', '4005')
+    .action(async (filename = 'notebook.js', options: { port: string }) => {
+        try {
+            const dir = path.join(process.cwd(), path.dirname(filename))
+            await serve(parseInt(options.port), path.basename(filename), dir, !isProduction)
+            console.log(`Opened ${filename}, Navigate to http://localhost:${options.port} to edit the file.`)
+        } catch (err) {
+            if (err.code === 'EADDRINUSE') {
+                console.error('Port is in use. Try running on a different port.')
+            } else {
+                console.log('Here the problem', err.message)
+            }
+            process.exit(1)
+        }
+    })
+```
+
+<br />
+
+@maguastupaguas/local-api serve
+index.ts
+```ts
+import express from 'express'
+import {createProxyMiddleware} from "http-proxy-middleware";
+import path from "path";
+import {createCellsRouter} from "./routes/cells";
+
+
+export const serve = (port: number, filename: string, dir: string, useProxy: boolean) => {
+    const app = express()
+
+    app.use(createCellsRouter(filename, dir))
+
+    if (useProxy){
+        app.use(createProxyMiddleware({
+            target: 'http://localhost:3000',
+            ws: true,
+            logLevel: 'silent'
+        }))
+    } else {
+        // WHY resolve???
+        const packagePath = require.resolve('@maguastupaguas/local-client/build/index.html')
+        app.use(express.static(path.dirname(packagePath)))
+    }
+
+    return new Promise<void>((resolve, reject) => {
+        app.listen(port, resolve).on('error', reject)
+    })
+}
+```
+
+## questions?
+
+### What is `"bin": "dist/index.js",`?
+
+### what is this script used for `"prepublishOnly": "npm run build"`?
+
+### What is the use of `"files": ["dist"],` in package.json? 

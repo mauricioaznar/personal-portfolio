@@ -913,8 +913,235 @@ export default CodeCell
 
 <br />
 
+### Another reducer
+cell-reducer.ts
+```ts
+
+import produce from 'immer'
+import {ActionType} from "../action-types";
+import {Action} from "../actions";
+import {Cell} from "../cell";
+
+interface CellsState {
+    loading: boolean;
+    error: string | null;
+    order: string[];
+    data: {
+        [key: string]: Cell
+    }
+}
+
+const initialState: CellsState = {
+    loading: false,
+    error: null,
+    order: [],
+    data: {}
+}
+
+const reducer = produce((state: CellsState = initialState, action: Action) => {
+    switch (action.type) {
+        case ActionType.SAVE_CELLS_ERROR:
+            state.error = action.payload
+            return state;
+        case ActionType.FETCH_CELLS:
+            state.loading = true
+            state.error = null
+            return state
+        case ActionType.FETCH_CELLS_COMPLETE:
+            state.order = action.payload.map(cell => cell.id)
+            state.data = action.payload.reduce((acc, cell) => {
+                acc[cell.id] = cell
+                return acc
+            }, {} as CellsState['data'])
+            return state
+        case ActionType.FETCH_CELLS_ERROR:
+            state.loading = false
+            state.error = action.payload
+            return state
+        case ActionType.DELETE_CELL:
+            delete state.data[action.payload]
+            state.order = state.order.filter(id => id !== action.payload)
+            return state
+        case ActionType.INSERT_CELL_AFTER:
+            const cell: Cell = {
+                content: '',
+                type: action.payload.type,
+                id: randomId()
+            }
+
+            state.data[cell.id] = cell
+
+            const findIndex = state.order.findIndex(id => id === action.payload.id)
+
+            if (findIndex < 0) {
+                state.order.unshift(cell.id)
+            } else {
+                state.order.splice(findIndex + 1, 0, cell.id)
+            }
+
+            return state;
+        case ActionType.MOVE_CELL:
+            const {direction} = action.payload
+            const index = state.order.findIndex((id) => id === action.payload.id)
+            const targetIndex = direction === 'up' ? index -1 : index + 1
+
+            if (targetIndex < 0 || targetIndex > state.order.length -1) {
+                return state
+            }
+
+            state.order[index] = state.order[targetIndex]
+            state.order[targetIndex] = action.payload.id
+
+            return state
+        case ActionType.UPDATE_CELL:
+            const {id, content} = action.payload
+            state.data[id].content = content
+            return state
+        default:
+            return state;
+    }
+})
+
+const randomId = () => {
+    return Math.random().toString(36).substring(2, 5)
+}
+
+export default reducer
+```
+
+<br />
+
+### More actions
+
+./actions/index.ts
+```ts
+import {Dispatch} from 'redux'
+import {Action, DeleteCellAction, Direction, InsertCellAfterAction, MoveCellAction, UpdateCellAction} from "../actions";
+import {ActionType} from "../action-types";
+import {Cell, CellTypes} from "../cell";
+import bundle from "../../bundler";
+import axios from "axios";
+import {RootState} from "../reducers";
+
+export const updateCell = (id: string, content: string): UpdateCellAction  => {
+    return {
+        type: ActionType.UPDATE_CELL,
+        payload: {
+            id,
+            content
+        }
+    }
+}
+
+export const deleteCell = (id: string): DeleteCellAction => {
+    return {
+        type: ActionType.DELETE_CELL,
+        payload: id
+    }
+}
+
+export const moveCell = (id: string, direction: Direction): MoveCellAction => {
+    return {
+        type: ActionType.MOVE_CELL,
+        payload: {
+            id,
+            direction
+        }
+    }
+}
+
+export const insertCellAfter = (id: string | null, cellType: CellTypes): InsertCellAfterAction => {
+    return {
+        type: ActionType.INSERT_CELL_AFTER,
+        payload: {
+            id,
+            type: cellType
+        }
+    }
+}
+
+export const createBundle = (cellId: string, input: string) => {
+    return async (dispatch: Dispatch<Action>) => {
+        dispatch({
+            type: ActionType.BUNDLE_START,
+            payload: {
+                cellId
+            }
+        })
+
+        const result = await bundle(input)
+
+        dispatch({
+            type: ActionType.BUNDLE_COMPLETE,
+            payload: {
+                cellId,
+                bundle: result
+            }
+        })
+    }
+}
+
+export const fetchCells = () => {
+    return async (dispatch: Dispatch<Action>) => {
+        dispatch({
+            type: ActionType.FETCH_CELLS
+        })
+
+        try {
+            const {data}: {data: Cell[]} = await axios.get('/cells')
+            dispatch({
+                type: ActionType.FETCH_CELLS_COMPLETE,
+                payload: data
+            })
+        } catch (err) {
+            dispatch({
+                type: ActionType.FETCH_CELLS_ERROR,
+                payload: err.message
+            })
+        }
+    }
+}
+
+export const saveCells = () => {
+    return async (dispatch: Dispatch<Action>, getState: () => RootState) => {
+        const {cells: {data, order}} = getState()
+        const cells = order.map(id => data[id])
+        try {
+            await axios.post('/cells', {cells})
+        } catch (err) {
+            dispatch({
+                type: ActionType.SAVE_CELLS_ERROR,
+                payload: err.message
+            })
+        }
+    }
+}
+```
+
+<br />
+
 ## Extras
 
+
+### Reuse of interfaces across app
+As a recommendation, you could declare interfaces inside of the store and then export them from index.ts
+Cell.ts
+```ts
+export type CellTypes = 'code' | 'text'
+export interface Cell {
+    id: string;
+    type: CellTypes;
+    content: string;
+}
+```
+
+index.ts
+```ts
+export * from './reducers'
+export * from './store'
+export * from './cell'
+export * as actionCreators from './action-creators'
+```
 
 ### Custom middleware
 
@@ -974,7 +1201,7 @@ export const persistMiddleware = ({dispatch, getState}: {
 }
 ```
 
-Modify store.ts in ./store/store.ts like the next example
+Modify store.ts in ./state/store.ts like the next example
 
 store.ts
 ```ts
