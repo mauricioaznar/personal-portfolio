@@ -43,6 +43,5 @@ their original ideas into Snippets {}:
     * siete cenotes
 * html
     * siete cenotes
-  
 * nuxt  
 
