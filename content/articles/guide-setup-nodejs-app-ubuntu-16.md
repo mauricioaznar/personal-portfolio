@@ -250,3 +250,10 @@ In this case, we are setting the timezone to the one Mexico uses.
 default-time-zone = "-05:00"
 ```
 
+<br />
+
+Restart mysql service
+
+```shell
+sudo service mysql restart
+```

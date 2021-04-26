@@ -28,6 +28,7 @@ import 'prismjs/components/prism-nginx.js'
 import 'prismjs/components/prism-d.js'
 import 'prismjs/components/prism-jsx.js'
 import 'prismjs/components/prism-tsx.js'
+import 'prismjs/components/prism-sql.js'
 
 // Set vue SFC to markdown
 Prism.languages.vue = Prism.languages.markup
