@@ -60,11 +60,9 @@ The config should have the following properties
 
 ### index.tsx
 The main react file should look similarly to this.
-  
-  
 
 ```tsx
-import React from 'react';
+import React from 'content/snippets/react-techniques';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -85,9 +83,10 @@ reportWebVitals();
 
 ### App.tsx
 The main app react file should look similarly to this
+
 ```tsx
-import React from 'react';
-import {Provider} from "react-redux";
+import React from 'content/snippets/react-techniques';
+import { Provider } from "react-redux";
 import { store } from './state'
 import RepositoriesList from "./components/RepositoriesList";
 
@@ -368,18 +367,18 @@ it will just remember the answer is 2
 without executing the adding function. ([understanding react usememo](https://www.digitalocean.com/community/tutorials/react-usememo))*
 
 ```typescript
-import {useDispatch} from 'react-redux'
-import {bindActionCreators} from "redux";
-import {useMemo} from "react";
-import {actionCreators} from '../state'
+import { useDispatch } from 'react-redux'
+import { bindActionCreators } from "redux";
+import { useMemo } from "content/snippets/react-techniques";
+import { actionCreators } from '../state'
 
 export const useActions = () => {
 
-    const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-    return useMemo(() => {
-        return bindActionCreators(actionCreators, dispatch)
-    }, [dispatch])
+  return useMemo(() => {
+    return bindActionCreators(actionCreators, dispatch)
+  }, [dispatch])
 }
 ```
 
@@ -391,42 +390,45 @@ Here it is being shown how to use the previous hooks with typescript assistance
 ### RepositoriesList.tsx
 
 ```tsx
-import React, {FormEvent, useState} from 'react';
-import {useActions} from "../hooks/useActions";
-import {useSelector} from "react-redux";
-import {useTypedSelector} from "../hooks/useTypedSelector";
+import React, { FormEvent, useState } from 'content/snippets/react-techniques';
+import { useActions } from "../hooks/useActions";
+import { useSelector } from "react-redux";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
 const RepositoriesList: React.FC = () => {
-    const [term, setTerm] = useState('')
-    const {searchRepositories} = useActions()
-    const {data, error, loading} = useTypedSelector(
-        (state) => state.repositories
-    )
+  const [term, setTerm] = useState('')
+  const { searchRepositories } = useActions()
+  const { data, error, loading } = useTypedSelector(
+    (state) => state.repositories
+  )
 
-    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        searchRepositories(term)
-    }
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    searchRepositories(term)
+  }
 
-    return (
-        <div>
-            <form onSubmit={onSubmit}>
-                <input value={term} onChange={e => setTerm(e.target.value)}/>
-                <button>Search</button>
-            </form>
-            {
-                error && <h3>{error}</h3>
-            }
-            {
-                loading && <h3>Loading...</h3>
-            }
-            {
-                !error && !loading && data.map(name => {
-                    return <div>{name}</div>
-                })
-            }
-        </div>
-    );
+  return (
+    <div>
+      <form onSubmit={onSubmit}>
+        <input
+          value={term}
+          onChange={e => setTerm(e.target.value)}
+        />
+        <button>Search</button>
+      </form>
+      {
+        error && <h3>{error}</h3>
+      }
+      {
+        loading && <h3>Loading...</h3>
+      }
+      {
+        !error && !loading && data.map(name => {
+          return <div>{name}</div>
+        })
+      }
+    </div>
+  );
 };
 
 export default RepositoriesList;
@@ -440,57 +442,58 @@ In this case the ref could be HTMLInputElement or null. Inside of use effect, we
 so that we can access the HTMLInputElement if needed.
 
 UserSearch.tsx
+
 ```tsx
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'content/snippets/react-techniques';
 
 const users = [
-    {name: 'Sarah', age: 20},
-    {name: 'Alex', age: 20},
-    {name: 'Michael', age: 20}
+  { name: 'Sarah', age: 20 },
+  { name: 'Alex', age: 20 },
+  { name: 'Michael', age: 20 }
 ]
 
 export const UserSearch: React.FC = (props) => {
 
-    const [name, setName] = useState('')
-    const [user, setUser] = useState<{ name: string, age: number } | undefined>()
-    const inputRef = useRef<HTMLInputElement | null>(null)
+  const [name, setName] = useState('')
+  const [user, setUser] = useState<{ name: string, age: number } | undefined>()
+  const inputRef = useRef<HTMLInputElement | null>(null)
 
-    useEffect(() => {
-        if (!inputRef.current) {
-            return
-        }
-        inputRef.current.focus()
-    }, [])
-
-    const onClick = () => {
-        const foundUser = users.find((user) => {
-            return user.name === name
-        })
-
-        setUser(foundUser)
+  useEffect(() => {
+    if (!inputRef.current) {
+      return
     }
+    inputRef.current.focus()
+  }, [])
 
-    return (
-        <div>
-            User Search
-            <input
-                ref={inputRef}
-                value={name}
-                onChange={(e) => {
-                    setName(e.target.value)
-                }}
-            />
-            <button
-                onClick={onClick}
-            >
-                Find User
-            </button>
-            <div>
-                {user?.name}
-                {user?.age}
-            </div>
-        </div>
-    )
+  const onClick = () => {
+    const foundUser = users.find((user) => {
+      return user.name === name
+    })
+
+    setUser(foundUser)
+  }
+
+  return (
+    <div>
+      User Search
+      <input
+        ref={inputRef}
+        value={name}
+        onChange={(e) => {
+          setName(e.target.value)
+        }}
+      />
+      <button
+        onClick={onClick}
+      >
+        Find User
+      </button>
+      <div>
+        {user?.name}
+        {user?.age}
+      </div>
+    </div>
+  )
 };
 ```
 
@@ -507,35 +510,36 @@ We substitute the usage of `prop-types` for a typed version of it, by using
   you have any more than 1 component in your project.* [Stack overflow question](https://stackoverflow.com/questions/41581130/what-is-react-component-displayname-is-used-for)
 
 Child.tsx
+
 ```tsx
-import React from 'react';
+import React from 'content/snippets/react-techniques';
 
 interface ChildProps {
-    color: string;
-    onClick: () => void
+  color: string;
+  onClick: () => void
 }
 
 export const Child = ({ color, onClick }: ChildProps) => {
-    return (
-        <div>
-            {color}
-            <button onClick={onClick}>
-                Click me
-            </button>
-        </div>
-    );
+  return (
+    <div>
+      {color}
+      <button onClick={onClick}>
+        Click me
+      </button>
+    </div>
+  );
 };
 
 export const ChildAsFc: React.FC<ChildProps> = ({ color, onClick, children }) => {
-    return <div>
-        {color}
-        <button onClick={onClick}>
-            Click me
-        </button>
-        {
-            children
-        }
-    </div>
+  return <div>
+    {color}
+    <button onClick={onClick}>
+      Click me
+    </button>
+    {
+      children
+    }
+  </div>
 }
 
 
@@ -545,17 +549,23 @@ ChildAsFc.displayName = ''
 <br />
 
 Parent.tsx
+
 ```tsx
-import React from 'react';
-import {Child, ChildAdFc} from "./Child";
+import React from 'content/snippets/react-techniques';
+import { Child, ChildAdFc } from "./Child";
 
 
 const Parent = () => {
-    return (
-        <ChildAdFc color="red" onClick={() => {console.log('Clicked')}} >
+  return (
+    <ChildAdFc
+      color="red"
+      onClick={() => {
+        console.log('Clicked')
+      }}
+    >
 
-        </ChildAdFc>
-    );
+    </ChildAdFc>
+  );
 };
 
 
@@ -568,33 +578,40 @@ export default Parent;
 use `useState<State>` for better typing assistance
 
 GuestList.tsx
+
 ```tsx
-import React from 'react'
-import {useState} from "react";
+import React from 'content/snippets/react-techniques'
+import { useState } from "content/snippets/react-techniques";
 
 const GuestList: React.FC = () => {
-    const [name, setName] = useState('')
-    const [guests, setGuests] = useState<string[]>([])
+  const [name, setName] = useState('')
+  const [guests, setGuests] = useState<string[]>([])
 
-    const onClick = () => {
-        setName('')
-        setGuests([...guests, name])
-    }
+  const onClick = () => {
+    setName('')
+    setGuests([...guests, name])
+  }
 
-    return <div>
-        <h3>Guest LIst</h3>
-        <ul>
-            {
-                guests.map(guest => <li key={guest}>{guest}</li>)
-            }
-        </ul>
-        <input value={name} onChange={(e) => {
-            setName(e.target.value)
-        }}/>
-        <button onClick={() => {
-            onClick()
-        }}>Add Guest</button>
-    </div>
+  return <div>
+    <h3>Guest LIst</h3>
+    <ul>
+      {
+        guests.map(guest => <li key={guest}>{guest}</li>)
+      }
+    </ul>
+    <input
+      value={name}
+      onChange={(e) => {
+        setName(e.target.value)
+      }}
+    />
+    <button
+      onClick={() => {
+        onClick()
+      }}
+    >Add Guest
+    </button>
+  </div>
 }
 
 export default GuestList
@@ -603,45 +620,49 @@ export default GuestList
 <br />
 
 UserSearch.tsx
+
 ```tsx
-import React, {useState} from 'react';
+import React, { useState } from 'content/snippets/react-techniques';
 
 const users = [
-    {name: 'Sarah', age: 20},
-    {name: 'Alex', age: 20},
-    {name: 'Michael', age: 20}
+  { name: 'Sarah', age: 20 },
+  { name: 'Alex', age: 20 },
+  { name: 'Michael', age: 20 }
 ]
 
-export const UserSearch : React.FC = (props) => {
+export const UserSearch: React.FC = (props) => {
 
-    const [name, setName] = useState('')
-    const [user, setUser] = useState<{name: string, age: number} | undefined>()
+  const [name, setName] = useState('')
+  const [user, setUser] = useState<{ name: string, age: number } | undefined>()
 
-    const onClick = () => {
-        const foundUser = users.find((user) => {
-            return user.name === name
-        })
+  const onClick = () => {
+    const foundUser = users.find((user) => {
+      return user.name === name
+    })
 
-        setUser(foundUser)
-    }
+    setUser(foundUser)
+  }
 
-    return (
-        <div>
-            User Search
-            <input value={name} onChange={(e) => {
-                setName(e.target.value)
-            }}/>
-            <button
-                onClick={onClick}
-            >
-                Find User
-            </button>
-            <div>
-                {user?.name}
-                {user?.age}
-            </div>
-        </div>
-    )
+  return (
+    <div>
+      User Search
+      <input
+        value={name}
+        onChange={(e) => {
+          setName(e.target.value)
+        }}
+      />
+      <button
+        onClick={onClick}
+      >
+        Find User
+      </button>
+      <div>
+        {user?.name}
+        {user?.age}
+      </div>
+    </div>
+  )
 };
 ```
 
@@ -651,28 +672,32 @@ For better event type assistance, type the event with the corresponding HTML Eve
 a text editor to know which event you need to type (I am using Intellij IDEA)
 
 EventComponent.tsx
+
 ```tsx
-import React from 'react';
+import React from 'content/snippets/react-techniques';
 
 const EventComponent: React.FC = () => {
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event)
-    }
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event)
+  }
 
-    const onDragStart: React.DragEventHandler<HTMLDivElement> = (event) => {
-        console.log(event)
-    }
+  const onDragStart: React.DragEventHandler<HTMLDivElement> = (event) => {
+    console.log(event)
+  }
 
-    return (
-        <div>
-            <input
-                onChange={onChange}
-            />
-            <div draggable onDragStart={onDragStart}>
-                Drag me!
-            </div>
-        </div>
-    );
+  return (
+    <div>
+      <input
+        onChange={onChange}
+      />
+      <div
+        draggable
+        onDragStart={onDragStart}
+      >
+        Drag me!
+      </div>
+    </div>
+  );
 };
 
 export default EventComponent;
@@ -739,46 +764,47 @@ export const useCumulativeCode = (cellId: string) => {
 
 ### usage of useActions and useTypedSelector #1
 CellList.tsx
+
 ```tsx
-import React, {useEffect} from 'react';
-import {useTypedSelector} from "../hooks/use-typed-selector";
+import React, { useEffect } from 'content/snippets/react-techniques';
+import { useTypedSelector } from "../hooks/use-typed-selector";
 import CellListItem from "./cell-list-item";
 import AddCell from "./add-cell";
 import './cell-list.css'
-import {useActions} from "../hooks/use-actions";
+import { useActions } from "../hooks/use-actions";
 
 const CellList: React.FC = () => {
-    const cells = useTypedSelector(({cells: {order, data}}) => {
-        return order.map(id => {
-            return data[id]
-        })
+  const cells = useTypedSelector(({ cells: { order, data } }) => {
+    return order.map(id => {
+      return data[id]
     })
+  })
 
-    const {fetchCells, saveCells} = useActions()
-    useEffect(() => {
-        fetchCells()
-    }, [])
+  const { fetchCells, saveCells } = useActions()
+  useEffect(() => {
+    fetchCells()
+  }, [])
 
 
-    const renderedCells = cells.map(cell => {
-        return <React.Fragment key={cell.id}>
-            <CellListItem
-                key={cell.id}
-                cell={cell}
-            />
-            <AddCell previousCellId={cell.id}/>
-        </React.Fragment>
-    })
+  const renderedCells = cells.map(cell => {
+    return <React.Fragment key={cell.id}>
+      <CellListItem
+        key={cell.id}
+        cell={cell}
+      />
+      <AddCell previousCellId={cell.id} />
+    </React.Fragment>
+  })
 
-    return (
-        <div className="cell-list">
-            <AddCell
-                forceVisible={cells.length === 0}
-                previousCellId={null}
-            />
-            {renderedCells}
-        </div>
-    );
+  return (
+    <div className="cell-list">
+      <AddCell
+        forceVisible={cells.length === 0}
+        previousCellId={null}
+      />
+      {renderedCells}
+    </div>
+  );
 };
 
 export default CellList;
@@ -788,44 +814,44 @@ export default CellList;
 
 ### Typed JSX.Element variable
 CellItem.tsx
+
 ```tsx
-import React from 'react';
+import React from 'content/snippets/react-techniques';
 import './cell-list-item.css'
-import {Cell} from "../state";
+import { Cell } from "../state";
 import CodeCell from "./code-cell";
 import TextEditor from "./text-editor";
 import ActionBar from "./action-bar";
 
 interface CellListItemProps {
-    cell: Cell
+  cell: Cell
 }
 
 
+const CellListItem: React.FC<CellListItemProps> = ({ cell }) => {
 
-const CellListItem: React.FC<CellListItemProps> = ({cell}) => {
-
-    let child: JSX.Element
+  let child: JSX.Element
 
 
-    if (cell.type === 'code') {
-        child = <>
-            <div className="action-bar-wrapper">
-                <ActionBar id={cell.id} />
-            </div>
-            <CodeCell cell={cell} />
-        </>
-    } else {
-        child = <>
-            <TextEditor cell={cell} />
-            <ActionBar id={cell.id} />
-        </>
-    }
+  if (cell.type === 'code') {
+    child = <>
+      <div className="action-bar-wrapper">
+        <ActionBar id={cell.id} />
+      </div>
+      <CodeCell cell={cell} />
+    </>
+  } else {
+    child = <>
+      <TextEditor cell={cell} />
+      <ActionBar id={cell.id} />
+    </>
+  }
 
-    return (
-        <div className="cell-list-item">
-            {child}
-        </div>
-    );
+  return (
+    <div className="cell-list-item">
+      {child}
+    </div>
+  );
 };
 
 export default CellListItem;
@@ -836,76 +862,80 @@ export default CellListItem;
 ### Putting all  together
 
 Cell.tsx
+
 ```tsx
-import React from 'react'
-import {useEffect} from 'react'
+import React from 'content/snippets/react-techniques'
+import { useEffect } from 'content/snippets/react-techniques'
 import CodeEditor from "../components/code-editor";
 import Preview from "../components/preview";
 import Resizable from "./resizable";
-import {Cell} from "../state";
-import {useActions} from "../hooks/use-actions";
-import {useTypedSelector} from "../hooks/use-typed-selector";
+import { Cell } from "../state";
+import { useActions } from "../hooks/use-actions";
+import { useTypedSelector } from "../hooks/use-typed-selector";
 import './code-cell.css'
-import {useCumulativeCode} from "../hooks/use-cumulative-hook";
+import { useCumulativeCode } from "../hooks/use-cumulative-hook";
 
 interface CodeCellProps {
-    cell: Cell
+  cell: Cell
 }
 
 const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
 
-    const {updateCell, createBundle} = useActions()
-    const bundle = useTypedSelector((state) => state.bundles[cell.id])
-    const cumulativeCode = useCumulativeCode(cell.id)
+  const { updateCell, createBundle } = useActions()
+  const bundle = useTypedSelector((state) => state.bundles[cell.id])
+  const cumulativeCode = useCumulativeCode(cell.id)
 
-    useEffect(() => {
-        if (!bundle) {
-            createBundle(cell.id, cumulativeCode)
-            return
-        }
+  useEffect(() => {
+    if (!bundle) {
+      createBundle(cell.id, cumulativeCode)
+      return
+    }
 
-        const timer = setTimeout(async () => {
-            createBundle(cell.id,  cumulativeCode)
-        }, 750)
-        return () => {
-            clearTimeout(timer)
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [cumulativeCode, cell.id, createBundle])
+    const timer = setTimeout(async () => {
+      createBundle(cell.id, cumulativeCode)
+    }, 750)
+    return () => {
+      clearTimeout(timer)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cumulativeCode, cell.id, createBundle])
 
-    return (
-        <Resizable direction="vertical">
-            <div
-                style={{
-                    height: 'calc(100% - 10px)',
-                    display: 'flex',
-                    flexDirection: 'row'
-                }}
-            >
-                <Resizable direction="horizontal">
-                    <CodeEditor
-                        initialValue={cell.content}
-                        onChange={(value) => updateCell(cell.id, value)}
-                    />
-                </Resizable>
-                <div className="progress-wrapper">
-                    {
-                        !bundle || bundle.loading
-                        ?
-                            <div className="progress-cover">
-                                <progress className="progress is-small is-primary" max="100">
-                                    Loading
-                                </progress>
-                            </div>
-                        :   <Preview
-                                code={bundle.code}
-                                bundlingStatus={bundle.err}
-                            />
-                    }
-                </div>
-            </div>
+  return (
+    <Resizable direction="vertical">
+      <div
+        style={{
+          height: 'calc(100% - 10px)',
+          display: 'flex',
+          flexDirection: 'row'
+        }}
+      >
+        <Resizable direction="horizontal">
+          <CodeEditor
+            initialValue={cell.content}
+            onChange={(value) => updateCell(cell.id, value)}
+          />
         </Resizable>
-    )
+        <div className="progress-wrapper">
+          {
+            !bundle || bundle.loading
+              ?
+              <div className="progress-cover">
+                <progress
+                  className="progress is-small is-primary"
+                  max="100"
+                >
+                  Loading
+                </progress>
+              </div>
+              : <Preview
+                code={bundle.code}
+                bundlingStatus={bundle.err}
+              />
+          }
+        </div>
+      </div>
+    </Resizable>
+  )
 }
 
 export default CodeCell
@@ -1216,13 +1246,14 @@ export const store = createStore(reducers, {}, applyMiddleware(thunk, persistMid
 
 ### Usage of iframe in React
 Preview.tsx
+
 ```tsx
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'content/snippets/react-techniques';
 import './preview.css'
 
 interface PreviewProps {
-    code: string;
-    bundlingStatus: string;
+  code: string;
+  bundlingStatus: string;
 }
 
 const html = `
@@ -1260,30 +1291,30 @@ const html = `
         </html>
         `
 
-const Preview: React.FC<PreviewProps> = ({code, bundlingStatus}) => {
-    const iframeRef = useRef<any>()
+const Preview: React.FC<PreviewProps> = ({ code, bundlingStatus }) => {
+  const iframeRef = useRef<any>()
 
-    useEffect(() => {
-        // reset iframe to initial html doc
-        iframeRef.current.srcdoc = html
-        setTimeout(() => {
-            iframeRef.current.contentWindow.postMessage(code, '*')
-        }, 50)
-    }, [code])
+  useEffect(() => {
+    // reset iframe to initial html doc
+    iframeRef.current.srcdoc = html
+    setTimeout(() => {
+      iframeRef.current.contentWindow.postMessage(code, '*')
+    }, 50)
+  }, [code])
 
-    return (
-        <div className="preview-wrapper">
-            <iframe
-                title="preview"
-                ref={iframeRef}
-                sandbox="allow-scripts"
-                srcDoc={html}
-            />
-            {
-                bundlingStatus && <div className="preview-error">{bundlingStatus}</div>
-            }
-        </div>
-    );
+  return (
+    <div className="preview-wrapper">
+      <iframe
+        title="preview"
+        ref={iframeRef}
+        sandbox="allow-scripts"
+        srcDoc={html}
+      />
+      {
+        bundlingStatus && <div className="preview-error">{bundlingStatus}</div>
+      }
+    </div>
+  );
 };
 
 export default Preview;
@@ -1295,70 +1326,70 @@ export default Preview;
 Resizable.tsx
 
 ```tsx
-import React from 'react';
-import {useEffect, useState} from "react";
-import {ResizableBox, ResizableBoxProps} from "react-resizable";
+import React from 'content/snippets/react-techniques';
+import { useEffect, useState } from "content/snippets/react-techniques";
+import { ResizableBox, ResizableBoxProps } from "react-resizable";
 import './resizable.css'
 
 interface ResizableProps {
-    direction: 'horizontal' | 'vertical'
+  direction: 'horizontal' | 'vertical'
 }
 
-const Resizable: React.FC<ResizableProps> = ({direction, children}) => {
-    let resizableProps: ResizableBoxProps
-    const [innerHeight, setInnerHeight] = useState(window.innerHeight)
-    const [innerWidth, setInnerWidth] = useState(window.innerWidth)
-    const [width, setWidth] = useState(window.innerWidth * 0.75)
+const Resizable: React.FC<ResizableProps> = ({ direction, children }) => {
+  let resizableProps: ResizableBoxProps
+  const [innerHeight, setInnerHeight] = useState(window.innerHeight)
+  const [innerWidth, setInnerWidth] = useState(window.innerWidth)
+  const [width, setWidth] = useState(window.innerWidth * 0.75)
 
-    useEffect(() => {
-        let timer: any;
-        const listener = () => {
-            if (timer) {
-                clearTimeout(timer)
-            }
-            setTimeout(() => {
-                setInnerHeight(window.innerHeight)
-                setInnerWidth(window.innerWidth)
-                if (window.innerWidth * 0.75 < width) {
-                    setWidth(window.innerWidth * 0.75)
-                }
-            }, 100)
+  useEffect(() => {
+    let timer: any;
+    const listener = () => {
+      if (timer) {
+        clearTimeout(timer)
+      }
+      setTimeout(() => {
+        setInnerHeight(window.innerHeight)
+        setInnerWidth(window.innerWidth)
+        if (window.innerWidth * 0.75 < width) {
+          setWidth(window.innerWidth * 0.75)
         }
-        window.addEventListener('resize', listener)
-        return () => {
-            window.removeEventListener('resize', listener)
-        }
-    }, [width])
-
-    if (direction === 'horizontal') {
-        resizableProps = {
-            className: 'resize-horizontal',
-            height: Infinity,
-            minConstraints: [innerWidth * 0.2, Infinity],
-            maxConstraints: [innerWidth * 0.75, Infinity],
-            width,
-            resizeHandles: ['e'],
-            onResizeStop: (event, data) => {
-                setWidth(data.size.width)
-            }
-        }
-    } else {
-        resizableProps = {
-            height: 300,
-            minConstraints: [Infinity, 24],
-            maxConstraints: [Infinity, innerHeight * 0.90],
-            width: Infinity,
-            resizeHandles: ['s'],
-        }
+      }, 100)
     }
+    window.addEventListener('resize', listener)
+    return () => {
+      window.removeEventListener('resize', listener)
+    }
+  }, [width])
 
-    return (
-        <ResizableBox
-            {...resizableProps}
-        >
-            {children}
-        </ResizableBox>
-    );
+  if (direction === 'horizontal') {
+    resizableProps = {
+      className: 'resize-horizontal',
+      height: Infinity,
+      minConstraints: [innerWidth * 0.2, Infinity],
+      maxConstraints: [innerWidth * 0.75, Infinity],
+      width,
+      resizeHandles: ['e'],
+      onResizeStop: (event, data) => {
+        setWidth(data.size.width)
+      }
+    }
+  } else {
+    resizableProps = {
+      height: 300,
+      minConstraints: [Infinity, 24],
+      maxConstraints: [Infinity, innerHeight * 0.90],
+      width: Infinity,
+      resizeHandles: ['s'],
+    }
+  }
+
+  return (
+    <ResizableBox
+      {...resizableProps}
+    >
+      {children}
+    </ResizableBox>
+  );
 };
 
 export default Resizable;
@@ -1380,68 +1411,69 @@ package.json
 <br />
 
 TextEditor.tsx
+
 ```tsx
 import MDEditor from '@uiw/react-md-editor'
-import React from "react";
-import {useState, useEffect, useRef} from 'react'
+import React from "content/snippets/react-techniques";
+import { useState, useEffect, useRef } from 'content/snippets/react-techniques'
 import './text-editor.css'
-import {Cell} from "../state";
-import {useActions} from "../hooks/use-actions";
+import { Cell } from "../state";
+import { useActions } from "../hooks/use-actions";
 
 interface TextEditorProps {
-    cell: Cell;
+  cell: Cell;
 }
 
 
-const TextEditor: React.FC<TextEditorProps> = ({cell}) => {
-    const [editing, setEditing] = useState(false)
-    const ref = useRef<HTMLDivElement | null>(null)
-    const {updateCell} = useActions()
+const TextEditor: React.FC<TextEditorProps> = ({ cell }) => {
+  const [editing, setEditing] = useState(false)
+  const ref = useRef<HTMLDivElement | null>(null)
+  const { updateCell } = useActions()
 
 
-    useEffect(() => {
-        const listener = (event: MouseEvent) => {
-            if (ref.current && event.target && ref.current?.contains(event.target as Node)) {
-                // console.log('element clicked on is inside editor')
-                return
-            }
-            // console.log('element clicked on is not inside editor')
-            setEditing(false)
-        }
-        document.addEventListener('click', listener, {capture: true})
-        return () => {
-            document.removeEventListener('click', listener, {capture: true})
-        }
-    }, [])
-
-    if (editing) {
-        return (
-            <div
-                ref={ref}
-                className="text-editor"
-            >
-                <MDEditor
-                    value={cell.content}
-                    onChange={(v) => {
-                        updateCell(cell.id, v || '')
-                    }}
-                />
-            </div>
-        )
+  useEffect(() => {
+    const listener = (event: MouseEvent) => {
+      if (ref.current && event.target && ref.current?.contains(event.target as Node)) {
+        // console.log('element clicked on is inside editor')
+        return
+      }
+      // console.log('element clicked on is not inside editor')
+      setEditing(false)
     }
+    document.addEventListener('click', listener, { capture: true })
+    return () => {
+      document.removeEventListener('click', listener, { capture: true })
+    }
+  }, [])
 
-    return <div
-        className="text-editor card"
-        onClick={() => {
-            setEditing(true)
-        }}
-    >
-        <div className="card-content">
-            <MDEditor.Markdown
-                source={cell.content || 'Click to edit'}
-            />
-        </div>
+  if (editing) {
+    return (
+      <div
+        ref={ref}
+        className="text-editor"
+      >
+        <MDEditor
+          value={cell.content}
+          onChange={(v) => {
+            updateCell(cell.id, v || '')
+          }}
+        />
+      </div>
+    )
+  }
+
+  return <div
+    className="text-editor card"
+    onClick={() => {
+      setEditing(true)
+    }}
+  >
+    <div className="card-content">
+      <MDEditor.Markdown
+        source={cell.content || 'Click to edit'}
+      />
     </div>
+  </div>
 }
 
 export default TextEditor

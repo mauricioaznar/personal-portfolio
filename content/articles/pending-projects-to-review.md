@@ -14,22 +14,21 @@ their original ideas into Snippets {}:
 * seo and website develoment
     * zachary reece
 * nodejs
-    * andrew mead
-    * brad traversy
     * personal projects
-* nodejs testing
-    * andrew mead
-    * stephen grider
+* Jest
+    * setups
+    * functions
+    * mocks (andrew mead node js)
 * vue3 
     * shaun pelling
     * personal projects
 * firebase
     * shaun pelling
 * react
-    * andrew mead
-    * brad traversy
     * zachary reece
     * stephen grider (react-native)
+    * inoreact
+    * recharts
 * typescript
     * stephen grider
 * react native
@@ -53,4 +52,8 @@ their original ideas into Snippets {}:
     * personal projects
 * nuxt  
     * persona projects
+  
+* Javascript (dom)
+    * file download (window.open('#blank'))
+    
 
