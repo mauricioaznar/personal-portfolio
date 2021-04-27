@@ -21,7 +21,7 @@ http
 
 ---
 
-<img src="/articles/img/example.png" alt="Kitten" title="A cute kitten" style="width: 100%" />
+[comment]: <> (<img src="/articles/img/example.png" alt="Kitten" title="A cute kitten" style="width: 100%" />)
 
 ## This is a heading
 

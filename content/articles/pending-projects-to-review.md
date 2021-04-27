@@ -5,10 +5,6 @@ title: Pending projects to review
 The following are projects that require review to integrate
 their original ideas into Snippets {}:
 
-* react testing
-    * bonnie shulkin
-    * david joseph
-    * stephen grider (advanced-react)
 * material ui 
     * zachary reece
 * seo and website develoment
@@ -18,7 +14,6 @@ their original ideas into Snippets {}:
 * Jest
     * setups
     * functions
-    * mocks (andrew mead node js)
 * vue3 
     * shaun pelling
     * personal projects
