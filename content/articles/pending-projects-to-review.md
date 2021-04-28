@@ -14,13 +14,9 @@ their original ideas into Snippets {}:
 * Jest
     * setups
     * functions
-* vue3 
-    * shaun pelling
+* vue3
     * personal projects
-* firebase
-    * shaun pelling
 * react
-    * zachary reece
     * stephen grider (react-native)
     * inoreact
     * recharts
