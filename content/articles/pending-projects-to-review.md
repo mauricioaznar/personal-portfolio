@@ -25,7 +25,8 @@ their original ideas into Snippets {}:
     * inoreact
     * recharts
 * typescript
-    * stephen grider
+    * stephen grider (typescript)
+    * stephen grider (microservices)
 * react native
     * stephen grider
     * personal projects
