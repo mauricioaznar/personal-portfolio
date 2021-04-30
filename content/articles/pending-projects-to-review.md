@@ -7,8 +7,6 @@ their original ideas into Snippets {}:
 
 * material ui 
     * zachary reece
-* seo and website develoment
-    * zachary reece
 * nodejs
     * personal projects
 * Jest
@@ -31,10 +29,17 @@ their original ideas into Snippets {}:
     * bret fisher
 * vue2
     * personal projects
+        * mons
+        * ino
+        * eog
 * nest
     * personal projects
+      * mons
+      * ino
 * mysql 
     * personal projects
+      * mons
+      * ino (php)
     * scripts
 * css
     * siete cenotes
