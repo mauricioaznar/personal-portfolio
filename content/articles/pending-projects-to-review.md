@@ -6,7 +6,7 @@ The following are projects that require review to integrate
 their original ideas into Snippets {}:
 
 * material ui 
-    * zachary reece
+    * personal projects
 * nodejs
     * personal projects
 * Jest
