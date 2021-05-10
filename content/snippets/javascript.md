@@ -47,3 +47,13 @@ const drawer = (
   </React.Fragment>
 )
 ```
+
+
+<br />
+
+## notifications
+
+* [push notifications](https://developers.google.com/web/fundamentals/codelabs/push-notifications/)
+* [web push](https://github.com/web-push-libs/web-push)
+* [pushjs](https://pushjs.org/)
+* [MDN notifications](https://developer.mozilla.org/en-US/docs/Web/API/notification)

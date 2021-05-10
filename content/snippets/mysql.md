@@ -33,3 +33,10 @@ mysqldump -u root -p backend > backend.sql
 ```sql
 drop database inopack;
 ```
+
+
+### run script
+
+```sql
+source D:/Projects/backend.sql;
+```
