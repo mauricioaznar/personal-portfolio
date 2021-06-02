@@ -234,7 +234,10 @@ sudo systemctl restart nginx
 
 <br />
 
-## OPTIONAL: set mysql timezone
+## OPTIONAL
+
+### Mysql config
+
 [How do I set the time zone of MySQL? (stack overflow)](https://stackoverflow.com/questions/930900/how-do-i-set-the-time-zone-of-mysql)
 
 Because of how mysql and typeorm change to a date native object. Dates strings get converted into a 
@@ -254,6 +257,29 @@ default-time-zone = "-05:00"
 
 Restart mysql service
 
+
+### Services
+
 ```shell
 sudo service mysql restart
+```
+
+```bash
+[Unit]
+Description=Grupo inopack server application
+After=network.target
+
+[Service]
+Restart=always
+AmbientCapabilities=CAP_SYS_RAWIO
+User=root
+Type=simple
+WorkingDirectory=/root/nestjs-inopack
+Environment=NODE_PORT=3000
+ExecStart=/usr/bin/npm run start:prod --prefix /root/nestjs-inopack
+
+
+[Install]
+WantedBy=multi-user.target
+Alias=inopack.service
 ```
