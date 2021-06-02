@@ -264,6 +264,8 @@ Restart mysql service
 sudo service mysql restart
 ```
 
+<br />
+
 ```bash
 [Unit]
 Description=Grupo inopack server application
