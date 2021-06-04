@@ -40,3 +40,21 @@ drop database inopack;
 ```sql
 source D:/Projects/backend.sql;
 ```
+
+<br />
+
+
+## MAC (OSx)
+
+### installment
+
+
+Brew install
+
+```shell
+brew install mysql
+```
+
+Brew fix
+
+[Brew fix](https://stackoverflow.com/questions/9695362/macosx-homebrew-mysql-root-password)
