@@ -92,12 +92,12 @@ export default {
 
       items: [
         {
-          icon: 'mdi-apps',
+          icon: 'mdi-home',
           title: 'Welcome',
           to: '/',
         },
         {
-          icon: 'mdi-folder',
+          icon: 'mdi-apps',
           title: 'Demos',
           to: '/demos',
         },

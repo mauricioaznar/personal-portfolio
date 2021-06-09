@@ -11,49 +11,81 @@
                   Notary
                 </v-card-title>
 
-                <v-card-subtitle>Document administration app</v-card-subtitle>
+                <v-card-subtitle
+                  ><b>Description: </b>Considerably the most robust demo I've
+                  ever made. It consists on handling information of a law
+                  firm</v-card-subtitle
+                >
               </div>
 
               <v-divider />
 
               <v-card-text>
-                <div>Word of the Day</div>
-                <p class="text-h4 text--primary">be•nev•o•lent</p>
-                <p>adjective</p>
-                <div class="text--primary">
-                  well meaning and kindly.<br />
-                  "a benevolent smile"
-                </div>
-                <div class="text--primary">
-                  well meaning and kindly.<br />
-                  "a benevolent smile"
-                </div>
-                <div class="text--primary">
-                  well meaning and kindly.<br />
-                  "a benevolent smile"
-                </div>
-                <div class="text--primary">
-                  well meaning and kindly.<br />
-                  "a benevolent smile"
-                </div>
-                <div class="text--primary">
-                  well meaning and kindly.<br />
-                  "a benevolent smile"
-                </div>
+                <p class="text-h5 text--primary">Most prominent features</p>
+                <ul>
+                  <li>
+                    Calendar layout that updates with live data (appointments
+                    section)
+                  </li>
+                  <li>
+                    Stepper layout to handle many input fields (documents form
+                    section)
+                  </li>
+                  <li>
+                    User roles and groups to authorize users to certain actions
+                    (users and groups)
+                  </li>
+                  <li>
+                    Business logic tested on the server. Makes app considerably
+                    easier to grow/change (users and groups)
+                  </li>
+                  <li>
+                    Client and server validation. Improves user experience by
+                    giving correct and precise feedback
+                  </li>
+                  <li>Modern ui design by using google material principles.</li>
+                  <li>...and more</li>
+                </ul>
+                <p class="mt-2 text-h6 text--primary">Technical details</p>
+                <ul>
+                  <li>Client made with vue and vuetify. Hosted on netlfiy</li>
+                  <li>
+                    Server made with express, nestjs and mysql. Hosted on
+                    digitalocean
+                  </li>
+                </ul>
               </v-card-text>
 
               <v-divider />
 
               <v-card-actions>
                 <v-btn
-                  class="ml-2 mt-3"
-                  fab
-                  icon
-                  height="40px"
-                  right
-                  width="40px"
+                  color="primary"
+                  link
+                  href="https://notary.mauaznar.com/"
+                  target="_blank"
                 >
-                  <v-icon>mdi-play</v-icon>
+                  Go to app
+                </v-btn>
+                <v-btn
+                  color="#4078c0"
+                  dark
+                  link
+                  href="https://github.com/mauricioaznar/vue-notary/"
+                  target="_blank"
+                >
+                  UI
+                  <v-icon right>mdi-github</v-icon>
+                </v-btn>
+                <v-btn
+                  color="#4078c0"
+                  dark
+                  link
+                  href="https://github.com/mauricioaznar/nestjs-notary/"
+                  target="_blank"
+                >
+                  API
+                  <v-icon right>mdi-github</v-icon>
                 </v-btn>
               </v-card-actions>
             </div>
