@@ -97,6 +97,11 @@ export default {
           to: '/',
         },
         {
+          icon: 'mdi-folder',
+          title: 'Demos',
+          to: '/demos',
+        },
+        {
           icon: 'mdi-script-text',
           title: 'Articles',
           to: '/articles',
