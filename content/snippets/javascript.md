@@ -24,3 +24,36 @@ export default function validateEmail(emails)  {
   return
 }
 ```
+
+## DOM
+
+### Check for device type
+
+```jsx
+const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+const drawer = (
+  <React.Fragment>
+    <SwipeableDrawer
+      disableBackdropTransition={!iOS}
+      disableDiscovery={iOS}
+      open={openDrawer}
+      onClose={() => {setOpenDrawer(false)}}
+      onOpen={() => {setOpenDrawer(true)}}
+      classes={{paper: classes.drawer}}
+    >
+      Drawer
+    </SwipeableDrawer>
+  </React.Fragment>
+)
+```
+
+
+<br />
+
+## notifications
+
+* [push notifications](https://developers.google.com/web/fundamentals/codelabs/push-notifications/)
+* [web push](https://github.com/web-push-libs/web-push)
+* [pushjs](https://pushjs.org/)
+* [MDN notifications](https://developer.mozilla.org/en-US/docs/Web/API/notification)
