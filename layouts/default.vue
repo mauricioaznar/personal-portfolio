@@ -9,7 +9,7 @@
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
-      :clipped="clipped"
+      :clipped="false"
       fixed
       app
     >
@@ -24,13 +24,10 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app>
+    <v-app-bar :clipped-left="false" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>mdi-application</v-icon>
       </v-btn>
       <v-spacer></v-spacer>
       <v-toolbar-title v-text="title" />
@@ -55,7 +52,12 @@
         </v-row>
       </v-container>
     </v-main>
-    <v-footer :absolute="true" app justfiy class="d-flex justify-space-between">
+    <v-footer
+      :absolute="false"
+      app
+      justfiy
+      class="d-flex justify-space-between"
+    >
       <span>&copy; {{ new Date().getFullYear() }}</span>
       <v-slide-y-transition>
         <v-btn
@@ -79,9 +81,7 @@ export default {
   data() {
     return {
       showScrollButton: true,
-      clipped: false,
       drawer: false,
-
       items: [
         {
           icon: 'mdi-home',
