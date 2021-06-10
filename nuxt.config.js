@@ -22,6 +22,7 @@ export default {
       },
       { property: 'og:image', content: 'https://www.mauaznar.com/website.png' },
       { property: 'og:image:type', content: 'image/png' },
+      { property: 'og:type', content: 'website' },
       { property: 'og:image:width', content: '1920' },
       { property: 'og:image:height', content: '1080' },
       { property: 'og:image:alt', content: 'Website app demos' },
