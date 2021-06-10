@@ -32,9 +32,7 @@
       <v-btn icon @click.stop="clipped = !clipped">
         <v-icon>mdi-application</v-icon>
       </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
+      <v-spacer></v-spacer>
       <v-toolbar-title v-text="title" />
       <v-spacer />
       <v-slide-y-reverse-transition>
@@ -57,12 +55,7 @@
         </v-row>
       </v-container>
     </v-main>
-    <v-footer
-      :absolute="fixed"
-      app
-      justfiy
-      class="d-flex justify-space-between"
-    >
+    <v-footer :absolute="true" app justfiy class="d-flex justify-space-between">
       <span>&copy; {{ new Date().getFullYear() }}</span>
       <v-slide-y-transition>
         <v-btn
@@ -88,13 +81,17 @@ export default {
       showScrollButton: true,
       clipped: false,
       drawer: false,
-      fixed: false,
 
       items: [
         {
-          icon: 'mdi-apps',
+          icon: 'mdi-home',
           title: 'Welcome',
           to: '/',
+        },
+        {
+          icon: 'mdi-apps',
+          title: 'App demos',
+          to: '/demos',
         },
         {
           icon: 'mdi-script-text',
@@ -108,7 +105,7 @@ export default {
         },
       ],
       miniVariant: false,
-      title: 'Vuetify.js',
+      title: 'Personal portfolio - Mauricio Aznar',
     }
   },
   mounted() {

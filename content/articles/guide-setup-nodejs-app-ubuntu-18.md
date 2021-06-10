@@ -1,5 +1,5 @@
 ---
-title: How to set up a nodejs application on ubuntu 16
+title: How to set up a nodejs application on ubuntu 18
 ---
 
 ## Introduction
@@ -10,7 +10,7 @@ This guide is a recollection of knowledge shared by others, this is intended to 
 The following frameworks, technologies, and services were used:
 * node 14.16.1
 * digital ocean
-* ubuntu 16
+* ubuntu 18
 
 
 You will need to have the following prepared:
@@ -22,21 +22,26 @@ You will need to have the following prepared:
 [How To Install Node.js on Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04)
 
 
-1. Refresh our local package index first
+1. First, install the PPA in order to get access to its contents.
+   From your home directory, use curl to retrieve the installation script for your preferred
+   version, making sure to replace 10.x with your preferred version string (if different):
 
 ```bash
-sudo apt-get update
+curl -sL https://deb.nodesource.com/setup_10.x -o nodesource_setup.sh
 ```
 
-2. Install from the repositories
+2. Run the script under sudo:
 
 ```bash
-sudo apt-get install nodejs
+sudo bash nodesource_setup.sh
 ```
 
-3. Install npm
+3. The PPA will be added to your configuration and your local package cache will
+   be updated automatically. After running the setup script from Nodesource,
+   you can install the Node.js package in the same way you did above
+
 ```bash
-sudo apt-get install npm
+sudo apt install nodejs
 ```
 
 4. Check node is installed
@@ -174,29 +179,6 @@ renew your certificates and reload Nginx to pick up the changes.
 If the automated renewal process ever fails, Let’s Encrypt will
 send a message to the email you specified, warning you when your certificate is about to expire.*
 
-
-## Install pm2
-
-1. Create a pm2 process. Substitute "{app_name}" with your preferred process name  
-
-```bash
-pm2 start npm --name "{app_name}" -- run {script_name}
-```
-
-
-* Stop process. Substitute "{app_name}" with your preferred process name
-
-```bash
-pm2 stop "{app_name}"
-```
-
-* Start process. Substitute "{app_name}" with your preferred process name
-
-```shell
-pm2 start "{app_name}"
-```
-
-<br />
 
 ## Set up nginx as a reverse proxy server
 1. Access /etc/nginx/sites-available/default

@@ -6,21 +6,15 @@ The following are projects that require review to integrate
 their original ideas into Snippets {}:
 
 * material ui 
-    * zachary reece
-* seo and website develoment
-    * zachary reece
+    * personal projects
 * nodejs
     * personal projects
 * Jest
     * setups
     * functions
-* vue3 
-    * shaun pelling
+* vue3
     * personal projects
-* firebase
-    * shaun pelling
 * react
-    * zachary reece
     * stephen grider (react-native)
     * inoreact
     * recharts
@@ -35,10 +29,17 @@ their original ideas into Snippets {}:
     * bret fisher
 * vue2
     * personal projects
+        * mons
+        * ino
+        * eog
 * nest
     * personal projects
+      * mons
+      * ino
 * mysql 
     * personal projects
+      * mons
+      * ino (php)
     * scripts
 * css
     * siete cenotes
