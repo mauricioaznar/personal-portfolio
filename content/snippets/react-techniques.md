@@ -1049,8 +1049,8 @@ Dependency used `"react-lottie": "^1.2.3",`.
 
 documentAnimation.js
 ```javascript
-import img0 from "./img_0.png";
-import img1 from "./performance.png";
+import img0 from "./example-img.png";
+import img1 from "./some-random-img.png";
 
 export default {
   v: "5.5.9",

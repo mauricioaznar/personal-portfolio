@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col>
-        <v-card color="red darken-4" dark>
+        <v-card dark>
           <div class="d-flex flex-no-wrap justify-space-between align-stretch">
             <div class="flex-grow-1 d-flex flex-column justify-space-between">
               <div>
