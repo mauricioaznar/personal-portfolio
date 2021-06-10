@@ -16,7 +16,9 @@ export default {
       {
         property: 'og:description',
         content:
-          'Find my app demos, websites, and other tech related stuff that I have worked with.',
+          'Find my app demos, websites, and articles about tech related stuff that I have worked with.' +
+          ' Also, this is a personal reference to snippets of code that I look up often when I am developing.' +
+          ' Please feel free to give your opinion as I am always looking forward to improve my work ',
       },
       { property: 'og:image', content: 'https://www.mauaznar.com/website.png' },
       { property: 'og:image:type', content: 'image/png' },
