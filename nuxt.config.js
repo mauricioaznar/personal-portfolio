@@ -12,6 +12,17 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
+      { property: 'og:title', content: 'Mau Aznar personal portfolio' },
+      {
+        property: 'og:description',
+        content:
+          'Find my app demos, websites, and other tech related stuff that I have worked with.',
+      },
+      { property: 'og:image', content: 'https://www.mauaznar.com/website.png' },
+      { property: 'og:image:type', content: 'image/png' },
+      { property: 'og:image:width', content: '1920' },
+      { property: 'og:image:height', content: '1080' },
+      { property: 'og:image:alt', content: 'Website app demos' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
