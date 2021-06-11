@@ -6,7 +6,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - Mau Aznar',
+    titleTemplate: '%s | Mau Aznar',
     title: 'Personal portfolio',
     meta: [
       { charset: 'utf-8' },
