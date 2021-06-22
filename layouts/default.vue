@@ -45,11 +45,7 @@
     </v-app-bar>
     <v-main>
       <v-container class="py-4" fluid>
-        <v-row justify="center">
-          <v-col sm="auto" md="6">
-            <nuxt />
-          </v-col>
-        </v-row>
+        <nuxt />
       </v-container>
     </v-main>
     <v-footer
@@ -94,6 +90,11 @@ export default {
           to: '/demos',
         },
         {
+          icon: 'mdi-web',
+          title: 'Websites',
+          to: '/websites',
+        },
+        {
           icon: 'mdi-script-text',
           title: 'Articles',
           to: '/articles',
@@ -102,6 +103,11 @@ export default {
           icon: 'mdi-code-braces',
           title: 'Snippets',
           to: '/snippets',
+        },
+        {
+          icon: 'mdi-open-in-new',
+          title: 'External resources',
+          to: '/external',
         },
       ],
       miniVariant: false,
@@ -146,6 +152,7 @@ export default {
 .page-leave-active::after {
   transition: transform 650ms cubic-bezier(0.17, 0.67, 0.54, 0.98);
 }
+
 .page-enter-active::before,
 .page-leave-active::before {
   content: '';
@@ -155,12 +162,15 @@ export default {
   width: 100%;
   z-index: 1000;
 }
+
 .page-enter-active::before {
   left: -417px;
 }
+
 .page-leave-active::before {
   right: -417px;
 }
+
 .page-enter-active::after,
 .page-leave-active::after {
   content: '';
@@ -171,15 +181,19 @@ export default {
   right: 0;
   background-color: #fff;
 }
+
 .page-leave::before {
   transform: translate3d(calc(-100% - 417px), 0, 0) scaleX(-1);
 }
+
 .page-leave-to::before {
   transform: scaleX(-1);
 }
+
 .page-leave::after {
   transform: translate3d(calc(-100% - 417px), 0, 0);
 }
+
 .page-enter-to::before,
 .page-enter-to::after {
   transform: translate3d(calc(100% + 417px), 0, 0);
