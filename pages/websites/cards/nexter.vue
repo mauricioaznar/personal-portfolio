@@ -1,6 +1,8 @@
 <template>
-  <v-card dark elevation="6" color="#101D2C">
-    <div class="d-flex flex-no-wrap justify-space-between align-stretch">
+  <v-card dark elevation="6" color="#101D2C" class="fill-height">
+    <div
+      class="d-flex flex-no-wrap justify-space-between align-stretch fill-height"
+    >
       <div class="flex-grow-1 d-flex flex-column justify-space-between">
         <div>
           <v-card-title class="nexter-heading">Nexter</v-card-title>

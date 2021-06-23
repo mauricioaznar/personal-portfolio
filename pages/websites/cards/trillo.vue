@@ -1,6 +1,6 @@
 <template>
-  <v-card dark elevation="6">
-    <div class="d-flex flex-no-wrap justify-space-between align-stretch">
+  <v-card dark elevation="6" class="fill-height" color="#333333">
+    <div class="d-flex flex-no-wrap justify-space-between fill-height">
       <div class="flex-grow-1 d-flex flex-column justify-space-between">
         <div style="background-color: #333333">
           <v-card-title class="trillo-heading"> Trillo </v-card-title>
@@ -38,10 +38,7 @@
         </v-card-actions>
       </div>
 
-      <div
-        class="d-flex flex-wrap flex-column justify-center"
-        style="background-color: #ffffff"
-      >
+      <div class="d-flex flex-wrap flex-column justify-center">
         <v-avatar class="ma-3 elevation-4" size="200" tile>
           <v-img src="/websites/img/trillo.png"></v-img>
         </v-avatar>

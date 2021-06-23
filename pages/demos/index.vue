@@ -1,28 +1,28 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-col sm="auto" md="8">
+      <v-col sm="12" md="12" lg="9" xl="7">
         <v-container>
           <v-row>
             <v-col sm="12">
-              <v-card dark>
+              <v-card dark class="pa-2">
                 <div
-                  class="d-flex flex-no-wrap justify-space-between align-stretch"
+                  class="d-flex flex-column flex-md-row flex-no-wrap justify-space-between align-stretch"
                 >
                   <div
                     class="flex-grow-1 d-flex flex-column justify-space-between"
                   >
                     <div>
                       <v-card-title class="text-h5">
-                        <v-icon color="yellow darken-3"> mdi-star </v-icon>
+                        <v-icon color="yellow darken-3"> mdi-star</v-icon>
                         Notary
                       </v-card-title>
 
                       <v-card-subtitle
                         ><b>Description: </b>Considerably the most robust demo
                         I've ever made. It consists on handling information of a
-                        law firm</v-card-subtitle
-                      >
+                        law firm
+                      </v-card-subtitle>
                     </div>
 
                     <v-divider />
@@ -104,7 +104,9 @@
                     </v-card-actions>
                   </div>
 
-                  <div class="d-flex flex-wrap flex-column">
+                  <div
+                    class="d-flex flex-wrap flex-row flex-md-column justify-space-around"
+                  >
                     <v-avatar class="ma-3 ml-0" size="300" tile>
                       <v-img src="/demos/img/img.png"></v-img>
                     </v-avatar>
@@ -115,10 +117,11 @@
                 </div>
               </v-card>
             </v-col>
+
             <v-col sm="12">
-              <v-card color="blue darken-4" dark>
+              <v-card color="blue darken-4" dark class="pa-2">
                 <div
-                  class="d-flex flex-no-wrap justify-space-between align-stretch"
+                  class="d-flex flex-no-wrap flex-column flex-md-row justify-space-between align-stretch"
                 >
                   <div
                     class="flex-grow-1 d-flex flex-column justify-space-between"
@@ -184,49 +187,61 @@
 
                     <v-divider />
 
-                    <v-card-actions>
-                      <v-btn
-                        color="accent"
-                        link
-                        href="https://performance.mauaznar.com/"
-                        target="_blank"
-                      >
-                        Go to app
-                      </v-btn>
-                      <v-btn
-                        color="#4078c0"
-                        dark
-                        link
-                        href="https://github.com/mauricioaznar/performance-ui/"
-                        target="_blank"
-                      >
-                        UI
-                        <v-icon right>mdi-github</v-icon>
-                      </v-btn>
-                      <v-btn
-                        color="#4078c0"
-                        dark
-                        link
-                        href="https://github.com/mauricioaznar/performance-client/"
-                        target="_blank"
-                      >
-                        Client
-                        <v-icon right>mdi-github</v-icon>
-                      </v-btn>
-                      <v-btn
-                        color="#4078c0"
-                        dark
-                        link
-                        href="https://github.com/mauricioaznar/performance-server/"
-                        target="_blank"
-                      >
-                        Server
-                        <v-icon right>mdi-github</v-icon>
-                      </v-btn>
+                    <v-card-actions class="d-flex flex-wrap flex-row">
+                      <v-row dense>
+                        <v-col cols="auto">
+                          <v-btn
+                            color="accent"
+                            link
+                            href="https://performance.mauaznar.com/"
+                            target="_blank"
+                          >
+                            Go to app
+                          </v-btn>
+                        </v-col>
+                        <v-col cols="auto">
+                          <v-btn
+                            color="#4078c0"
+                            dark
+                            link
+                            href="https://github.com/mauricioaznar/performance-ui/"
+                            target="_blank"
+                          >
+                            UI
+                            <v-icon right>mdi-github</v-icon>
+                          </v-btn>
+                        </v-col>
+                        <v-col cols="auto">
+                          <v-btn
+                            color="#4078c0"
+                            dark
+                            link
+                            href="https://github.com/mauricioaznar/performance-client/"
+                            target="_blank"
+                          >
+                            Client
+                            <v-icon right>mdi-github</v-icon>
+                          </v-btn>
+                        </v-col>
+                        <v-col cols="auto">
+                          <v-btn
+                            color="#4078c0"
+                            dark
+                            link
+                            href="https://github.com/mauricioaznar/performance-server/"
+                            target="_blank"
+                          >
+                            Server
+                            <v-icon right>mdi-github</v-icon>
+                          </v-btn>
+                        </v-col>
+                      </v-row>
                     </v-card-actions>
                   </div>
 
-                  <div class="d-flex flex-wrap flex-column">
+                  <div
+                    class="d-flex flex-wrap flex-row flex-md-column justify-space-around"
+                  >
                     <v-avatar class="ma-3 ml-0" size="300" tile>
                       <v-img
                         src="/demos/img/performance.png"

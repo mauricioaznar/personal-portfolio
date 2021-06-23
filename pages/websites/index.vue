@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-row align="center">
+    <v-row align="strech">
       <v-col sm="12" md="6" lg="4">
         <NatoursCard />
       </v-col>
