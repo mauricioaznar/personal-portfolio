@@ -13,7 +13,7 @@
           pieces of code that have proven to be useful, also by displaying my
           progress to the outside world.
         </p>
-        <p>This website is divided in three main sections.</p>
+        <p>This website is divided in four main sections.</p>
         <ul>
           <li>
             <v-icon>mdi-apps</v-icon><b> App demos: </b>this section is about
@@ -32,11 +32,6 @@
             <v-icon>mdi-code-braces</v-icon><b> Snippets: </b> this section is
             about a reference (mostly for myself) of small pieces of code that I
             can copy paste into new projects.
-          </li>
-          <li class="mt-3">
-            <v-icon>mdi-open-in-new</v-icon><b> External resources: </b> this
-            section is about my favorites external resources that help me
-            develop.
           </li>
         </ul>
       </v-col>

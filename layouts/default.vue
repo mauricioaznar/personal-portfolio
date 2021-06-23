@@ -104,11 +104,6 @@ export default {
           title: 'Snippets',
           to: '/snippets',
         },
-        {
-          icon: 'mdi-open-in-new',
-          title: 'External resources',
-          to: '/external',
-        },
       ],
       miniVariant: false,
       title: 'Personal portfolio - Mauricio Aznar',

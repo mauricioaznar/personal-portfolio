@@ -16,6 +16,10 @@
       <v-col sm="12" md="6" lg="4">
         <SieteCenotesCard />
       </v-col>
+
+      <v-col sm="12" md="6" lg="4">
+        <PersonalPortfolioCard />
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -25,9 +29,16 @@ import NatoursCard from './cards/natours.vue'
 import TrilloCard from './cards/trillo.vue'
 import NexterCard from './cards/nexter.vue'
 import SieteCenotesCard from './cards/7cenotes'
+import PersonalPortfolioCard from './cards/personal-portfolio'
 
 export default {
-  components: { SieteCenotesCard, TrilloCard, NatoursCard, NexterCard },
+  components: {
+    PersonalPortfolioCard,
+    SieteCenotesCard,
+    TrilloCard,
+    NatoursCard,
+    NexterCard,
+  },
 }
 </script>
 
