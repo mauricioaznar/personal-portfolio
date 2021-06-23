@@ -33,13 +33,13 @@
             href="https://natours.mauaznar.com/"
             target="_blank"
           >
-            Go to app
+            Go to website
           </a>
         </v-card-actions>
       </div>
 
-      <div class="d-flex flex-wrap flex-column">
-        <v-avatar class="ma-3 ml-0" size="200" tile>
+      <div class="d-flex flex-wrap flex-column justify-center">
+        <v-avatar class="ma-3 ml-0 elevation-4" size="200" tile>
           <v-img src="/websites/img/natours.png"></v-img>
         </v-avatar>
       </div>
