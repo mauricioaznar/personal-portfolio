@@ -11,7 +11,9 @@ title: Web dev resources
 
 ## SVG
 
-Articles
+<br />
+
+### Articles
 
 * [How I stopped worrying and learned to animate SVG](https://medium.com/@aniboaz/animate-svg-4fa7dd00e860)
 * [Animate SVG with CSS](https://jonsuh.com/blog/animate-svg-with-css/)
