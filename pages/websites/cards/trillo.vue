@@ -3,7 +3,7 @@
     <div class="d-flex flex-no-wrap justify-space-between fill-height">
       <div class="flex-grow-1 d-flex flex-column justify-space-between">
         <div style="background-color: #333333">
-          <v-card-title class="trillo-heading"> Trillo </v-card-title>
+          <v-card-title class="trillo-heading"> Trillo</v-card-title>
 
           <v-card-subtitle
             ><b>Description: </b>A website about hotel booking
@@ -58,6 +58,7 @@ export default {
 .trillo-heading {
   color: #eb2f64;
 }
+
 @keyframes pulsate {
   0% {
     transform: scale(1);

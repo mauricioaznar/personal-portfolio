@@ -12,6 +12,6 @@ module.exports = {
   plugins: [],
   // add your custom rules here
   rules: {
-    'linebreak-style': ['unix'],
+    'linebreak-style': ['error', 'unix'],
   },
 }

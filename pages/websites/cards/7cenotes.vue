@@ -5,7 +5,7 @@
     >
       <div class="flex-grow-1 d-flex flex-column justify-space-between">
         <div>
-          <v-card-title class="siete-heading"> 7 cenotes </v-card-title>
+          <v-card-title class="siete-heading"> 7 cenotes</v-card-title>
 
           <v-card-subtitle
             ><b>Description: </b>A website about a tourism company
@@ -153,6 +153,7 @@ export default {
   box-sizing: border-box;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   transition: all 0.2s linear;
+
   &:hover {
     box-shadow: 0 0 20px #fff;
   }
@@ -174,16 +175,20 @@ export default {
   &:nth-child(1) {
     z-index: 4;
   }
+
   &:nth-child(2) {
     z-index: 2;
     @include translateAndRotate(10%, 3%, 10deg);
+
     &.active.photo {
       @include translateAndRotate(70%, 15%, 20deg);
     }
   }
+
   &:nth-child(3) {
     z-index: 3;
     @include translateAndRotate(0%, 3%, -5deg);
+
     &.active.photo {
       @include translateAndRotate(-60%, 15%, -20deg);
     }
