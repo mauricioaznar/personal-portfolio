@@ -3,7 +3,7 @@
     <div class="d-flex flex-no-wrap justify-space-between align-stretch">
       <div class="flex-grow-1 d-flex flex-column justify-space-between">
         <div>
-          <v-card-title class="natours-heading"> Natours </v-card-title>
+          <v-card-title class="natours-heading"> Natours</v-card-title>
 
           <v-card-subtitle
             ><b>Description: </b>A website about tours on the nature
@@ -25,17 +25,18 @@
           </v-card-text>
         </div>
 
-        <v-divider />
-
-        <v-card-actions>
-          <a
-            class="natours-btn natours-btn--green natours-btn--animated"
-            href="https://natours.mauaznar.com/"
-            target="_blank"
-          >
-            Go to website
-          </a>
-        </v-card-actions>
+        <div>
+          <v-divider />
+          <v-card-actions>
+            <a
+              class="natours-btn natours-btn--green natours-btn--animated"
+              href="https://natours.mauaznar.com/"
+              target="_blank"
+            >
+              Go to website
+            </a>
+          </v-card-actions>
+        </div>
       </div>
 
       <div class="d-flex flex-wrap flex-column justify-center">

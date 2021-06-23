@@ -24,18 +24,19 @@
           </v-card-text>
         </div>
 
-        <v-divider dark />
-
-        <v-card-actions style="background-color: #333333">
-          <a
-            class="trillo-btn"
-            href="https://trillo.mauaznar.com/"
-            target="_blank"
-          >
-            <span class="trillo-btn__visible">Go to website</span>
-            <span class="trillo-btn__invisible">Now!</span>
-          </a>
-        </v-card-actions>
+        <div>
+          <v-divider dark />
+          <v-card-actions style="background-color: #333333">
+            <a
+              class="trillo-btn"
+              href="https://trillo.mauaznar.com/"
+              target="_blank"
+            >
+              <span class="trillo-btn__visible">Go to website</span>
+              <span class="trillo-btn__invisible">Now!</span>
+            </a>
+          </v-card-actions>
+        </div>
       </div>
 
       <div class="d-flex flex-wrap flex-column justify-center">

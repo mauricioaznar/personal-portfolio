@@ -20,23 +20,23 @@
 
           <v-card-text>
             <ul>
-              <li>Animations</li>
               <li>Grid layout</li>
             </ul>
           </v-card-text>
         </div>
 
-        <v-divider dark />
-
-        <v-card-actions>
-          <a
-            class="nexter-btn"
-            href="https://nexter.mauaznar.com/"
-            target="_blank"
-          >
-            Go to website
-          </a>
-        </v-card-actions>
+        <div>
+          <v-divider dark />
+          <v-card-actions>
+            <a
+              class="nexter-btn"
+              href="https://nexter.mauaznar.com/"
+              target="_blank"
+            >
+              Go to website
+            </a>
+          </v-card-actions>
+        </div>
       </div>
 
       <div class="d-flex flex-wrap flex-column justify-center">
