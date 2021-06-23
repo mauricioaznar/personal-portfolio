@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-row>
+  <v-container fluid>
+    <v-row align="center">
       <v-col sm="12" md="6" lg="4">
         <NatoursCard />
       </v-col>

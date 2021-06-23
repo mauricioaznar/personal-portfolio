@@ -55,9 +55,10 @@ export default {
 
 <style scoped lang="scss">
 .natours-heading {
+  hyphens: auto;
   font-size: 20px;
   text-transform: uppercase;
-  letter-spacing: 20px;
+  letter-spacing: 10px;
   font-weight: 400;
   display: inline-block;
   background-image: linear-gradient(to right, #fff, #ccc);
