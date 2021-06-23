@@ -160,7 +160,7 @@ export default {
   top: 0;
   bottom: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 5;
 }
 
 .page-enter-active::before {
@@ -180,6 +180,7 @@ export default {
   left: 0;
   right: 0;
   background-color: #fff;
+  z-index: 5;
 }
 
 .page-leave::before {
