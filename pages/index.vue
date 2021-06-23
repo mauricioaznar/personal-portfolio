@@ -16,22 +16,25 @@
         <p>This website is divided in four main sections.</p>
         <ul>
           <li>
-            <v-icon>mdi-apps</v-icon><b> App demos: </b>this section is about
-            displaying examples that integrate full stack technologies (back-end
-            and front-end service).
+            <v-icon>mdi-apps</v-icon>
+            <b> App demos: </b>this section is about displaying examples that
+            integrate full stack technologies (back-end and front-end service).
           </li>
           <li class="mt-3">
-            <v-icon>mdi-web</v-icon><b> Websites: </b> This sections is about
-            website design that I have made myself or through a course.
+            <v-icon>mdi-web</v-icon>
+            <b> Websites: </b> This sections is about website design that I have
+            made myself or through a course.
           </li>
           <li class="mt-3">
-            <v-icon>mdi-script-text</v-icon> <b>Articles: </b> this section is
-            about guides or opinions about full stack technologies.
+            <v-icon>mdi-script-text</v-icon>
+            <b>Articles: </b> this section is about guides or opinions about
+            full stack technologies.
           </li>
           <li class="mt-3">
-            <v-icon>mdi-code-braces</v-icon><b> Snippets: </b> this section is
-            about a reference (mostly for myself) of small pieces of code that I
-            can copy paste into new projects.
+            <v-icon>mdi-code-braces</v-icon>
+            <b> Snippets: </b> this section is about a reference (mostly for
+            myself) of small pieces of code that I can copy paste into new
+            projects.
           </li>
         </ul>
       </v-col>
