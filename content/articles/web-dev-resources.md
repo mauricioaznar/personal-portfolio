@@ -11,6 +11,8 @@ title: Web dev resources
 
 ## SVG
 
+* [Convert a map to an svg](https://www.openstreetmap.org/#map=6/23.944/-102.579)
+
 <br />
 
 ### Articles
