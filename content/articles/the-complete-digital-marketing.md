@@ -65,3 +65,12 @@ create a survey
 1. talk to people
 2. search potential problems by searching for keywords (complaint, hate, bottleneck, problem, stress...) 
 3. check reviews for similar product/services (filter 3 stars balanced; 5 stars is too good and 1 star is too negative)
+
+
+## Make a website
+
+<br />
+
+### How to setup businness email
+
+
