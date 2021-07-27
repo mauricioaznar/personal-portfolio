@@ -1,5 +1,5 @@
 ---
-title: Interviews
+title: Web dev resources
 ---
 
 ## General
