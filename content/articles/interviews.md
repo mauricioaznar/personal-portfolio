@@ -58,7 +58,7 @@ title: Interviews
 Example position center box 
 
 <img 
-  src="./img/position-center.png"
+  src="/articles/img/position-center.png"
   alt="This is a picture"
   style="width: 70%;"
 />
