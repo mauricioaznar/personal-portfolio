@@ -76,7 +76,7 @@ export default {
       }
     },
     goTo(e) {
-      const target = e.toElement.hash
+      const target = e.target.hash
       this.$vuetify.goTo(target, {
         duration: 1000,
         offset: 20,
