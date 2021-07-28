@@ -2,6 +2,12 @@
 title: Interviews
 ---
 
+## Links to interviews
+
+[https://epic-react-exercises.vercel.app/](https://epic-react-exercises.vercel.app/)
+[https://dev.to/alexgurr/react-coding-challenges-for-interviews-beginners-1hlk](https://dev.to/alexgurr/react-coding-challenges-for-interviews-beginners-1hlk)
+[https://www.reddit.com/r/reactjs/comments/frklcv/react_coding_challenges_for_interviewsbeginners/]([https://www.reddit.com/r/reactjs/comments/frklcv/react_coding_challenges_for_interviewsbeginners/])
+
 ## General
 
 * Mention your strengths and weaknesses
@@ -290,4 +296,17 @@ console.log(secondPerson.name);
 console.log(firstPerson.name);
 ```
   
+<br />
+
+
+
+
+## Excercises
+
+### Photo gallery
+
+
+Hacer un "pagination component" para desplegar 10 fotos en vez de las 5000 de este url (https://jsonplaceholder.typicode.com/photos)
+
+
 <br />
