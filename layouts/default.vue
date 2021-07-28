@@ -104,6 +104,11 @@ export default {
           title: 'Snippets',
           to: '/snippets',
         },
+        {
+          icon: 'mdi-palette',
+          title: 'Art',
+          to: '/art',
+        },
       ],
       miniVariant: false,
       title: 'Personal portfolio - Mauricio Aznar',

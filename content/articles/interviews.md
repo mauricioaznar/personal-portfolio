@@ -163,6 +163,12 @@ Example position absolute
 
 <br />
 
+
+
+* How does rem differ from em in CSS?
+  * While em is relative to the font-size of its direct or nearest parent, rem is only relative to the html (root) font-size. em gives the ability to control an area of a design. As in, scale the type in that specific area relatively. rem gives the ability to scale type across the entire page easily.
+
+
 ## Javascript
 
 <br />
@@ -298,6 +304,13 @@ console.log(secondPerson.name);
 console.log(firstPerson.name);
 ```
   
+<br />
+
+* What is the difference between null and undefined?
+    * undefined means a variable has been declared but has not yet been assigned a value 
+    * null is an assignment value. It can be assigned to a variable as a representation of no value
+
+
 <br />
 
 
