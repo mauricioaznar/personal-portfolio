@@ -12,12 +12,12 @@ title: Interviews
 
 ## General
 
-* Mention your strengths and weaknesses
-* Why Do You Want to Work at This Company?
-* Why Are You Leaving Your Current Job?
-* What Do You Like to Do Outside of Work?
-* What Are You Passionate About?
-* How did work get distributed on your previous job?
+### Mention your strengths and weaknesses
+###  Why Do You Want to Work at This Company?
+###  Why Are You Leaving Your Current Job?
+### What Do You Like to Do Outside of Work?
+### What Are You Passionate About?
+### How did work get distributed on your previous job?
 
 
 <br />
@@ -26,40 +26,49 @@ title: Interviews
 
 <br />
 
-* What is the difference between “display: none” and “visibility: hidden”?
-    * When we use the attribute “visibility: hidden” for an HTML element then that element will be hidden from the webpage but still takes up space. Whereas, if we use the “display: none” attribute for an HTML element then the element will be hidden, and also it won’t take up any space on the webpage.
+### What is the difference between “display: none” and “visibility: hidden”?
+* When we use the attribute “visibility: hidden” for an HTML element then that element will be hidden from the webpage but still takes up space. Whereas, if we use the “display: none” attribute for an HTML element then the element will be hidden, and also it won’t take up any space on the webpage.
 
 <br />
 
-* What are different types of lists in HTML?
-    * unordered list, ordered list and definition list
+### What are different types of lists in HTML?
+* unordered list, ordered list and definition list
   
 <br />
 
-* What is the difference between the ‘id’ attribute and the ‘class’ attribute of HTML elements?
-    * Multiple elements in HTML can have the same class value, whereas a value of id attribute of one element cannot be associated with another HTML element.
+### What is the difference between the ‘id’ attribute and the ‘class’ attribute of HTML elements?
+* Multiple elements in HTML can have the same class value, whereas a value of id attribute of one element cannot be associated with another HTML element.
 
 <br />
 
-* Define multipart form data?
-    * Multipart form data is one of the values of the enctype attribute. It is used to send the file data to the server-side for processing. The other valid values of the enctype attribute are text/plain and application/x-www-form-urlencoded.
+### Define multipart form data?
+* Multipart form data is one of the values of the enctype attribute. It is used to send the file data to the server-side for processing. The other valid values of the enctype attribute are text/plain and application/x-www-form-urlencoded.
   
 <br />
 
-*  What is the significance of <head> and <body> tag in HTML?
-    * head tag provides the information about the document. It should always be enclosed in the <html> tag. This tag contains the metadata about the webpage and the tags which are enclosed by head tag like <link>, <meta>, <style>, <script>, etc. are not displayed on the web page. Also, there can be only 1 <head> tag in the entire Html document and will always be before the <body> tag.
-    * body tag defines the body of the HTML document. It should always be enclosed in the <html> tag. All the contents which needs to be displayed on the web page like images, text, audio, video, contents, using elements like <p>, <img>, <audio>, <heading>, <video>, <div>, etc. will always be enclosed by the <body> tag. Also, there can be only 1 body element in an HTML document and will always be after the <head> tag.
+###  What is the significance of <head> and <body> tag in HTML?
+* head tag provides the information about the document. It should always be enclosed in the <html> tag. This tag contains the metadata about the webpage and the tags which are enclosed by head tag like <link>, <meta>, <style>, <script>, etc. are not displayed on the web page. Also, there can be only 1 <head> tag in the entire Html document and will always be before the <body> tag.
+* body tag defines the body of the HTML document. It should always be enclosed in the <html> tag. All the contents which needs to be displayed on the web page like images, text, audio, video, contents, using elements like <p>, <img>, <audio>, <heading>, <video>, <div>, etc. will always be enclosed by the <body> tag. Also, there can be only 1 body element in an HTML document and will always be after the <head> tag.
   
 <br />
 
-* What are Semantic Elements?
-    * Semantic elements are those which describe the particular meaning to the browser and the developer. Elements like form, table, article, figure, etc., are semantic elements.
+### What are Semantic Elements?
+* Semantic elements are those which describe the particular meaning to the browser and the developer. Elements like form, table, article, figure, etc., are semantic elements.
   
 
 
 <br />
 
 ## CSS
+
+<br />
+
+### Mention the meaning of the position property, and some important features
+
+* When you use position relative you are making a div that will be relative to other divs with position absolute. Absolute will basically make the div or that element float above the document. Without having to follow the current dom or what you call it. 
+* When you are simply using position: relative; you are not placing the div any where. But you are actually just creating a relative point for other elements if there is no relative div the position: absolute; will be following the document as relative.
+* z-index now works with this element.
+
 
 <br />
 
@@ -165,31 +174,92 @@ Example position absolute
 
 
 
-* How does rem differ from em in CSS?
-  * While em is relative to the font-size of its direct or nearest parent, rem is only relative to the html (root) font-size. em gives the ability to control an area of a design. As in, scale the type in that specific area relatively. rem gives the ability to scale type across the entire page easily.
-
+### How does rem differ from em in CSS?
+* While em is relative to the font-size of its direct or nearest parent, rem is only relative to the html (root) font-size. em gives the ability to control an area of a design. As in, scale the type in that specific area relatively. rem gives the ability to scale type across the entire page easily.
+<br />
 
 ## Javascript
 
 <br />
 
-* Explain the meaning of this
-    *   It has different values depending on where it is used:.
-        In a method, this refers to the owner object. 
-        Alone, this refers to the global object. 
-        In a function, this refers to the global object. 
-        In a function, in strict mode, this is undefined. 
-        In an event, this refers to the element that received the event.
-        Methods like call(), and apply() can refer this to any object.
-        
+### Engine architecture 
+
+
+<br />
+
+Resources
+
+* [how javascript engine works](https://dzone.com/articles/how-javascript-engine-works)
+
+<br />
+
+Engines
+
+* The JavaScript engine executes and compiles JavaScript into native machine code. Every major browser has developed its own JS engine: Google's Chrome uses V8, Safari uses JavaScriptCore, and Firefox  uses  SpiderMonkey.
+* ECMAScript Standards is being followed by the JavaScript engines. The job of these standards is to give a definition, how JavaScript engines should work. It also tells what all features it should have.
+  
+<br />
+
+Compiler vs interpreter
+
+
+* Compiler: A compiler can be defined as a program that helps in transforming a code. This transformation is done for the code that has been written in any programming language (source language) into another programming language that was targeted by you. They perform this task by translating the source code from a much high-level programming language to a low-level programming language i.e. machine language.
+* Interpreter: An interpreter analyses your source code line by line and instruction by instruction and then performs the execution of the corresponding machine code on the targeted machine directly without any involvement of a third party.
+* Today’s modern compilers of JavaScript performs the Just-In-Time (JIT) compilation that occurs at the time of running.
+
+<br />
+
+How does it work?
+
+The work of the JavaScript engine was taking JavaScript source code. Then perform the compilation to binary instructions (machine code) that are easily understandable by CPU.
+
+A JavaScript engine which is limited consists of a baseline compiler whose work is to do the compilation of the code in the form of intermediate representation (IR), in other words, it is called byte code and then gives the byte code to the interpreter.
+
+Further, the interpreter takes this byte code, and then make the conversion into machine code. This machine code will further run this code on the hardware of the machine.
+
+"It is very similar to the working of Java but the generation of byte code is done by the programmer and byte code has been shared universally not the source code."
+
+The job of a baseline compiler is to perform the compilation of the code as fast as possible. It also generates a less-optimized byte code. As in the interpreter, it doesn’t have an optimized byte code for working with, then the speed of the application will be very slow. On the other hand, the time of the application will be very less.
+
+
+<br />
+
+### Javascript run time
+
+* It is a single-threaded language at runtime. This means that the execution of the code is done but only one piece at a time. As the code is being executed sequentially, so any code that is taking a longer time, as usual, will block the path of other code that is required to be executed after that.
+
+<br />
+
+### Call Stack & Memory Heap
+
+*
+
+
+
+
+<br />
+
+
+
+<br />
+
+### Explain the meaning of this
+*   It has different values depending on where it is used:.
+    In a method, this refers to the owner object. 
+    Alone, this refers to the global object. 
+    In a function, this refers to the global object. 
+    In a function, in strict mode, this is undefined. 
+    In an event, this refers to the element that received the event.
+    Methods like call(), and apply() can refer this to any object.
+    
 <br />
         
-* What is falsy and truthy and give some examples
-    * In JavaScript, a truthy value is a value that is considered true when encountered in a Boolean context.
-    * A falsy (sometimes written falsey) value is a value that is considered false when encountered in a Boolean context. 
-    * false, null, undefined, 0, NaN, '', "", ``(Empty template string), document.all , 0n: BigInt
-       , -0
-    * Type coercion is the process of converting value from one type to another (such as string to number, object to boolean, and so on). Any type, be it primitive or an object, is a valid subject for type coercion. To recall, primitives are: number, string, boolean, null, undefined + Symbol (added in ES6).
+### What is falsy and truthy and give some examples
+* In JavaScript, a truthy value is a value that is considered true when encountered in a Boolean context.
+* A falsy (sometimes written falsey) value is a value that is considered false when encountered in a Boolean context. 
+* false, null, undefined, 0, NaN, '', "", ``(Empty template string), document.all , 0n: BigInt
+   , -0
+* Type coercion is the process of converting value from one type to another (such as string to number, object to boolean, and so on). Any type, be it primitive or an object, is a valid subject for type coercion. To recall, primitives are: number, string, boolean, null, undefined + Symbol (added in ES6).
   
 <br />
 
@@ -241,9 +311,9 @@ if (-Infinity) {
 
 <br />
   
-* What is hoisting
-    * Hoisting is JS’s default behavior of defining all the declarations at the top of the scope before code execution.
-    * One of the benefits of hoisting is that it enables us to call functions before they appear in the code. JavaScript only hoists declarations, not initializations. 
+### What is hoisting
+* Hoisting is JS’s default behavior of defining all the declarations at the top of the scope before code execution.
+* One of the benefits of hoisting is that it enables us to call functions before they appear in the code. JavaScript only hoists declarations, not initializations. 
 
 <br />
 
@@ -260,9 +330,9 @@ myFunc();
 
 <br />
 
-* What is a closure
-    * When you declare a local variable, that variable has a scope. Generally, local variables exist only within the block or function in which you declare them.
-    * A closure is a persistent scope which holds on to local variables even after the code execution has moved out of that block.
+### What is a closure
+* When you declare a local variable, that variable has a scope. Generally, local variables exist only within the block or function in which you declare them.
+* A closure is a persistent scope which holds on to local variables even after the code execution has moved out of that block.
   
 <br />
 
@@ -283,11 +353,11 @@ fnc();
 <br />
 
   
-* Mention different data types and how are they categorized?
-    * String, Number, Boolean, Undefined, Null, Object, Array, RegExp.
-    * They are categorized in primitive and non-primitive (referenced)
-    * If the value is a primitive value, when you access the variable, you manipulate the actual value stored in that variable. In other words, the variable that stores a primitive value is accessed by value. The size of a primitive value is fixed, therefore, JavaScript stores the primitive value on the stack. 
-    * Unlike a primitive value, when you manipulate an object, you work on the reference of that object, rather than the actual object. It means a variable that stores an object is accessed by reference. When you assign a value to a variable, the JavaScript engine will determine whether the value is a primitive or reference value.
+### Mention different data types and how are they categorized?
+* String, Number, Boolean, Undefined, Null, Object, Array, RegExp.
+* They are categorized in primitive and non-primitive (referenced)
+* If the value is a primitive value, when you access the variable, you manipulate the actual value stored in that variable. In other words, the variable that stores a primitive value is accessed by value. The size of a primitive value is fixed, therefore, JavaScript stores the primitive value on the stack. 
+* Unlike a primitive value, when you manipulate an object, you work on the reference of that object, rather than the actual object. It means a variable that stores an object is accessed by reference. When you assign a value to a variable, the JavaScript engine will determine whether the value is a primitive or reference value.
   
 <br />
 
@@ -306,14 +376,16 @@ console.log(firstPerson.name);
   
 <br />
 
-* What is the difference between null and undefined?
-    * undefined means a variable has been declared but has not yet been assigned a value 
-    * null is an assignment value. It can be assigned to a variable as a representation of no value
+### What is the difference between null and undefined?
+* undefined means a variable has been declared but has not yet been assigned a value 
+* null is an assignment value. It can be assigned to a variable as a representation of no value
 
 
 <br />
 
 
+
+## React
 
 
 ## Excercises
