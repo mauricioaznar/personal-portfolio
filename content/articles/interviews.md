@@ -182,30 +182,30 @@ Example position absolute
 
 <br />
 
-### Engine architecture 
+### Engine architecture
 
 
 <br />
 
-Resources
 
-* [how javascript engine works](https://dzone.com/articles/how-javascript-engine-works)
+
+
+<br />
+
+### What is an engine?
+
+[how javascript engine works](https://dzone.com/articles/how-javascript-engine-works)
+
+* The JavaScript engine executes and compiles JavaScript into native machine code. Every major browser has developed its own JS engine: Google's Chrome uses V8, Safari uses JavaScriptCore, and Firefox  uses  SpiderMonkey.
+* ECMAScript Standards is being followed by the JavaScript engines. The job of these standards is to give a definition, how JavaScript engines should work. It also tells what all features it should have.
+* A JavaScript engine is a program, or an interpreter which executes JavaScript code. A JavaScript engine can be implemented as a standard interpreter, or just-in-time compiler that compiles JavaScript to bytecode in some form.
+
 
 <br />
 
 Engines
 
-* The JavaScript engine executes and compiles JavaScript into native machine code. Every major browser has developed its own JS engine: Google's Chrome uses V8, Safari uses JavaScriptCore, and Firefox  uses  SpiderMonkey.
-* ECMAScript Standards is being followed by the JavaScript engines. The job of these standards is to give a definition, how JavaScript engines should work. It also tells what all features it should have.
-  
-<br />
-
-Compiler vs interpreter
-
-
-* Compiler: A compiler can be defined as a program that helps in transforming a code. This transformation is done for the code that has been written in any programming language (source language) into another programming language that was targeted by you. They perform this task by translating the source code from a much high-level programming language to a low-level programming language i.e. machine language.
-* Interpreter: An interpreter analyses your source code line by line and instruction by instruction and then performs the execution of the corresponding machine code on the targeted machine directly without any involvement of a third party.
-* Today’s modern compilers of JavaScript performs the Just-In-Time (JIT) compilation that occurs at the time of running.
+* V8 was first designed to increase the performance of JavaScript execution inside web browsers. In order to obtain speed, V8 translates JavaScript code into more efficient machine code instead of using an interpreter. It compiles JavaScript code into machine code at execution by implementing a JIT (Just-In-Time) compiler like a lot of modern JavaScript engines do such as SpiderMonkey or Rhino (Mozilla). The main difference here is that V8 doesn’t produce bytecode or any intermediate code.
 
 <br />
 
@@ -224,24 +224,220 @@ The job of a baseline compiler is to perform the compilation of the code as fast
 
 <br />
 
+### Compiler vs interpreter
+
+* Compiler: A compiler can be defined as a program that helps in transforming a code. This transformation is done for the code that has been written in any programming language (source language) into another programming language that was targeted by you. They perform this task by translating the source code from a much high-level programming language to a low-level programming language i.e. machine language.
+* Interpreter: An interpreter analyses your source code line by line and instruction by instruction and then performs the execution of the corresponding machine code on the targeted machine directly without any involvement of a third party.
+  
+<br />
+
+* Today’s modern compilers of JavaScript performs the Just-In-Time (JIT) compilation that occurs at the time of running.
+
+[Compiled versus interpreted languages](https://www.freecodecamp.org/news/compiled-versus-interpreted-languages/)
+
+Compiled
+
+* In a compiled language, the target machine directly translates the program. 
+* Compiled languages need a “build” step – they need to be manually compiled first. You need to “rebuild” the program every time you need to make a change.
+* Advantages of compiled languages: programs that are compiled into native machine code tend to be faster than interpreted code. This is because the process of translating code at run time adds to the overhead, and can cause the program to be slower overall.
+* Disadvantages of compiled languages:
+  * Additional time needed to complete the entire compilation step before testing 
+  * Platform dependence of the generated binary code
+
+<br />
+
+Interpreted
+
+* In an interpreted language, the source code is not directly translated by the target machine. Instead, a different program, aka the interpreter, reads and executes the code. 
+* Interpreters run through a program line by line and execute each command.
+* Advantages of interpreted languages: Interpreted languages tend to be more flexible, and often offer features like dynamic typing and smaller program size. Also, because interpreters execute the source program code themselves, the code itself is platform independent.
+* Disadvantages of interpreted languages: The most notable disadvantage is typical execution speed compared to compiled languages.
+
+<br />
+
+Just in time compilation
+
+* Just-in-time compilation is a method for improving the performance of interpreted programs. During execution the program may be compiled into native code to improve its performance. It is also known as dynamic compilation. 
+* Traditionally there are two methods for converting source code into a form that can be run on a platform. Static compilation converts the code into a language for a specific platform. An interpreter directly executes the source code. JIT compilation attempts to use the benefits of both. While the interpreted program is being run, the JIT compiler determines the most frequently used code and compiles it to machine code. Depending on the compiler, this can be done on a method or smaller section of code.
+* A Just-In-Time (JIT) compiler is a feature of the run-time interpreter, that instead of interpreting bytecode every time a method is invoked, will compile the bytecode into the machine code instructions of the running machine, and then invoke this object code instead. Ideally the efficiency of running object code will overcome the inefficiency of recompiling the program every time it runs.
+
+<br />
+
+
+### What does it mean that JavaScript is “dynamic”?
+
+[How Javascrpit works inside the v8 engine](https://blog.sessionstack.com/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code-ac089e62b12e)
+
+Most JavaScript interpreters use dictionary-like structures (hash function based) to store the location of object property values in the memory. This structure makes retrieving the value of a property in JavaScript more computationally expensive than it would be in a non-dynamic programming language like Java or C#. In Java, all of the object properties are determined by a fixed object layout before compilation and cannot be dynamically added or removed at runtime (well, C# has the dynamic type which is another topic). As a result, the values of properties (or pointers to those properties) can be stored as a continuous buffer in the memory with a fixed-offset between each. The length of an offset can easily be determined based on the property type, whereas this is not possible in JavaScript where a property type can change during runtime.
+
+[stack overflow](https://stackoverflow.com/questions/32476680/what-does-it-mean-that-javascript-is-dynamic)
+
+Answer #1
+
+* Most languages have some aspect of dynamic behaviour. Even statically typed languages can have a dynamic or variant data type that can contain different data types.
+* JavaScript is called a dynamic language because it doesn't just have a few dynamic aspects, pretty much everything is dynamic.
+* All variables are dynamic (both in type and existance), and even the code is dynamic. You can create new variables at runtime, and the type of variables is determined at runtime. You can create new functions at any time, or replace existing functions. When used in a browser, code is added when more script files are loaded, and you can load more files any time you like.
+* Nowadays JavaScript is compiled in many implementations, and static code and static types are generated in the background. However, the behaviour is still dynamic, the compiler only generates static types when it finds that the dynamic aspects are not used for a specific object.
+
+Answer #2
+
+The most meaningful well-defined way in which JS is dynamic is that it's dynamically typed: the language has data types, but does not check that a program's types are "okay" until the program is actually running. The opposite is statically typed, meaning that programs' types are verified by a program that inspects their source code before they are run.
+
+<br />
+
 ### Javascript run time
 
 * It is a single-threaded language at runtime. This means that the execution of the code is done but only one piece at a time. As the code is being executed sequentially, so any code that is taking a longer time, as usual, will block the path of other code that is required to be executed after that.
 
 <br />
 
-### Call Stack & Memory Heap
+### Memory Heap and memory stack
 
-*
+[JavaScript's Memory Management Explained](https://felixgerschau.com/javascript-memory-management/)
+
+* Allocating memory is the process of reserving space in memory, while releasing memory frees up space, ready to be used for another purpose.
+* Memory life cycle 
+  * Allocate memory: JavaScript takes care of this for us: It allocates the memory that we will need for the object we created. 
+  * Use memory: Using memory is something we do explicitly in our code: Reading and writing to memory is nothing else than reading or writing from or to a variable. 
+  * Release memory: This step is handled as well by the JavaScript engine. Once the allocated memory is released, it can be used for a new purpose.
+* All variables first point to the stack. In case it's a non-primitive value, the stack contains a reference to the object in the heap.
+
+<br />
+
+#### Stack: Static memory allocation
+
+* A stack is a data structure that JavaScript uses to store static data. Static data is data where the engine knows the size at compile time. In JavaScript, this includes primitive values (strings, numbers, booleans, undefined, and null) and references, which point to objects and functions.
+* Since the engine knows that the size won't change, it will allocate a fixed amount of memory for each value.
+* The process of allocating memory right before execution is known as static memory allocation.
+* Because the engine allocates a fixed amount of memory for these values, there is a limit to how large primitive values can be.
+
+<br />
+
+#### Heap: Dynamic memory allocation
+
+* The heap is a different space for storing data where JavaScript stores objects and functions.
+* Unlike the stack, the engine doesn't allocate a fixed amount of memory for these objects. Instead, more space will be allocated as needed.
+* Allocating memory this way is also called dynamic memory allocation.
+* The memory of the heap is not ordered in any particular way, which is why we need to keep a reference to it in the stack. You can think of references as addresses and the objects in the heap as houses that these addresses belong to.
 
 
+<br />
+
+
+### Garbage collection
+
+* Once the JavaScript engine recognizes that a given variable or function is not needed anymore, it releases the memory it occupied.
+* The main issue with this is that whether or not some memory is still needed is an undecidable problem, which means that there can't be an algorithm that's able to collect all the memory that's not needed anymore in the exact moment it becomes obsolete.
+
+#### Reference-counting garbage collection
+
+This one is the easiest approximation. It collects the objects that have no references pointing to them.
+
+
+#### Memory leaks
+
+* Global variables
+* Forgotten timers and callbacks
+
+<br />
+
+### Call stack
+
+* JavaScript is a single-threaded programming language, which means it has a single Call Stack. Therefore it can do one thing at a time.
+* The Call Stack is a data structure which records basically where in the program we are. If we step into a function, we put it on the top of the stack. If we return from a function, we pop off the top of the stack. That’s all the stack can do.
+* Each entry in the Call Stack is called a Stack Frame.
+
+<br />
+
+[JavaScript Event Loop And Call Stack Explained](https://felixgerschau.com/javascript-event-loop-call-stack/)
+
+* JavaScript can do one single thing at a time because it has only one call stack.
+* The call stack is a mechanism that helps the JavaScript interpreter to keep track of the functions that a script calls.
+* The maximum call stack size ranges from 10 to 50 thousand calls, so if you exceed that, it's most likely that you have an infinite loop in your code.
+
+1. Every time a script or function calls a function, it's added to the top of the call stack. Every time the function exits, the interpreter removes it from the call stack.
+1. A function either exits through a return statement or by reaching the end of the scope.
+1. The order in which the stack processes each function call follows the LIFO principle (Last In, First Out).
 
 
 <br />
 
 
 
+### What is a callback?
+
+* A callback is a function that's passed as an argument to another function. The callback will usually be executed after the code has finished.
+* You can create callback functions yourself by writing functions that accept a function as an argument. Functions like that are also known as higher-order functions. Note that callbacks aren't by default asynchronous.
+
 <br />
+
+### Concurrency 
+
+* While JavaScript could only do one thing at a time, you can still do things concurrently in the browser. As the title already suggests, this is possible through the APIs that browsers provide.
+* Let's take a look at how we make an API request, for instance. If we executed the code within the JavaScript interpreter, we wouldn't be able to do anything else until we get a response from the server. Web browsers give us APIs that we can call in our JavaScript code. The execution, however, is handled by the platform itself, which is why it won't block the call stack. They enable you to make AJAX requests or manipulate the DOM, but also a range of other things, like geo-tracking, accessing local storage, service workers, and more.
+
+<br />
+
+### Callback queue
+
+* Through callbacks, web APIs allow us to run code after the execution of the API call has finished.
+* The callback queue follows the FIFO order (First In, First Out), meaning that the calls are processed in the same order they've been added to the queue.
+
+
+<br />
+
+
+### Event loop
+
+* The JavaScript event loop takes the first call in the callback queue and adds it to the call stack as soon as it's empty.
+* JavaScript code is being run in a run-to-completion manner, meaning that if the call stack is currently executing some code, the event loop is blocked and won't add any calls from the queue until the stack is empty again.
+
+
+[Event loop animated](https://felixgerschau.com/video/event-loop-animated.mp4)
+
+<br />
+
+
+
+### Job queue
+
+* Queue that exclusively accepts promises
+* Also known as the promise queue
+* Promise queue has priority over the callback queue
+
+<br />
+
+### What is a promise?
+
+* 
+
+<br />
+
+
+### Single thread vs multi thread
+
+
+#### Difference between process and thread 
+
+* Both processes and threads are independent sequences of execution. The typical difference is that threads (of the same process) run in a shared memory space, while processes run in separate memory spaces.
+
+
+#### Single thread
+
+* Single threaded processes contain the execution of instructions in a single sequence. In other words, one command is processes at a time.
+
+#### Multi thread
+
+* Multi threaded allow the execution of multiple parts of a program at the same time. These are lightweight processes available within the process.
+* Advantages
+  * Program responsiveness allows a program to run even if part of it is blocked using multithreading. This can also be done if the process is performing a lengthy operation.
+* Disadvantages
+  * It is difficult to handle concurrency in multithreaded processes. This may lead to complications and future problems. 
+  * Identification and correction of errors is much more difficult in multithreaded processes as compared to single threaded processes.
+
+
+<br />
+
 
 ### Explain the meaning of this
 *   It has different values depending on where it is used:.
@@ -361,7 +557,8 @@ fnc();
   
 <br />
 
-Example #1
+
+#### Example #1
 
 ```js
 let firstPerson = {name: "Mau"};
@@ -379,6 +576,14 @@ console.log(firstPerson.name);
 ### What is the difference between null and undefined?
 * undefined means a variable has been declared but has not yet been assigned a value 
 * null is an assignment value. It can be assigned to a variable as a representation of no value
+
+
+<br />
+
+
+### Immutable vs mutable 
+
+*
 
 
 <br />
