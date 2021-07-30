@@ -285,9 +285,14 @@ The most meaningful well-defined way in which JS is dynamic is that it's dynamic
 
 <br />
 
-### Javascript run time
+### Javascript runtime
+
+[Javascript runtime environment](http://dolszewski.com/javascript/javascript-runtime-environment/)
 
 * It is a single-threaded language at runtime. This means that the execution of the code is done but only one piece at a time. As the code is being executed sequentially, so any code that is taking a longer time, as usual, will block the path of other code that is required to be executed after that.
+* In the web development, you don’t usually use the engine directly. The JavaScript engine works inside an environment, which provides additional features to your scripts that you can use at runtime. These can be utility libraries or APIs which allow communicating with the world surrounding the engine. An example here might be access to information about the web browser in which your script is executed. Or a notification about a mouse click.
+* It’s absolutely correct that your JavaScript code is executed in a single thread. But, it doesn’t mean that the whole JavaScript runtime environment works in a single thread. The thread pool exists in JavaScript runtime. Fortunately, you don’t have to worry about thread management because the environment does it for you.
+
 
 <br />
 
