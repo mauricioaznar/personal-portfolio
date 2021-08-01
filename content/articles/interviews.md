@@ -554,6 +554,7 @@ This one is the easiest approximation. It collects the objects that have no refe
 
 
 ### Explain the meaning of this
+
 * The JavaScript this keyword refers to the object it belongs to
 * It has different values depending on where it is used:
     * In a method, this refers to the owner object. 
