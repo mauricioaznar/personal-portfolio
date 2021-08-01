@@ -611,6 +611,265 @@ myFunc();
 
 ## Javascript types
 
+<br />
+
+### Types overview
+
+<br />
+
+* six datatypes:
+  * undefined : typeof instance === "undefined"
+  * Boolean : typeof instance === "boolean"
+  * Number : typeof instance === "number"
+  * String : typeof instance === "string"
+  * BigInt : typeof instance === "bigint"
+  * Symbol : typeof instance === "symbol"
+  
+<br />
+
+* Structural Types:
+  * Object : typeof instance === "object". Special non-data but Structural type for any constructed object instance also used as data structures: new Object, new Array, new Map, new Set, new WeakMap, new WeakSet, new Date and almost everything made with new keyword;
+  * Function : a non-data structure, though it also answers for typeof operator: typeof instance === "function". This is merely a special shorthand for Functions, though every Function constructor is derived from Object constructor.
+  
+<br />
+  
+* Structural Root Primitive:
+  * null : typeof instance === "object". Special primitive type having additional usage for its value: if object is not inherited, then null is shown;
+
+<br />
+
+
+### Mention different data types and how are they categorized?
+* Unlike a primitive value, when you manipulate an object, you work on the reference of that object, rather than the actual object. It means a variable that stores an object is accessed by reference. When you assign a value to a variable, the JavaScript engine will determine whether the value is a primitive or reference value.
+
+<br />
+
+
+#### Example #1
+
+```js
+let firstPerson = {name: "Mau"};
+
+let secondPerson = firstPerson;
+
+firstPerson.name = "Carlos";
+
+console.log(secondPerson.name);
+console.log(firstPerson.name);
+```
+
+<br />
+
+### Primitives
+
+* All types except objects define immutable values (that is, values which can't be changed).
+* If the value is a primitive value, when you access the variable, you manipulate the actual value stored in that variable. In other words, the variable that stores a primitive value is accessed by value. The size of a primitive value is fixed, therefore, JavaScript stores the primitive value on the stack.
+  * Boolean: Boolean represents a logical entity and can have two values: true and false. in JavaScript, Boolean conditionals are often used to decide which sections of code to execute (such as in if statements) or repeat (such as in for loops).
+  * Null: The value null represents the intentional absence of any object value. It is one of JavaScript's primitive values and is treated as falsy for boolean operations. null expresses a lack of identification, indicating that a variable points to no object. In APIs, null is often retrieved in a place where an object can be expected but no object is relevant.
+  * Undefined: A variable that has not been assigned a value has the value undefined
+  * Number: The Number type is a double-precision 64-bit binary format IEEE 754 value (numbers between -(2^53 − 1) and 2^53 − 1). In addition to representing floating-point numbers, the number type has three symbolic values: +Infinity, -Infinity, and NaN ("Not a Number"). To check for the largest available value or smallest available value within ±Infinity, you can use the constants Number.MAX_VALUE or Number.MIN_VALUE.
+  * BigInt: The BigInt type is a numeric primitive in JavaScript that can represent integers with arbitrary precision. With BigInts, you can safely store and operate on large integers even beyond the safe integer limit for Numbers. A BigInt is created by appending n to the end of an integer or by calling the constructor. You can obtain the safest value that can be incremented with Numbers by using the constant Number.MAX_SAFE_INTEGER. With the introduction of BigInts, you can operate with numbers beyond the Number.MAX_SAFE_INTEGER.
+  * String: JavaScript's String type is used to represent textual data. It is a set of "elements" of 16-bit unsigned integer values. Each element in the String occupies a position in the String. The first element is at index 0, the next at index 1, and so on. The length of a String is the number of elements in it. Unlike some programming languages (such as C), JavaScript strings are immutable. This means that once a string is created, it is not possible to modify it. However, it is still possible to create another string based on an operation on the original string. For example:
+    * A substring of the original by picking individual letters or using String.substr().
+    * A concatenation of two strings using the concatenation operator (+) or String.concat().
+  * Symbol type: A Symbol is a unique and immutable primitive value and may be used as the key of an Object property (see below). In some programming languages, Symbols are called "atoms".
+  
+
+<br />
+
+
+### Objects
+
+* Objects can be seen as a collection of properties. With the object literal syntax, a limited set of properties are initialized; then properties can be added and removed. Property values can be values of any type, including other objects, which enables building complex data structures. Properties are identified using key values. A key value is either a String or a Symbol value.
+* There are two types of object properties which have certain attributes: The data property and the accessor property.
+  * Data property: Associates a key with a value. 
+  * Accessor property: Associates a key with one of two accessor functions (get and set) to retrieve or store a value,
+  
+* Object methods
+  * Object.freeze(): Freezes an object. Other code cannot delete or change its properties. 
+  * Object.keys(): Returns an array containing the names of all of the given object's own enumerable string properties.
+
+
+<br />
+
+### Arrays
+
+[Mozilla](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
+
+* Arrays are regular objects for which there is a particular relationship between integer-keyed properties and the length property.
+* Additionally, arrays inherit from Array.prototype, which provides to them a handful of convenient methods to manipulate arrays. For example, indexOf (searching a value in the array) or push (adding an element to the array), and so on. This makes Arrays a perfect candidate to represent lists or sets.
+
+
+
+<br />
+
+
+#### Check if object is array
+
+
+```javascript
+!!obj && obj.constructor === Array;
+
+Array.isArray(obj)
+
+Object.prototype.toString.call(obj) === '[object Array]'
+
+
+```
+
+<br />
+
+#### Add an item to the end of an array
+
+
+```javascript
+let fruits = ['Apple', 'Banana']
+let newLength = fruits.push('Orange')
+// ["Apple", "Banana", "Orange"]
+```
+
+
+<br />
+
+#### Remove an item from the end of an array
+
+```javascript
+let fruits = ["Apple", "Banana", "Orange"]
+let last = fruits.pop() // remove Orange (from the end)
+// ["Apple", "Banana"]
+```
+
+<br />
+
+#### Add an item to the beginning of the array
+
+```javascript
+let fruits = ["Banana"]
+let newLength = fruits.unshift('Strawberry') // add to the front
+// ["Strawberry", "Banana"]
+```
+
+<br />
+
+#### Find the index of an item in the array
+
+
+```javascript
+let fruits = ['Apple', 'Banana']
+
+fruits.push('Mango')
+
+// ["Strawberry", "Banana", "Mango"]
+
+let pos = fruits.indexOf('Banana')
+// 1
+```
+
+<br />
+
+#### Remove an item by index position
+
+```javascript
+
+let fruits = ['Apple', 'Banana']
+
+fruits.push('Mango')
+
+// ["Strawberry", "Banana", "Mango"]
+
+let removedItem = fruits.splice(pos, 1) // this is how to remove an item
+
+// ["Strawberry", "Mango"]
+```
+
+
+<br />
+
+### Pass by value vs pass by reference
+[Stack overflow](https://stackoverflow.com/questions/6605640/javascript-by-reference-vs-by-value)
+
+* Javascript is always pass by value, but when a variable refers to an object (including arrays), the "value" is a reference to the object.
+* Changing the value of a variable never changes the underlying primitive or object, it just points the variable to a new primitive or object.
+* However, changing a property of an object referenced by a variable does change the underlying object.
+
+<br />
+
+* Primitives are passed by value, and Objects are passed by "copy of a reference".
+* Specifically, when you pass an object (or array) you are (invisibly) passing a reference to that object, and it is possible to modify the contents of that object, but if you attempt to overwrite the reference it will not affect the copy of the reference held by the caller - i.e. the reference itself is passed by value
+
+<br />
+
+```javascript
+function replace(ref) {
+    ref = {};           // this code does _not_ affect the object passed
+}
+
+function update(ref) {
+    ref.key = 'newvalue';  // this code _does_ affect the _contents_ of the object
+}
+
+var a = { key: 'value' };
+replace(a);  // a still has its original value - it's unmodfied
+update(a);   // the _contents_ of 'a' are changed
+```
+
+<br />
+
+### Strict & loose equality
+
+[Mozilla](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness)
+
+<br />
+
+#### === - Strict Equality Comparison ("strict equality", "identity", "triple equals")
+
+* Strict equality compares two values for equality. Neither value is implicitly converted to some other value before being compared. If the values have different types, the values are considered unequal. If the values have the same type, are not numbers, and have the same value, they're considered equal. Finally, if both values are numbers, they're considered equal if they're both not NaN and are the same value, or if one is +0 and one is -0.
+
+```javascript
+var num = 0;
+var obj = new String('0');
+var str = '0';
+
+console.log(num === num); // true
+console.log(obj === obj); // true
+console.log(str === str); // true
+
+console.log(num === obj); // false
+console.log(num === str); // false
+console.log(obj === str); // false
+console.log(null === undefined); // false
+console.log(obj === null); // false
+console.log(obj === undefined); // false
+```
+
+#### == - Abstract Equality Comparison ("loose equality", "double equals")
+
+*The behavior for performing loose equality using == is as follows:
+  * Loose equality compares two values for equality after converting both values to a common type. After conversions (one or both sides may undergo conversions), the final equality comparison is performed exactly as === performs it.
+  * Loose equality is symmetric: A == B always has identical semantics to B == A for any values of A and B (except for the order of applied conversions).
+  * undefined and null are loosely equal; that is, undefined == null is true, and null == undefined is true
+
+<br />
+
+### Types coercion
+
+* Type coercion is the process of converting value from one type to another (such as string to number, object to boolean, and so on). Any type, be it primitive or an object, is a valid subject for type coercion
+  * When a developer expresses the intention to convert between types by writing the appropriate code, like Number(value), it’s called explicit type coercion (or type casting).
+  * Since JavaScript is a weakly-typed language, values can also be converted between different types automatically, and it is called implicit type coercion. It usually happens when you apply operators to values of different types, like
+    1 == null, 2/’5', null + new Date(), or it can be triggered by the surrounding context, like with if (value) {…}, where value is coerced to boolean.
+* 3 types of coercion
+  * String: To explicitly convert values to a string apply the String() function. Implicit coercion is triggered by the binary + operator, when any operand is a string
+  * Boolean: To explicitly convert a value to a boolean apply the Boolean() function. Implicit conversion happens in logical context, or is triggered by logical operators ( || && !).
+  * Numeric: For an explicit conversion just apply the Number() function,
+    * comparison operators (>, <, <=,>=)
+    * bitwise operators ( | & ^ ~)
+    * arithmetic operators (- + * / % ). Note, that binary+ does not trigger numeric conversion, when any operand is a string.
+    * unary + operator
+    * loose equality operator == (incl. !=).
+    * Note that == does not trigger numeric conversion when both operands are strings.
+
+<br />
+
 
 ### What is falsy and truthy and give some examples
 * In JavaScript, a truthy value is a value that is considered true when encountered in a Boolean context.
@@ -620,6 +879,8 @@ myFunc();
 * Type coercion is the process of converting value from one type to another (such as string to number, object to boolean, and so on). Any type, be it primitive or an object, is a valid subject for type coercion. To recall, primitives are: number, string, boolean, null, undefined + Symbol (added in ES6).
   
 <br />
+
+
 
 Examples
 
@@ -692,35 +953,11 @@ fnc();
 
 <br />
 
-  
-### Mention different data types and how are they categorized?
-* String, Number, Boolean, Undefined, Null, Object, Array, RegExp.
-* They are categorized in primitive and non-primitive (referenced)
-* If the value is a primitive value, when you access the variable, you manipulate the actual value stored in that variable. In other words, the variable that stores a primitive value is accessed by value. The size of a primitive value is fixed, therefore, JavaScript stores the primitive value on the stack. 
-* Unlike a primitive value, when you manipulate an object, you work on the reference of that object, rather than the actual object. It means a variable that stores an object is accessed by reference. When you assign a value to a variable, the JavaScript engine will determine whether the value is a primitive or reference value.
-  
-<br />
-
-
-#### Example #1
-
-```js
-let firstPerson = {name: "Mau"};
-
-let secondPerson = firstPerson;
-
-firstPerson.name = "Carlos";
-
-console.log(secondPerson.name);
-console.log(firstPerson.name);
-```
-  
-<br />
-
 ### What is the difference between null and undefined?
+
 * undefined means a variable has been declared but has not yet been assigned a value 
 * null is an assignment value. It can be assigned to a variable as a representation of no value
-
+* As we can see the meaning of every primitive type is obvious except of undefined and null which are almost the same. This happens as the concept of Time is strictly connected with the purpose of algorithms. We can purport something that does not yet exist or does not exist anymore: undefined. But when we wish to be able to represent something that exists being empty, we have to invent another keyword. And that is what null stands for: the beginning of structural meaning.
 
 <br />
 
