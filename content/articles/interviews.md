@@ -200,8 +200,6 @@ Example position absolute
 * ECMAScript Standards is being followed by the JavaScript engines. The job of these standards is to give a definition, how JavaScript engines should work. It also tells what all features it should have.
 * A JavaScript engine is a program, or an interpreter which executes JavaScript code. A JavaScript engine can be implemented as a standard interpreter, or just-in-time compiler that compiles JavaScript to bytecode in some form.
 
-### What is the difference between JavaScript Engine and JavaScript Runtime Environment
-
 
 <br />
 
@@ -265,6 +263,19 @@ Just in time compilation
 
 <br />
 
+
+### What is the difference between JavaScript Engine and JavaScript Runtime Environment
+
+* Imagine a robot is playing a music:
+  * The JavaScript code would be the music notes to the robot.
+  * TheJavaScript engine would be the robot which can understand the notes and act on it.
+  * The JavaScript runtime would be the instruments the robot can use in order to play the music.
+* Imagine a robot is putting out a fire:
+  * The JavaScript code would be the instructions to the robot to put out a fire.
+  * The JavaScript engine would be the robot which can understand the instructions and act on it.
+  * The JavaScript runtime would be the fire truck, and the water gun.
+
+<br />
 
 ### What does it mean that JavaScript is “dynamic”?
 
@@ -336,10 +347,22 @@ The most meaningful well-defined way in which JS is dynamic is that it's dynamic
 * Once the JavaScript engine recognizes that a given variable or function is not needed anymore, it releases the memory it occupied.
 * The main issue with this is that whether or not some memory is still needed is an undecidable problem, which means that there can't be an algorithm that's able to collect all the memory that's not needed anymore in the exact moment it becomes obsolete.
 
+<br />
+
 #### Reference-counting garbage collection
 
-This one is the easiest approximation. It collects the objects that have no references pointing to them.
+* This one is the easiest approximation. It collects the objects that have no references pointing to them.
+* Limitation: Circular references. There is a limitation when it comes to circular references. In the following example, two objects are created with properties that reference one another, thus creating a cycle. They will go out of scope after the function call has completed. At that point they become unneeded and their allocated memory should be reclaimed. However, the reference-counting algorithm will not consider them reclaimable since each of the two objects has at least one reference pointing to them, resulting in neither of them being marked for garbage collection. Circular references are a common cause of memory leaks.
 
+<br />
+
+#### Mark-and-sweep algorithm
+
+* This algorithm reduces the definition of "an object is no longer needed" to "an object is unreachable".
+* This algorithm assumes the knowledge of a set of objects called roots. In JavaScript, the root is the global object. Periodically, the garbage collector will start from these roots, find all objects that are referenced from these roots, then all objects referenced from these, etc. Starting from the roots, the garbage collector will thus find all reachable objects and collect all non-reachable objects.
+* This algorithm is an improvement over the previous one since an object having zero references is effectively unreachable. The opposite does not hold true as we have seen with circular references.
+
+<br />
 
 #### Memory leaks
 
@@ -577,11 +600,6 @@ This one is the easiest approximation. It collects the objects that have no refe
   * Executes the function it was called upon right away. 
   * The call() method does not make a copy of the function it is being called on.
 * call() and apply() serve the exact same purpose. The only difference between how they work is that call() expects all parameters to be passed in individually, whereas apply() expects an array of all of our parameters.
-
-### What is a callback?
-
-* A callback is a function that's passed as an argument to another function. The callback will usually be executed after the code has finished.
-* You can create callback functions yourself by writing functions that accept a function as an argument. Functions like that are also known as higher-order functions. Note that callbacks aren't by default asynchronous.
 
 <br />
 
@@ -930,11 +948,328 @@ if (-Infinity) {
 
 <br />
 
+### What is the difference between null and undefined?
+
+* undefined means a variable has been declared but has not yet been assigned a value 
+* null is an assignment value. It can be assigned to a variable as a representation of no value
+* As we can see the meaning of every primitive type is obvious except of undefined and null which are almost the same. This happens as the concept of Time is strictly connected with the purpose of algorithms. We can purport something that does not yet exist or does not exist anymore: undefined. But when we wish to be able to represent something that exists being empty, we have to invent another keyword. And that is what null stands for: the beginning of structural meaning.
+
+<br />
+
+## Modern futures (ES6+)
+ 
+<br />
+
+### var, const & let
+
+* var
+    * function scope or globally scoped
+      * The scope is global when a var variable is declared outside a function. This means that any variable that is declared with var outside a function block is available for use in the whole window.
+      * var is function scoped when it is declared within a function. This means that it is available and can be accessed only within that function.
+    * variables can be re-declared and updated
+    * hoisted and initialized with undefined
+* let
+    * block scope, A block is a chunk of code bounded by {}. A block lives in curly braces. Anything within curly braces is a block.
+    * let can be updated but not re-declared. However, if the same variable is defined in different scopes, there will be no error
+    * let declarations are hoisted to the top. Unlike var which is initialized as undefined, the let keyword is not initialized. So if you try to use a let variable before declaration, you'll get a Reference Error.
+* const
+    * block scope,
+    * Cant be updated or re-declared. This behavior is somehow different when it comes to objects declared with const. While a const object cannot be updated, the properties of this objects can be updated.
+    * const declarations are hoisted to the top but are not initialized.
+    * While var and let can be declared without being initialized, const must be initialized during declaration.
+
+<br />
+
+
+### Arrow functions 
+
+* This is the new arrow syntax of ES6. It differs by the treatment of this: function gets a this according to the calling context (traditional semantics), but the arrow functions keep the this of the context of definition.
+* Arrow functions bind this lexically, bind return in the Block body case so it returns from the immediately enclosing arrow function, and preclude break and continue from referencing statements outside the immediately enclosing arrow function.
+
+<br />
+
+### Array functions
+
+[Array methods](https://www.javatpoint.com/es6-array-methods)
+
+#### ES6 >=
+
+1. 	Array.from()	It converts array-like values and iterable values into arrays.	ECMAScript 6
+2.	Array.of()	It creates an instance from a variable number of arguments instead of the number of arguments or type of arguments.	ECMAScript 6
+3.	Array.prototype.copyWithin()	It copies the part of an array to a different location within the same array.	ECMAScript 6
+4.	Array.prototype.find()	It finds a value from an array, based on the specific criteria that are passed to this method.	ECMAScript 6
+5.	Array.prototype.findIndex()	The Array.prototype.findIndex() returns the index of the first element of the given array that satisfies the given condition.	ECMAScript 6
+6.	Array.prototype.entries()	It returns an array iterator object, which can be used to loop through keys and values of arrays.	ECMAScript 6
+7.	Array.prototype.keys()	It returns an array iterator object along with the keys of the array.	ECMAScript 6
+8.	Array.prototype.values()	it provides the value of each key.	ECMAScript 6
+9.	Array.prototype.fill()	It fills the specified array elements with a static value	ECMAScript 6
+
+<br />
+
+
+#### ES6 <
+
+1.	concat()	This method returns a new array object which contains two or more merged arrays.	ECMAScript Version 1
+2.	join()	This method joins the array elements as a string.
+3.	pop()	This method is used to remove and return the last element of an array.
+4.	push()	The push() adds one or more elements at the end of an array.
+5.	reverse()	This method reverses the elements of the given array.
+6.	shift()	This method is used to remove and return the first element of an array.
+7.	slice()	This method returns a new array that contains a copy of the part of the given array.
+8.	sort()	This method returns the element of the given array in sorted order.
+9.	toString()	This method returns the strings with all array elements separated by commas.
+10.	unshift()	The unshift() adds one or more elements at the starting of the given array.
+11.	splice()	This method adds/removes the elements to/from the given array.
+12.	every()	This method is used to determine whether all the elements of an array satisfy the provided function conditions.	ECMAScript version 5
+13.	filter()	This method returns the new array, which contains the elements that pass the provided function conditions.
+14.	forEach()	This method invokes the provided function once for each element of an array.
+15.	isArray()	This method determines whether an object is an array or not. It returns true if the object is an array and returns false if not.
+16.	indexOf()	It searches the specified element in the given array and returns the index of the first match.
+17.	lastIndexOf()	It searches the specified element in the given array and returns the index of the last match.
+18.	map()	It calls the specified function for every array element and returns the new array
+19.	reduce()	This method reduces the array to a single value.
+20.	some()	This method returns a Boolean value. Returns true if an array element passes the test else it returns false.	ECMAScript version 3
+
+
+
+<br />
+
+### Object/Array destructuring
+
+* The destructuring assignment is a cool feature that came along with ES6. Destructuring is a JavaScript expression that makes it possible to unpack values from arrays, or properties from objects, into distinct variables. That is, we can extract data from arrays and objects and assign them to variables.
+
+<br />
+
+#### Array destructuring
+
+<br />
+
+Skipping
+```javascript
+let [greeting,,,name] = ["Hello", "I" , "am", "Sarah"];
+```
+
+<br />
+
+Assigning the rest of an array
+
+```javascript
+let [greeting,...intro] = ["Hello", "I" , "am", "Sarah"];
+```
+
+<br />
+
+Using default values
+
+```javascript
+let [greeting = "hi",name = "Sarah"] = ["hello"];
+```
+
+<br />
+
+Swapping
+```javascript
+let a = 3;
+let b = 6;
+
+[a,b] = [b,a];
+```
+
+<br />
+
+#### Object destructuring
+
+<br />
+
+Basic
+
+```javascript
+let person = {name: "Sarah", country: "Nigeria", job: "Developer"};
+
+let {name, country, job} = person;
+
+let {name, country, job} = {name: "Sarah", country: "Nigeria", job: "Developer"};
+```
+
+<br />
+
+New variable name
+```javascript
+let person = {name: "Sarah", country: "Nigeria", job: "Developer"};
+
+let {name: foo, job: bar} = person;
+```
+
+<br />
+
+Default values
+```javascript
+let person = {name: "Sarah", country: "Nigeria", job: "Developer"};
+
+let {name = "myName", friend = "Annie"} = person;
+```
+
+<br />
+
+Computed property name
+
+```javascript
+let prop = "name";
+
+let {[prop] : foo} = {name: "Sarah", country: "Nigeria", job: "Developer"};
+```
+
+
+<br />
+
+Nesting in object destructuring
+
+```javascript
+let person = {
+  name: "Sarah",
+  place: {
+    country: "Nigeria",
+    city: "Lagos" },
+  friends : ["Annie", "Becky"]
+};
+
+let {name:foo,
+  place: {
+    country : bar,
+    city : x}
+} = person;
+```
+
+<br />
+
+Rest in object destructuring
+
+```javascript
+let person = {name: "Sarah", country: "Nigeria", job: "Developer", friends: ["Annie", "Becky"]};
+
+let {name, friends, ...others} = person;
+```
+
+<br />
+
+### Template strings
+
+* Template literals are string literals allowing embedded expressions. You can use multi-line strings and string interpolation features with them.
+* Template literals are enclosed by the backtick (` `) (grave accent) character instead of double or single quotes.
+* Template literals can contain placeholders. These are indicated by the dollar sign and curly braces (${expression}). The expressions in the placeholders and the text between the backticks (` `) get passed to a function.
+* The default function just concatenates the parts into a single string. If there is an expression preceding the template literal (tag here), this is called a tagged template. In that case, the tag expression (usually a function) gets called with the template literal, which you can then manipulate before outputting.
+
+<br />
+
+#### Multi-line strings
+
+```javascript
+console.log(`string text line 1
+string text line 2`);
+// "string text line 1
+// string text line 2"
+```
+
+<br />
+
+#### Expression interpolation
+
+```javascript
+let a = 5;
+let b = 10;
+console.log(`Fifteen is ${a + b} and
+not ${2 * a + b}.`);
+// "Fifteen is 15 and
+// not 20."
+```
+
+<br />
+
+#### Nesting templates
+
+```javascript
+const classes = `header ${ isLargeScreen() ? '' :
+  `icon-${item.isCollapsed ? 'expander' : 'collapser'}` }`;
+
+```
+
+<br />
+
+#### Tagged templates
+
+* Tags allow you to parse template literals with a function. The first argument of a tag function contains an array of string values. The remaining arguments are related to the expressions.
+* The tag function can then perform whatever operations on these arguments you wish, and return the manipulated string. (Alternatively, it can return something completely different, as described in one of the following examples.)
+
+<br />
+
+```javascript
+let person = 'Mike';
+let age = 28;
+
+function myTag(strings, personExp, ageExp) {
+  let str0 = strings[0]; // "That "
+  let str1 = strings[1]; // " is a "
+  let str2 = strings[2]; // "."
+
+  let ageStr;
+  if (ageExp > 99){
+    ageStr = 'centenarian';
+  } else {
+    ageStr = 'youngster';
+  }
+
+  // We can even return a string built using a template literal
+  return `${str0}${personExp}${str1}${ageStr}${str2}`;
+}
+
+let output = myTag`That ${ person } is a ${ age }.`;
+
+console.log(output);
+// That Mike is a youngster.
+
+```
+
+<br />
+
+## Closures and prototypal inheritance
+
+<br />
+
+### First class objects
+
+* A first-class object is an entity within a programming language that can:
+  * Appear in an expression
+  * Be assigned to a variable
+  * Be used as an argument
+  * Be returned by a function call
+  
+<br />
+
+### Functions are objects
+
+* functions are first-class objects, because they can have properties and methods just like any other object. What distinguishes them from other objects is that functions can be called.
+* In the case of a constructor called with the new keyword, the default value is the value of its this parameter. For all other functions, the default return value is undefined.
+* The parameters of a function call are the function's arguments. Arguments are passed to functions by value.
+
+<br />
+
+
+### higher order functions 
+
+* A function that accepts and/or returns another function is called a higher-order function.
+* It’s higher-order because instead of strings, numbers, or booleans, it goes higher to operate on functions.
+* Examples:
+  * map
+  * filter
+  * reduce
+
+<br />
 
 ### What is a closure
+
 * When you declare a local variable, that variable has a scope. Generally, local variables exist only within the block or function in which you declare them.
 * A closure is a persistent scope which holds on to local variables even after the code execution has moved out of that block.
-  
+
 <br />
 
 Example closure
@@ -950,25 +1285,155 @@ outer = function() {
 let fnc = outer();
 fnc();
 ```
-
-<br />
-
-### What is the difference between null and undefined?
-
-* undefined means a variable has been declared but has not yet been assigned a value 
-* null is an assignment value. It can be assigned to a variable as a representation of no value
-* As we can see the meaning of every primitive type is obvious except of undefined and null which are almost the same. This happens as the concept of Time is strictly connected with the purpose of algorithms. We can purport something that does not yet exist or does not exist anymore: undefined. But when we wish to be able to represent something that exists being empty, we have to invent another keyword. And that is what null stands for: the beginning of structural meaning.
-
 <br />
 
 
-### Immutable vs mutable 
+### Encapsulation
 
-*
+* Encapsulation means information hiding. It’s about hiding as much as possible of the object’s internal parts and exposing a minimal public interface.
+* The simplest and most elegant way to create encapsulation in JavaScript is using closures. A closure can be created as a function with private state. When creating many closures sharing the same private state, we create an object.
+
+<br />
+
+Example encapsulation
+
+```javascript
+function Stack(){
+  let list = [];
+  
+  function push(value){ list.push(value); }
+  function pop(){ return list.pop(); }
+  
+  return Object.freeze({
+    push,
+    pop
+  });
+}
+```
+
+<br />
+
+
+### Prototypal inheritance
+
+[Mozilla](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)
+
+* When it comes to inheritance, JavaScript only has one construct: objects. Each object has a private property which holds a link to another object called its prototype. That prototype object has a prototype of its own, and so on until an object is reached with null as its prototype. By definition, null has no prototype, and acts as the final link in this prototype chain.
+* JavaScript objects are dynamic "bags" of properties (referred to as own properties). JavaScript objects have a link to a prototype object. When trying to access a property of an object, the property will not only be sought on the object but on the prototype of the object, the prototype of the prototype, and so on until either a property with a matching name is found or the end of the prototype chain is reached.
+* A function in JavaScript will always have a default prototype property — with one exception: an arrow function doesn't have a default prototype property
+* To check whether an object has a property defined on itself and not somewhere on its prototype chain, it is necessary to use the hasOwnProperty method which all objects inherit from Object.prototype.
+
+<br />
+
+#### True prototypal inheritance
+
+```javascript
+var circle = {
+    radius: 5,
+    create: function (radius) {
+        var circle = Object.create(this);
+        circle.radius = radius;
+        return circle;
+    },
+    area: function () {
+        var radius = this.radius;
+        return Math.PI * radius * radius;
+    },
+    circumference: function () {
+        return 2 * Math.PI * this.radius;
+    }
+};
+
+var circle2 = circle.create(10);
+```
+
+<br />
+
+### Class vs prototype inheritance 
+
+[Stackoverflow](https://stackoverflow.com/questions/19633762/classical-inheritance-vs-prototypal-inheritance-in-javascript)
+[Stackoverflow](https://stackoverflow.com/questions/2800964/benefits-of-prototypal-inheritance-over-classical)
 
 
 <br />
 
+## Javascript oop
+
+<br />
+
+### ES6 classes
+
+* Classes are like blueprints that are used to build instances - the actual objects. Subclasses inherit earlier blueprints and add extra features. You may end up with functionality from up the chain you do not need in the sub-classed instances. An alternative to inheritance is composition where you have nested classes.
+
+<br />
+
+### Polymorphism
+
+* The polymorphism is a core concept of an object-oriented paradigm that provides a way to perform a single action in different forms. It provides an ability to call the same method on different JavaScript objects. As JavaScript is not a type-safe language, we can pass any type of data members with the methods.
+* Polymorphism is one of the tenets of Object Oriented Programming (OOP). It is the practice of designing objects to share behaviors and to be able to override shared behaviors with specific ones. Polymorphism takes advantage of inheritance in order to make this happen.
+* In OOP everything is considered to be modeled as an object. This abstraction can be taken all the way down to nuts and bolts for a car, or as broad as simply a car type with a year, make, and model.
+* To have a polymorphic car scenario there would be the base car type, and then there would subclasses which would inherit from car and provide their own behaviors on top of the basic behaviors a car would have. For example, a subclass could be TowTruck which would still have a year make and model, but might also have some extra behaviors and properties which could be as basic as a flag for IsTowing to as complicated as the specifics of the lift.
+
+
+<br />
+
+## Functional programming
+
+<br />
+
+### What is a pure function?
+
+* Pure Function is a function (a block of code ) that always returns the same result if the same arguments are passed. It does not depend on any state, or data change during a program’s execution rather it only depends on its input arguments
+
+```javascript
+function calculateGST( productPrice ) {
+    return productPrice * 0.05;
+}
+```
+
+<br />
+
+### Immutable vs mutable
+
+* A mutable object is an object whose state can be modified or changed over time. An immutable object, on the other hand, is an object whose state cannot be modified after it is created.
+* Numbers, for instance, are immutable because you can’t change its value. For example, you can’t literarily change the value of 7 to 8. That doesn’t make sense. Instead, you can change the value stored in the variable x from 7 to 8.
+* Arrays and objects are not immutable in JavaScript because they can indeed change their value over time.
+* Mutable array methods:
+  * opyWithin
+  * fill
+  * pop
+  * push
+  * reverse
+  * shift
+  * sort
+  * splice
+  * unshift
+* Benefits:
+  * Predictability: Mutation hides change, which create (unexpected) side effects, which can cause nasty bugs. When you enforce immutability you can keep your application architecture and mental model simple, which makes it easier to reason about your application.
+  * Performance: Even though adding values to an immutable Object means that a new instance needs to be created where existing values need to be copied and new values need to be added to the new Object which cost memory, immutable Objects can make use of structural sharing to reduce memory overhead.
+  * Mutation Tracking: Besides reduced memory usage, immutability allows you to optimize your application by making use of reference- and value equality. This makes it really easy to see if anything has changed. For example a state change in a react component. You can use shouldComponentUpdate to check if the state is identical by comparing state Objects and prevent unnecessary rendering. You can read more about this here.  
+
+<br />
+
+
+### Memoization
+
+* Memoization is an optimization technique that speeds up applications by storing the results of expensive function calls and returning the cached result when the same inputs occur again.
+
+
+<br />
+
+
+## Async Javascript
+
+<br />
+
+### What is a callback?
+
+* A callback is a function that's passed as an argument to another function. The callback will usually be executed after the code has finished.
+* You can create callback functions yourself by writing functions that accept a function as an argument. Functions like that are also known as higher-order functions. Note that callbacks aren't by default asynchronous.
+
+<br />
 
 
 ## React
