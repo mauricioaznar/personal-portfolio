@@ -178,7 +178,7 @@ Example position absolute
 * While em is relative to the font-size of its direct or nearest parent, rem is only relative to the html (root) font-size. em gives the ability to control an area of a design. As in, scale the type in that specific area relatively. rem gives the ability to scale type across the entire page easily.
 <br />
 
-## Javascript
+## Javascript overview
 
 <br />
 
@@ -368,14 +368,6 @@ This one is the easiest approximation. It collects the objects that have no refe
 <br />
 
 
-
-### What is a callback?
-
-* A callback is a function that's passed as an argument to another function. The callback will usually be executed after the code has finished.
-* You can create callback functions yourself by writing functions that accept a function as an argument. Functions like that are also known as higher-order functions. Note that callbacks aren't by default asynchronous.
-
-<br />
-
 ### Concurrency 
 
 * While JavaScript could only do one thing at a time, you can still do things concurrently in the browser. As the title already suggests, this is possible through the APIs that browsers provide.
@@ -444,17 +436,179 @@ This one is the easiest approximation. It collects the objects that have no refe
 <br />
 
 
+## Javascript execution
+
+<br />
+
+### Creation & Execution Phases
+
+[Javascript execution context](https://www.javascripttutorial.net/javascript-execution-context/)
+<br />
+
+
+#### creation phase
+
+1. Create a global object i.e., window in the web browser or global in Node.js.
+1. Create a this object binding which points to the global object above.
+1. Setup a memory heap for storing variables and function references.
+1. Store the function declarations in the memory heap and variables within the global execution context with the initial values as undefined.
+
+<br />
+
+#### execution phase
+
+* The JavaScript engine executes the code line by line. In this phase, it assigns values to variables and executes the function calls.
+* For every function call, the JavaScript engine creates a new Function Execution Context. The Function Execution Context is similar to the Global Execution Context, but instead of creating the global object, it creates the arguments object that contains a reference to all the parameters passed into the function
+* To keep track of all the execution contexts including the Global Execution Context and Function Execution Contexts, the JavaScript engine uses a data structure named call stack
+
+<br />
+
+
+### execution context
+
+[Execution context in javascript](https://medium.com/@happymishra66/execution-context-in-javascript-319dd72e8e2c#id_token=eyJhbGciOiJSUzI1NiIsImtpZCI6IjNkZjBhODMxZTA5M2ZhZTFlMjRkNzdkNDc4MzQ0MDVmOTVkMTdiNTQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJuYmYiOjE2Mjc3Njk2MTIsImF1ZCI6IjIxNjI5NjAzNTgzNC1rMWs2cWUwNjBzMnRwMmEyamFtNGxqZGNtczAwc3R0Zy5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjEwNDg1MDM4NzYwNjIxODY0Njk0OSIsImVtYWlsIjoibWF1cmljaW9hem5hcjk0QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhenAiOiIyMTYyOTYwMzU4MzQtazFrNnFlMDYwczJ0cDJhMmphbTRsamRjbXMwMHN0dGcuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJuYW1lIjoibWF1cmljaW8gYXpuYXIiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2dsclNHZzNxN1JYTGEzb1k4bmNZY0JVT2t3a1FiUDNERlJtR2p1V1E9czk2LWMiLCJnaXZlbl9uYW1lIjoibWF1cmljaW8iLCJmYW1pbHlfbmFtZSI6ImF6bmFyIiwiaWF0IjoxNjI3NzY5OTEyLCJleHAiOjE2Mjc3NzM1MTIsImp0aSI6ImI5MGU2ZDNmMjBiOWEzMzZlZjlhZmU3OTdlY2Y1N2U0ZTg3ZDI5MzcifQ.KsmtsWbc4YG38kNanP9jG4oRgsiwKMfadBNX2zuVxck4_CY7GMkGXxvmU-uLTRu-Yt6xMCKLrYKZ8Y3BxkPuZm6P6oM27S_qWPrCoZ_PtVLqkBmYf0ru4BZGZiMjbrgnYEwGqFdyKczp3pczZlCUl7B6pTswzClLPEtMkL05B1c34utjfQepyc8Klu8yit_JpDgDOA3sCCvdyLjnoRsLYV8XsCO5KlQiO1y7mhxQkXwZDqcLdmkVsoWaFEC5Az9is7eUoX9GK7DmAhm27Twd4MhSUXbSBdLVY6s4Bb-Cgsguhdzvp2wbdJVrHZThu-lqfr5n736JDHOCBXcQ4ZPuBQ)
+
+* Execution context (EC) is defined as the environment in which the JavaScript code is executed. By environment, I mean the value of this, variables, objects, and functions JavaScript code has access to at a particular time.
+  * Global execution context (GEC): This is the default execution context in which JS code start its execution when the file first loads in the browser. All of the global code i.e. code which is not inside any function or object is executed inside the global execution context. GEC cannot be more than one because only one global environment is possible for JS code execution as the JS engine is single threaded.
+  * Functional execution context (FEC): Functional execution context is defined as the context created by the JS engine whenever it finds any function call. Each function has its own execution context. It can be more than one. Functional execution context has access to all the code of the global execution context though vice versa is not applicable. While executing the global execution context code, if JS engine finds a function call, it creates a new functional execution context for that function. In the browser context, if the code is executing in strict mode value of this is undefined else it is window object in the function execution context.
+  * Eval: Execution context inside eval function.
+  
+* Execution context stack (ECS) (call stack): Execution context stack is a stack data structure, i.e. last in first out data structure, to store all the execution stacks created during the life cycle of the script. Global execution context is present by default in execution context stack and it is at the bottom of the stack. While executing the global execution context code, if JS engines find a function call, it creates a functional execution context for that function and pushes it on top of the execution context stack. JS engine executes the function whose execution context is at the top of the execution context stack. Once all the code of the function is executed, JS engines pop out that function’s execution context and start’s executing the function which is below it.
+[Execution context animation](https://miro.medium.com/max/1400/1*bDebsOuhRx9NMyvLHY2zxA.gif)
+
+* Scope chain: The scope chain is a list of all the variable objects of functions inside which the current function exists. Scope chain also consists of the current function execution object.
+
+<br />
+
+
+
+### Lexical environment
+
+* A Lexical Environment is a specification type used to define the association of Identifiers to specific variables and functions based upon the lexical nesting structure of ECMAScript code [Lexical environment](https://amnsingh.medium.com/lexical-environment-the-hidden-part-to-understand-closures-71d60efac0e0)
+* it's the internal js engine construct that holds identifier-variable mapping. (here identifier refers to the name of variables/functions, and variable is the reference to actual object [including function type object] or primitive value). A lexical environment also holds a reference to a parent lexical environment. [Source](https://stackoverflow.com/questions/12599965/lexical-environment-and-function-scope) 
+* Now, for every execution context -- 1) a corresponding lexical environment is created and 2) if any function is created in that execution context, reference to that lexical environment is stored at the internal property ( [[Environment]] ) of that function. So, every function tracks the lexical environment related to the execution context it was created in.
+* And every lexical environment tracks its parent lexical environment (that of parent execution context). As a result, every function has a chain of lexical environments attached to it. [Note: in js a function is an object, creating a function by a statement means creating an object of type Function. So like other objects, a function can hold properties both internal and user defined]
+
+
+
+<br /> 
+
+#### Variable environment
+
+* A variable environment is just the part of a lexical environment within the execution context, essentially just the variables and functions declared within the current context.
+
+<br />
+
+### Block scope vs function scope
+
+* A programming language has block scope if a variable declared inside some block of code enclosed by curly braces is only visible within that block of code, and that variable is not visible outside of that particular block of code.
+* Function scope means that any variables declared inside a function will be visible in the entire function in which they are defined, regardless of whether those variables are declared inside a while loop, for loop, if statement, or some other block of code within that function. Even nested functions (which are basically functions declared within other functions) can access and view variables that are declared in their outer, enclosing, function(s).
+* Basically, the difference between function scope and block scope is that in a language that uses function scope, any variables declared within a function are visible anywhere within that same function. But with block scope, the visibility of variables is confined to any given block (whether it's an if statement, where/for loop, etc) enclosed by curly braces.
+* var variables are ‘function scope.’ What does this mean? It means they are only available inside the function they’re created in, or if not created inside a function, they are ‘globally scoped.’. In other words, var is not limited to the curly brackets. It is the function which defines the scope.
+* What are the benefits of using let and const? Rather than being scoped to the function they are scoped to the block. What is the block? A block is a set of opening and closing curly brackets.
+
+<br />
+
+### Scope chain
+
+* The scope chain is used to resolve the value of variable names in javascript. Without a scope chain the Javascript engine wouldn't know which value to pick for a certain variable name if there are multiple defined at different scopes. Scope chain in javascript is lexically defined, which means that we can see what the scope chain will be by looking at the code.
+* At the top of the scope chain is the global scope, which is the window object in the browser (global in NodeJS). Besides from the global scope, functions have their own scoping of variables. The scope chain can be determined by looking at where functions are defined.
+* When resolving a variable, inner functions first look at their own scope. If the variable cannot be found in its own scope it will climb up the scope chain and looks for the variable name in the environment where the function was defined.
+
+
+<br />
+
+
+### Global context, global variables
+
+* The global context is the fallback context in JavaScript. If you run a function and no context is set (usually by an object, which we'll cover in upcoming videos) then the fallback is the global context. In Node.js, that means an object with information related to Node. In the browser, the global context is the Window object.
+* If you run a file in strict mode, then JavaScript leaves this undefined if it's not actually set. It means there is no fallback object, and if you're using this you'll get undefined. If you try to access this.someAttribute, you'll get an uncaught type error for trying to access an attribute of undefined.
+* All JavaScript code executes in some environment, most commonly in a browser. The code that executes must execute in some "root" scope referred to as the global context or global scope (think of it as the main container). In your browser, this "root" scope is the window object (unique window object per tab/page/iframe).
+* Relying too much on global variables can result in collisions between various scripts on the same page
+
+<br />
+
+#### Scope
+
+* it's the language agnostic concept, to refer to the visibility of variables or functions to the executing code. In js a variable or function is visible to the executing code, if it is there in the current lexical environment or in the lexical-environment-chain of the enclosing function. In case of global code, the chain does not exist.
+
+<br />
+
+### Dynamic scope vs lexical scope
+
+
+* Dynamic Scope: In dynamic scoping, you search in the local function first, then you search in the function that called the local function, then you search in the function that called that function, and so on, up the call-stack. 
+* Lexical scope: is a scope that is defined at lexing time. In other words, lexical scope is based on where variables and blocks of scope are authored, by you, at write-time, and thus is set in stone by the time the lexer processes your code.
+  * It is also called as Static Scope. In a lexically scoped language, the scope of an identifier is fixed to some region in the source code containing the identifier’s declaration. This means that an identifier is only accessible within that region.
+  * No matter where a function is invoked from, or even how it is invoked, its lexical scope is only defined by where the function was declared.
+* The Key Contrast Between Lexical and Dynamic Scoping: Lexical scope is write-time, whereas dynamic scope is run-time. Lexical scope care where a function was declared, but dynamic scope cares where a function was called from.
+  
+<br />
+
+### Scope lookup (shadowing)
+
+* Scope look-up stops once it finds the first match. The same identifier name can be specified at multiple layers of nested scope, which is called shadowing (the inner identifier shadows the outer identifier). Scope look-up always start at the innermost scope being executed at the time, and works its way outward/upward until first match and stops.
+
+<br />
+
+
+
 ### Explain the meaning of this
-*   It has different values depending on where it is used:.
-    In a method, this refers to the owner object. 
-    Alone, this refers to the global object. 
-    In a function, this refers to the global object. 
-    In a function, in strict mode, this is undefined. 
-    In an event, this refers to the element that received the event.
-    Methods like call(), and apply() can refer this to any object.
+* The JavaScript this keyword refers to the object it belongs to
+* It has different values depending on where it is used:
+    * In a method, this refers to the owner object. 
+    * Alone, this refers to the global object. 
+    * In a function, this refers to the global object. 
+    * In a function, in strict mode, this is undefined. 
+    * In an event, this refers to the element that received the event.
+  
     
 <br />
-        
+
+
+### call(), apply() and bind()
+
+* bind: The bind() method creates a new function that, when called, has its this keyword set to the provided value
+* call: he call() method calls a function with a given this value and arguments provided individually.
+  * Accepts additional parameters as well
+  * Executes the function it was called upon right away. 
+  * The call() method does not make a copy of the function it is being called on.
+* call() and apply() serve the exact same purpose. The only difference between how they work is that call() expects all parameters to be passed in individually, whereas apply() expects an array of all of our parameters.
+
+### What is a callback?
+
+* A callback is a function that's passed as an argument to another function. The callback will usually be executed after the code has finished.
+* You can create callback functions yourself by writing functions that accept a function as an argument. Functions like that are also known as higher-order functions. Note that callbacks aren't by default asynchronous.
+
+<br />
+
+### What is hoisting
+* Hoisting is JS’s default behavior of defining all the declarations at the top of the scope before code execution.
+* One of the benefits of hoisting is that it enables us to call functions before they appear in the code. JavaScript only hoists declarations, not initializations.
+* JavaScript Hoisting refers to the process whereby the compiler allocates memory for variable and function declarations prior to execution of the code. Declarations that are made using var are initialized with a default value of undefined. Declarations made using let and const are not initialized as part of hoisting.
+* Conceptually hoisting is often presented as the compiler "splitting variable declaration and initialization, and moving (just) the declarations to the top of the code". This allows variables to appear in code before they are defined. Note however, that any variable initialization in the original code will not happen until the line of code is executed.
+
+
+<br />
+
+Example hoisting
+
+```js
+function myFunc(){
+    let foo;
+    console.log(foo);
+    foo = 'bar'
+}
+myFunc();
+```
+
+<br />
+
+
+
+## Javascript types
+
+
 ### What is falsy and truthy and give some examples
 * In JavaScript, a truthy value is a value that is considered true when encountered in a Boolean context.
 * A falsy (sometimes written falsey) value is a value that is considered false when encountered in a Boolean context. 
@@ -511,25 +665,7 @@ if (-Infinity) {
 ```
 
 <br />
-  
-### What is hoisting
-* Hoisting is JS’s default behavior of defining all the declarations at the top of the scope before code execution.
-* One of the benefits of hoisting is that it enables us to call functions before they appear in the code. JavaScript only hoists declarations, not initializations. 
 
-<br />
-
-Example hoisting
-
-```js
-function myFunc(){
-    let foo;
-    console.log(foo);
-    foo = 'bar'
-}
-myFunc();
-```
-
-<br />
 
 ### What is a closure
 * When you declare a local variable, that variable has a scope. Generally, local variables exist only within the block or function in which you declare them.
