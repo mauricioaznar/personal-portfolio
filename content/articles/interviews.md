@@ -1638,6 +1638,213 @@ import('./modules/myModule.js')
 
 ## React
 
+<br /> 
+
+### SPA’s
+
+* [Mozilla](https://developer.mozilla.org/en-US/docs/Glossary/SPA)
+
+<br />
+
+* An SPA (Single-page application) is a web app implementation that loads only a single web document, and then updates the body content of that single document via JavaScript APIs such as XMLHttpRequest and Fetch when different content is to be shown.
+* This therefore allows users to use websites without loading whole new pages from the server, which can result in performance gains and a more dynamic experience, with some tradeoff disadvantages such as SEO, more effort required to maintain state, implement navigation, and do meaningful performance monitoring.
+* A benefit is that you only transfer the minimum amount of data needed to make the update changes after the main page has been loaded. The main page loads all the content (js, css, etc) that the SPA needs to run so the initial page load can take longer, but after that it is very fast.
+
+
+<br />
+
+### Declarative vs. Imperative
+
+<br />
+
+#### Imperative
+
+* With imperative programming, you tell the compiler what you want to happen, step by step.
+
+<br />
+
+#### Declarative
+
+* With declarative programming, on the other hand, you write code that describes what you want, but not necessarily how to get it (declare your desired results, but not the step-by-step):
+* Some well-known examples of declarative domain specific languages (DSLs) include CSS, regular expressions, and a subset of SQL (SELECT queries, for example) Many markup languages such as HTML, MXML, XAML, XSLT
+
+
+<br />
+
+### File structure patterns
+
+<br />
+
+#### Atomic design
+
+
+
+
+
+<br />
+
+### Component react patterns
+
+<br />
+
+#### Smart & dumb
+
+* One way we can organise our app is into smart and dumb components (a.k.a. container & presentational components). This seperates complex logic from UI.
+* Dumb components are small, take an input, do minimal work and then return some UI output. They are easy to test and reason about.
+* Presentational components utilize props, render, and context (stateless API’s) and can be the syntactically-pretty functional, stateless component:
+* Presentational components receive data and callbacks from props only, which can be provided by its container or parent component.
+* Smart components reside at the top level and do most of the heavy lifting. In PM UI we are somewhat following this pattern and have smart components at the top level that fetch data, parse the JSON response, etc. (e.g. FeedsPage.jsx)
+* Containers are your data or logic layer and utilize stateful API’s. Using lifecycle events, you can connect to a state management store such as Redux or Flux, and pass down data and callbacks as props to children components. In the container’s render method is where you compose your UI consisting of presentational children components. In order to have access to all stateful API’s, a container must be a class component as opposed to a functional component.
+* Tip: Most of these type of components can currently be found in the 'router' directory in PM UI whilst "dumb" components are mainly found in the 'components' directory
+
+<br />
+
+#### It do go down
+
+* Data flows "down" in React. A component may choose to pass its state down as props to its child components
+* Any state is always owned by some specific component, and any data or UI derived from that state can only affect components below them in the tree. Never up. This is called uniderectional data flow
+* So how can components affect one another and not just their children? These componenets must share some common ancestorage. The parent component can pass a function as a property into a child component. When the function is called from the child component it can affect the parent component and so also affect a different child.
+
+<br />
+
+#### Conditional rendering
+
+
+* Render a certain JSX code based on the state.
+* Conditional rendering is very useful as it allows you to create distinct components based on your needs and then render only the ones that are required by the application.
+
+<br />
+
+#### Render props
+
+* technique for sharing code between React components using a prop whose value is a function
+* Render props is when you have a prop that is a function which returns JSX. This of course should work for function components because aside from life cycle methods there really isnt much that is different than class components.
+
+<br />
+
+#### Controlled components
+
+* The controlled component takes the state through props. It can notify any changes by means of callbacks like onChange.
+* Parent components can control it by handling the callback and managing its own state meanwhile, the new values are passed to the controlled component as props.
+* `<input type = "text" value = {value} onChange = {handleChange} />`
+
+
+<br />
+
+### One Way Data Flow
+
+* You typically pass down callbacks from parent components to child components as props. When the state changes in any of the child components, it invokes that callback and passes whatever data is appropriate in each use case. Your "controller-view" (the root component that implements the actual callback) then does whatever business logic you need based on the current state and then updates its state accordingly (causing a re-render of the component tree from that component down).
+* In general this concept means that data has one, and only one, way to be transferred to other parts of the application.
+  * state is passed to the view and to child components
+  * actions are triggered by the view
+  * actions can update the state 
+  * the state change is passed to the view and to child components
+
+<br />
+
+### React is a UI Library
+
+<br />
+
+## React app setup
+
+<br />
+
+### create-react-app
+
+[docs](https://create-react-app.dev/docs/getting-started)
+
+* Create React App is an officially supported way to create single-page React applications. It offers a modern build setup with no configuration.
+* Features:
+  * A recommended starting folder structure
+  * A solid build setup with webpack and Babel (that you don't have to worry about setting up)
+  * Scripts to run our React application
+  * Scripts to bundle for production
+  * Scrips and build for running tests
+  * Ability to extend with Sass, TypeScript, and more
+
+<br />
+
+## JSX
+
+<br />
+
+### Dynamic content
+
+```jsx
+function App() {
+  const [data, setData] = useState([
+    { id: 1 }
+  ])
+  
+  
+  return (
+    <div className="App">
+      {data.map(block => <ComponentFoo  key={block.id} block={block} ></ComponentFoo> )}
+    </div>
+  )
+}
+```
+
+<br />
+
+### Rendering cycle
+
+* mounting, updating and unmounting.
+
+<br />
+
+### React DOM
+
+* ReactDOM is the glue between React and the DOM. Often, you will only use it for one single thing: mounting with ReactDOM.render(). Another useful feature of ReactDOM is ReactDOM.findDOMNode() which you can use to gain direct access to a DOM element. (Something you should use sparingly in React apps, but it can be necessary.)
+
+<br />
+
+
+### JSX Expressions
+
+[Introducing JSX](https://reactjs.org/docs/introducing-jsx.html)
+
+<br />
+
+#### Specifying Attributes with JSX
+
+```jsx
+const element = <div tabIndex="0"></div>;
+const element = <img src={user.avatarUrl}></img>;
+```
+
+<br />
+
+#### JSX is an Expression Too
+
+* After compilation, JSX expressions become regular JavaScript function calls and evaluate to JavaScript objects. This means that you can use JSX inside of if statements and for loops, assign it to variables, accept it as arguments, and return it from functions:
+
+<br />
+
+```jsx
+function getGreeting(user) {
+  if (user) {
+    return <h1>Hello, {formatName(user)}!</h1>;
+  }
+  return <h1>Hello, Stranger.</h1>;
+}
+```
+
+<br />
+
+### JSX Attributes
+
+[JSX in depth](https://reactjs.org/docs/jsx-in-depth.html)
+
+
+
+
+<br />
+
+#### Containment
+
+<br />
 
 ## Excercises
 
