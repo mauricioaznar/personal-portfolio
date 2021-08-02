@@ -1,12 +1,12 @@
 ---
-title: Interviews
+title: Web dev
 ---
 
 ## Links to interviews
 
-[https://epic-react-exercises.vercel.app/](https://epic-react-exercises.vercel.app/)
-[https://dev.to/alexgurr/react-coding-challenges-for-interviews-beginners-1hlk](https://dev.to/alexgurr/react-coding-challenges-for-interviews-beginners-1hlk)
-[https://www.reddit.com/r/reactjs/comments/frklcv/react_coding_challenges_for_interviewsbeginners/]([https://www.reddit.com/r/reactjs/comments/frklcv/react_coding_challenges_for_interviewsbeginners/])
+* [https://epic-react-exercises.vercel.app/](https://epic-react-exercises.vercel.app/)
+* [https://dev.to/alexgurr/react-coding-challenges-for-interviews-beginners-1hlk](https://dev.to/alexgurr/react-coding-challenges-for-interviews-beginners-1hlk)
+* [https://www.reddit.com/r/reactjs/comments/frklcv/react_coding_challenges_for_interviewsbeginners/]([https://www.reddit.com/r/reactjs/comments/frklcv/react_coding_challenges_for_interviewsbeginners/])
 
 <br />
 
@@ -18,6 +18,10 @@ title: Interviews
 ### What Do You Like to Do Outside of Work?
 ### What Are You Passionate About?
 ### How did work get distributed on your previous job?
+### What's your side project?
+### What is the most difficult bug you have fixed (or tried to)?
+### What do you do when you are done with  your assigned tasks?
+### What are you studing right now>
 
 
 <br />
@@ -181,12 +185,6 @@ Example position absolute
 ## Javascript overview
 
 <br />
-
-### Engine architecture
-
-
-<br />
-
 
 
 
@@ -1835,16 +1833,222 @@ function getGreeting(user) {
 
 ### JSX Attributes
 
-[JSX in depth](https://reactjs.org/docs/jsx-in-depth.html)
+<br />
+
+* [JSX in depth](https://reactjs.org/docs/jsx-in-depth.html)
+
+<br />
+
+* JSX just provides syntactic sugar for the `React.createElement(component, props, ...children)`
+* Capitalized types indicate that the JSX tag is referring to a React component. These tags get compiled into a direct reference to the named variable, so if you use the JSX <Foo /> expression, Foo must be in scope.
+* User-Defined Components Must Be Capitalized
+* Booleans, Null, and Undefined Are Ignored
+
+<br />
+
+#### Using dot notation 
+
+```jsx
+import React from 'react';
+
+const MyComponents = {
+  DatePicker: function DatePicker(props) {
+    return <div>Imagine a {props.color} datepicker here.</div>;
+  }
+}
+
+function BlueDatePicker() {
+  return <MyComponents.DatePicker color="blue" />;
+}
+
+```
+
+<br />
+
+### Choosing the type at runtime
+
+```jsx
+import React from 'react';
+import { PhotoStory, VideoStory } from './stories';
+
+const components = {
+  photo: PhotoStory,
+  video: VideoStory
+};
+
+function Story(props) {
+  // Correct! JSX type can be a capitalized variable.
+  const SpecificStory = components[props.storyType];
+  return <SpecificStory story={props.story} />;
+}
+```
+
+<br />
+
+#### Javascript expressions as props
+
+```jsx
+<MyComponent foo={1 + 2 + 3 + 4} />
+
+```
+
+<br />
 
 
+#### Strings
+
+```jsx
+<MyComponent message="hello world" />
+
+<MyComponent message={'hello world'} />
+
+```
+
+<br />
+
+
+#### Props default to true
+
+```jsx
+<MyTextBox autocomplete />
+
+<MyTextBox autocomplete={true} />
+
+```
+
+<br />
+
+
+#### Spread attributes
+
+```jsx
+function App1() {
+  return <Greeting firstName="Ben" lastName="Hector" />;
+}
+
+function App2() {
+  const props = {firstName: 'Ben', lastName: 'Hector'};
+  return <Greeting {...props} />;
+}
+```
+
+<br />
+
+#### Children
+
+```jsx
+
+
+// list
+function Item(props) {
+  return <li>{props.message}</li>;
+}
+
+function TodoList() {
+  const todos = ['finish doc', 'submit pr', 'nag dan to review'];
+  return (
+    <ul>
+      {todos.map((message) => <Item key={message} message={message} />)}
+    </ul>
+  );
+}
+
+// String
+<MyComponent>foo</MyComponent>
+
+<MyComponent>{'foo'}</MyComponent>
+
+
+// Function
+// Calls the children callback numTimes to produce a repeated component
+function Repeat(props) {
+  let items = [];
+  for (let i = 0; i < props.numTimes; i++) {
+    items.push(props.children(i));
+  }
+  return <div>{items}</div>;
+}
+
+function ListOfTenThings() {
+  return (
+    <Repeat numTimes={10}>
+      {(index) => <div key={index}>This is item {index} in the list</div>}
+    </Repeat>
+  );
+}
+```
+
+<br />
+
+
+## Class components
+
+<br />
+
+### Lifecycle methods
+
+* Mounting 
+  * constructor()
+  * static getDerivedStateFromProps()
+    * getDerivedStateFromProps is invoked right before calling the render method, both on the initial mount and on subsequent updates. It should return an object to update the state, or null to update nothing.
+    * This method exists for rare use cases where the state depends on changes in props over time. For example, it might be handy for implementing a <Transition> component that compares its previous and next children to decide which of them to animate in and out.
+  * render()
+  * componentDidMount()
+* Updating
+  * static getDerivedStateFromProps()
+  * shouldComponentUpdate()
+  * render()
+  * getSnapshotBeforeUpdate()
+  *  componentDidUpdate()
+* Unmounting
+  * componentWillUnmount()
+* Error handling
+  * static getDerivedStateFromError()
+  * componentDidCatch()
+* Other
+  * setState()
+  * forceUpdate()
 
 
 <br />
 
-#### Containment
+### Props 
+
+* Props stand for Properties and they are  Read-Only
+* It is an object which stores the value of attributes of a tag and work similar to the HTML attributes. It gives a way to pass data from one component to other components. It is similar to function arguments. Props are passed to the component in the same way as arguments passed in a function.
+* All React components must act like pure functions with respect to their props.
+* Props are immutable so we cannot modify the props from inside the component. Inside the components, we can add attributes called props. These attributes are available in the component as this.props and can be used to render dynamic data in our render method.
+
 
 <br />
+
+### State
+
+* The state is an instance of React Component Class can be defined as an object of a set of observable properties that control the behavior of the component. In other words, the State of a component is an object that holds some information that may change over the lifetime of the component.
+
+<br />
+
+## Hooks 
+
+* Hooks are functions that let you “hook into” React state and lifecycle features from function components. Hooks don’t work inside classes — they let you use React without classes.
+* Benefits:
+  * No need to learn, memorize, implement lifecycle methods
+  * Complex components become hard to understand
+  * Composable, Reusable Logic
+  
+<br />
+
+### Rule of hooks
+
+* Only Call Hooks at the Top Level
+  * Don’t call Hooks inside loops, conditions, or nested functions
+* Only Call Hooks from React Functions:
+  * Call Hooks from React function components.
+  * Call Hooks from custom Hooks (we’ll learn about them on the next page).
+
+<br />
+
+
 
 ## Excercises
 
