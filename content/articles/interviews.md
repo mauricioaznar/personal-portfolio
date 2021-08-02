@@ -397,6 +397,23 @@ The most meaningful well-defined way in which JS is dynamic is that it's dynamic
 
 * While JavaScript could only do one thing at a time, you can still do things concurrently in the browser. As the title already suggests, this is possible through the APIs that browsers provide.
 * Let's take a look at how we make an API request, for instance. If we executed the code within the JavaScript interpreter, we wouldn't be able to do anything else until we get a response from the server. Web browsers give us APIs that we can call in our JavaScript code. The execution, however, is handled by the platform itself, which is why it won't block the call stack. They enable you to make AJAX requests or manipulate the DOM, but also a range of other things, like geo-tracking, accessing local storage, service workers, and more.
+* Concurrency is when two or more tasks can start, run, and complete in overlapping time periods. It doesn't necessarily mean they'll ever both be running at the same instant. For example, multitasking on a single-core machine.
+* Interruptability
+
+
+<br />
+
+
+### Parallelism 
+
+* Parallelism is when tasks literally run at the same time, e.g., on a multicore processor.
+* Independentability
+
+<br />
+
+### Difference between concurrency and parallelism
+
+* [stack overflow](https://stackoverflow.com/questions/1050222/what-is-the-difference-between-concurrency-and-parallelism)
 
 <br />
 
@@ -429,24 +446,38 @@ The most meaningful well-defined way in which JS is dynamic is that it's dynamic
 
 <br />
 
-### What is a promise?
-
-* 
-
-<br />
-
 
 ### Single thread vs multi thread
 
 
+<br />
+
+#### Thread
+
+* A thread is an independent set of values for the processor registers (for a single core). Since this includes the Instruction Pointer (aka Program Counter), it controls what executes in what order. It also includes the Stack Pointer, which had better point to a unique area of memory for each thread or else they will interfere with each other.
+* Threads are the software unit affected by control flow (function call, loop, goto), because those instructions operate on the Instruction Pointer, and that belongs to a particular thread. Threads are often scheduled according to some prioritization scheme (although it's possible to design a system with one thread per processor core, in which case every thread is always running and no scheduling is needed).
+* In fact the value of the Instruction Pointer and the instruction stored at that location is sufficient to determine a new value for the Instruction Pointer. For most instructions, this simply advances the IP by the size of the instruction, but control flow instructions change the IP in other, predictable ways. The sequence of values the IP takes on forms a path of execution weaving through the program code, giving rise to the name "thread".
+
+<br />
+
+#### Process
+
+* A computer program becomes a process when it is loaded from some store into the computer's memory and begins execution. A process can be executed by a processor or a set of processors. A process description in memory contains vital information such as the program counter which keeps track of the current position in the program (i.e. which instruction is currently being executed), registers, variable stores, file handles, signals, and so forth.
+
+<br />
+
 #### Difference between process and thread 
 
 * Both processes and threads are independent sequences of execution. The typical difference is that threads (of the same process) run in a shared memory space, while processes run in separate memory spaces.
+* Processes are like two people using two different computers, who use the network to share data when necessary. Threads are like two people using the same computer, who don't have to share data explicitly but must carefully take turns.
 
+<br />
 
 #### Single thread
 
 * Single threaded processes contain the execution of instructions in a single sequence. In other words, one command is processes at a time.
+
+<br />
 
 #### Multi thread
 
@@ -466,6 +497,8 @@ The most meaningful well-defined way in which JS is dynamic is that it's dynamic
 <br />
 
 ### Creation & Execution Phases
+
+<br />
 
 [Javascript execution context](https://www.javascripttutorial.net/javascript-execution-context/)
 <br />
@@ -1419,10 +1452,15 @@ function calculateGST( productPrice ) {
 ### Memoization
 
 * Memoization is an optimization technique that speeds up applications by storing the results of expensive function calls and returning the cached result when the same inputs occur again.
-
+* A cache is simply a temporary data store that holds data so that future requests for that data can be served faster.
+* An expensive function call is a function call that consumes huge chunks of time and memory during execution due to heavy computation.
+* Where should it be used
+  * For expensive function calls i.e functions that carry out heavy computations.
+  * For functions with a limited and highly recurring input range such that cached values don't just sit there and do nothing.
+  * For recursive functions with recurring input values.
+  * For pure functions i.e functions that return the same output each time they are called with a particular input.
 
 <br />
-
 
 ## Async Javascript
 
@@ -1432,6 +1470,168 @@ function calculateGST( productPrice ) {
 
 * A callback is a function that's passed as an argument to another function. The callback will usually be executed after the code has finished.
 * You can create callback functions yourself by writing functions that accept a function as an argument. Functions like that are also known as higher-order functions. Note that callbacks aren't by default asynchronous.
+
+<br />
+
+### Promises
+
+<br />
+
+[Mozilla](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+
+<br />
+
+* The Promise object represents the eventual completion (or failure) of an asynchronous operation and its resulting value.
+* Promises represent a proxy for a value which are getting in some point in the future.
+* A promise can have 3 states which are the following:
+  * Pending: This is the initial state of the promise, the promise is now waiting for either to be resolved or rejected. For example, when are reaching out to the web with an AJAX request and wrapping the request in a promise. Then the promise will be pending in the time window in which the request is not returned.
+  * Fulfilled: When the operation is completed succesfully, the promise is fulfilled. For example, when we are reaching out to be web using AJAX for some JSON data and wrapping it in a promise. When we are succesfully getting data back the promise is said to be fulfilled.
+  * Rejected: When the operation has failed, the promise is rejected. For example, when we are reaching out to be web using AJAX for some JSON data and wrapping it in a promise. When we are getting a 404 error the promise has been rejected.
+* The finally method receives a callback which is executed on both promise fulfillment and rejection. Here we can write 'cleanup' code which need to be executed always regardless of promise outcome.  
+
+<br />
+
+```javascript
+let prom = new Promise((res, rej) => {
+  console.log('synchronously executed');
+  if (Math.random() > 0.5) {
+    res('Success');
+  } else {
+    rej('Error');
+  }
+})
+
+prom.then((val) => {
+  console.log('asynchronously executed: ' + val);
+}).catch((err) => {
+  console.log('asynchronously executed: ' + err);
+}).finally(() => {
+  console.log('promise done executing');
+});
+```
+
+<br />
+
+
+### Async/await
+
+<br />
+
+* [Mozilla](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await)
+
+<br />
+
+* syntactic sugar on top of promises
+* their return values are guaranteed to be converted to promises.
+* use `try {} catch (e) {} ` or attach `.catch()` at  the end of a function to handle errors
+
+
+<br />
+
+
+### Generators and iterators
+
+```javascript
+var foo = function* () {
+  console.log('first call to next runs to yield #1');
+  var a = yield 'A'; // this yield pushes 'A' and returns 'a'
+  console.log('second call to next runs to yield #2');
+  var b = yield 'B'; // this yield pushes 'B' and returns 'b'
+  console.log('third call to next runs to the end of the generator ');
+  // there's no return statement here so we are returning undefined
+};
+
+var f = foo();
+
+console.log(f.next('this gets ignored')); // { value: 'A', done: false }
+console.log(f.next('a'));                 // { value: 'B', done: false }
+console.log(f.next('b'));                 // { value: undefined, done: true }
+
+// any further call just returns whatever the last returned value was
+console.log(f.next('this also gets ignored since we are done')); // { value
+```
+
+
+<br />
+
+
+## Javascript module
+
+<br />
+
+### IIFE
+
+* Anonymous function that is executed right after it's created.
+* Variables created via var have a scope limited to a function so this construct (which is a function wrapper around certain code) will make sure that your variable scope doesn't leak out of that function.
+* This pattern is often used when trying to avoid polluting the global namespace, because all the variables used inside the IIFE (like in any other normal function) are not visible outside its scope.
+
+<br />
+
+```javascript
+(function(){
+  // all your code here
+  var foo = function() {};
+  window.onload = foo;
+  // ...
+})();
+// foo is unreachable here (it’s undefined)
+```
+
+<br />
+
+
+### CommonJS
+
+<br />
+
+* [Medium](https://medium.com/@cgcrutch18/commonjs-what-why-and-how-64ed9f31aa46)
+
+<br />
+
+* What is CommonJS? CommonJS is a module formatting system. It is a standard for structuring and organizing JavaScript code. CJS assists in the server-side development of apps and it’s format has heavily influenced NodeJS’s module management.
+* What is a module? A module is just a bit of code encapsulated in a file, and exported to another file. Modules focus on a single part of functionality and remain loosely coupled with other filed in an application. This is because there are no global or shared variables between modules, as they only communicate via the module.exports object. Any code that you want to be accessible in another file can be a module!
+* How can I use CommonJS? CommonJS wraps each module in a function called ‘require’, and includes an object called ‘module.exports’, which exports code for availability to be required by other modules.
+* Why would I need CommonJS?? CommonJS allows for code encapsulation, as modules with no global variables won’t conflict with each other when your application is run. CommonJS aids in dependancy-injection management. Modules are loaded synchronously, so modules that are dependent on other modules must be read further down in the code. The separation of functionality makes for much easier testing and debugging of code.
+
+<br />
+
+
+### ES6 Modules
+
+* You can use named imports to selectively load only the pieces you need. That can save memory.
+
+<br />
+
+#### Dynamic module loading
+
+* This new functionality allows you to call import() as a function, passing it the path to the module as a parameter. It returns a Promise, which fulfills with a module object (see Creating a module object) giving you access to that object's exports
+* This allows you to dynamically load modules only when they are needed, rather than having to load everything up front
+
+<br />
+
+
+
+```javascript
+import('./modules/myModule.js')
+  .then((module) => {
+    // Do something with the module.
+  });
+```
+
+<br />
+
+
+### Debugging
+
+<br />
+
+#### Debugging with Chrome DevTools
+
+* [Developer chrome](https://developer.chrome.com/docs/devtools/javascript/)
+
+<br />
+
+* Use brakepoints they are faster than the console.log statements
 
 <br />
 
