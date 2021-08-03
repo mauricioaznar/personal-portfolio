@@ -189,3 +189,28 @@ title: Interview HTML
     binding between elements and styles is done using ‘id’ or ‘class’ attributes.
 
 <br />
+
+
+## What is SEO?
+
+* SEO stands for “search engine optimization.” It’s the process of increasing your website traffic through search engine results.
+* This helps your website become more discoverable. When potential customers search terms related to your brand, they’ll have a better chance of discovering your website and becoming a customer.
+
+<br />
+
+
+# How to optimize for SEO?
+
+* Keywords
+  * Identify and target a specific keyword phrase for each page on your website. Think about how your reader might search for that specific page with search terms like
+* Use alt tags
+* Metadata
+  * Title Metadata 
+  * Description Metadata
+  * Keyword Metadata
+* Updating content regularly
+* Site speed
+* Cross-device compatibility
+  * Is your website and its content equally optimised for any given screen size or device? Bear in mind that Google has stated that responsive design is its preferred method of mobile optimisation.
+* Headlines and permalinks
+  * The headlines for your articles should be under 55 characters 
