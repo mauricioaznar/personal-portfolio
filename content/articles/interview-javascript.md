@@ -1,8 +1,437 @@
 ---
-title: JavaScript Questions
+title: Interview Javascript
 ---
 
 Answers to [Front-end Job Interview Questions - JS Questions](https://github.com/h5bp/Front-end-Developer-Interview-Questions/blob/master/src/questions/javascript-questions.md). Pull requests for suggestions and corrections are welcome!
+
+## What's the difference between a variable that is: `null`, `undefined` or undeclared? How would you go about checking for any of these states?
+
+**Undeclared** variables are created when you assign a value to an identifier that is not previously created using `var`, `let` or `const`. Undeclared variables will be defined globally, outside of the current scope. In strict mode, a `ReferenceError` will be thrown when you try to assign to an undeclared variable. Undeclared variables are bad just like how global variables are bad. Avoid them at all cost! To check for them, wrap its usage in a `try`/`catch` block.
+
+```js
+function foo() {
+  x = 1; // Throws a ReferenceError in strict mode
+}
+
+foo();
+console.log(x); // 1
+```
+
+## What are the differences between variables created using `let`, `var` or `const`?
+
+Variables declared using the `var` keyword are scoped to the function in which they are created, or if created outside of any function, to the global object. `let` and `const` are _block scoped_, meaning they are only accessible within the nearest set of curly braces (function, if-else block, or for-loop).
+
+```js
+function foo() {
+  // All variables are accessible within functions.
+  var bar = 'bar';
+  let baz = 'baz';
+  const qux = 'qux';
+
+  console.log(bar); // bar
+  console.log(baz); // baz
+  console.log(qux); // qux
+}
+
+console.log(bar); // ReferenceError: bar is not defined
+console.log(baz); // ReferenceError: baz is not defined
+console.log(qux); // ReferenceError: qux is not defined
+```
+
+```js
+if (true) {
+  var bar = 'bar';
+  let baz = 'baz';
+  const qux = 'qux';
+}
+
+// var declared variables are accessible anywhere in the function scope.
+console.log(bar); // bar
+// let and const defined variables are not accessible outside of the block they were defined in.
+console.log(baz); // ReferenceError: baz is not defined
+console.log(qux); // ReferenceError: qux is not defined
+```
+
+`var` allows variables to be hoisted, meaning they can be referenced in code before they are declared. `let` and `const` will not allow this, instead throwing an error.
+
+```js
+console.log(foo); // undefined
+
+var foo = 'foo';
+
+console.log(baz); // ReferenceError: can't access lexical declaration 'baz' before initialization
+
+let baz = 'baz';
+
+console.log(bar); // ReferenceError: can't access lexical declaration 'bar' before initialization
+
+const bar = 'bar';
+```
+
+Redeclaring a variable with `var` will not throw an error, but `let` and `const` will.
+
+```js
+var foo = 'foo';
+var foo = 'bar';
+console.log(foo); // "bar"
+
+let baz = 'baz';
+let baz = 'qux'; // Uncaught SyntaxError: Identifier 'baz' has already been declared
+```
+
+`let` and `const` differ in that `let` allows reassigning the variable's value while `const` does not.
+
+```js
+// This is fine.
+let foo = 'foo';
+foo = 'bar';
+
+// This causes an exception.
+const baz = 'baz';
+baz = 'qux';
+```
+
+###### References
+
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const
+
+## What is the difference between `==` and `===`?
+
+`==` is the abstract equality operator while `===` is the strict equality operator. The `==` operator will compare for equality after doing any necessary type conversions. The `===` operator will not do type conversion, so if two values are not the same type `===` will simply return `false`. When using `==`, funky things can happen, such as:
+
+```js
+1 == '1'; // true
+1 == [1]; // true
+1 == true; // true
+0 == ''; // true
+0 == '0'; // true
+0 == false; // true
+```
+
+My advice is never to use the `==` operator, except for convenience when comparing against `null` or `undefined`, where `a == null` will return `true` if `a` is `null` or `undefined`.
+
+```js
+var a = null;
+console.log(a == null); // true
+console.log(a == undefined); // true
+```
+
+###### References
+
+- https://stackoverflow.com/questions/359494/which-equals-operator-vs-should-be-used-in-javascript-comparisons
+
+
+## What is a closure, and how/why would you use one?
+
+A closure is the combination of a function and the lexical environment within which that function was declared. The word "lexical" refers to the fact that lexical scoping uses the location where a variable is declared within the source code to determine where that variable is available. Closures are functions that have access to the outer (enclosing) function's variables—scope chain even after the outer function has returned.
+
+**Why would you use one?**
+
+- Data privacy / emulating private methods with closures. Commonly used in the [module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#modulepatternjavascript).
+- [Partial applications or currying](https://medium.com/javascript-scene/curry-or-partial-application-8150044c78b8#.l4b6l1i3x).
+
+###### References
+
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
+- https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-closure-b2f0d2152b36
+
+## Can you describe the main difference between a `.forEach` loop and a `.map()` loop and why you would pick one versus the other?
+
+To understand the differences between the two, let's look at what each function does.
+
+**`forEach`**
+
+- Iterates through the elements in an array.
+- Executes a callback for each element.
+- Does not return a value.
+
+```js
+const a = [1, 2, 3];
+const doubled = a.forEach((num, index) => {
+  // Do something with num and/or index.
+});
+
+// doubled = undefined
+```
+
+**`map`**
+
+- Iterates through the elements in an array.
+- "Maps" each element to a new element by calling the function on each element, creating a new array as a result.
+
+```js
+const a = [1, 2, 3];
+const doubled = a.map((num) => {
+  return num * 2;
+});
+
+// doubled = [2, 4, 6]
+```
+
+The main difference between `.forEach` and `.map()` is that `.map()` returns a new array. If you need the result, but do not wish to mutate the original array, `.map()` is the clear choice. If you simply need to iterate over an array, `forEach` is a fine choice.
+
+###### References
+
+- https://codeburst.io/javascript-map-vs-foreach-f38111822c0f
+
+
+
+## Explain "hoisting".
+
+Hoisting is a term used to explain the behavior of variable declarations in your code. Variables declared or initialized with the `var` keyword will have their declaration "moved" up to the top of their module/function-level scope, which we refer to as hoisting. However, only the declaration is hoisted, the assignment (if there is one), will stay where it is.
+
+Note that the declaration is not actually moved - the JavaScript engine parses the declarations during compilation and becomes aware of declarations and their scopes. It is just easier to understand this behavior by visualizing the declarations as being hoisted to the top of their scope. Let's explain with a few examples.
+
+```js
+console.log(foo); // undefined
+var foo = 1;
+console.log(foo); // 1
+```
+
+Function declarations have the body hoisted while the function expressions (written in the form of variable declarations) only has the variable declaration hoisted.
+
+```js
+// Function Declaration
+console.log(foo); // [Function: foo]
+foo(); // 'FOOOOO'
+function foo() {
+  console.log('FOOOOO');
+}
+console.log(foo); // [Function: foo]
+
+// Function Expression
+console.log(bar); // undefined
+bar(); // Uncaught TypeError: bar is not a function
+var bar = function () {
+  console.log('BARRRR');
+};
+console.log(bar); // [Function: bar]
+```
+
+Variables declared via `let` and `const` are hoisted as well. However, unlike `var` and `function`, they are not initialized and accessing them before the declaration will result in a `ReferenceError` exception. The variable is in a "temporal dead zone" from the start of the block until the declaration is processed.
+
+```js
+x; // undefined
+y; // Reference error: y is not defined
+
+var x = 'local';
+let y = 'local';
+```
+
+###### References
+
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_Types#Variable_hoisting
+- https://stackoverflow.com/questions/31219420/are-variables-declared-with-let-or-const-not-hoisted-in-es6/31222689#31222689
+
+
+A variable that is `undefined` is a variable that has been declared, but not assigned a value. It is of type `undefined`. If a function does not return any value as the result of executing it is assigned to a variable, the variable also has the value of `undefined`. To check for it, compare using the strict equality (`===`) operator or `typeof` which will give the `'undefined'` string. Note that you should not be using the abstract equality operator to check, as it will also return `true` if the value is `null`.
+
+```js
+var foo;
+console.log(foo); // undefined
+console.log(foo === undefined); // true
+console.log(typeof foo === 'undefined'); // true
+
+console.log(foo == null); // true. Wrong, don't use this to check!
+
+function bar() {}
+var baz = bar();
+console.log(baz); // undefined
+```
+
+A variable that is `null` will have been explicitly assigned to the `null` value. It represents no value and is different from `undefined` in the sense that it has been explicitly assigned. To check for `null,` simply compare using the strict equality operator. Note that like the above, you should not be using the abstract equality operator (`==`) to check, as it will also return `true` if the value is `undefined`.
+
+```js
+var foo = null;
+console.log(foo === null); // true
+console.log(typeof foo === 'object'); // true
+
+console.log(foo == undefined); // true. Wrong, don't use this to check!
+```
+
+As a personal habit, I never leave my variables undeclared or unassigned. I will explicitly assign `null` to them after declaring if I don't intend to use it yet. If you use a linter in your workflow, it will usually also be able to check that you are not referencing undeclared variables.
+
+###### References
+
+- https://stackoverflow.com/questions/15985875/effect-of-declared-and-undeclared-variables
+- https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/undefined
+
+
+
+## What are the benefits of using spread syntax and how is it different from rest syntax?
+
+ES6's spread syntax is very useful when coding in a functional paradigm as we can easily create copies of arrays or objects without resorting to `Object.create`, `slice`, or a library function. This language feature is used often in Redux and RxJS projects.
+
+```js
+function putDookieInAnyArray(arr) {
+  return [...arr, 'dookie'];
+}
+
+const result = putDookieInAnyArray(['I', 'really', "don't", 'like']); // ["I", "really", "don't", "like", "dookie"]
+
+const person = {
+  name: 'Todd',
+  age: 29,
+};
+
+const copyOfTodd = {...person};
+```
+
+ES6's rest syntax offers a shorthand for including an arbitrary number of arguments to be passed to a function. It is like an inverse of the spread syntax, taking data and stuffing it into an array rather than unpacking an array of data, and it works in function arguments, as well as in array and object destructuring assignments.
+
+```js
+function addFiveToABunchOfNumbers(...numbers) {
+  return numbers.map((x) => x + 5);
+}
+
+const result = addFiveToABunchOfNumbers(4, 5, 6, 7, 8, 9, 10); // [9, 10, 11, 12, 13, 14, 15]
+
+const [a, b, ...rest] = [1, 2, 3, 4]; // a: 1, b: 2, rest: [3, 4]
+
+const {e, f, ...others} = {
+  e: 1,
+  f: 2,
+  g: 3,
+  h: 4,
+}; // e: 1, f: 2, others: { g: 3, h: 4 }
+```
+
+###### References
+
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+
+
+
+## How can you share code between files?
+
+This depends on the JavaScript environment.
+
+On the client (browser environment), as long as the variables/functions are declared in the global scope (`window`), all scripts can refer to them. Alternatively, adopt the Asynchronous Module Definition (AMD) via RequireJS for a more modular approach.
+
+On the server (Node.js), the common way has been to use CommonJS. Each file is treated as a module and it can export variables and functions by attaching them to the `module.exports` object.
+
+ES2015 defines a module syntax which aims to replace both AMD and CommonJS. This will eventually be supported in both browser and Node environments.
+
+
+## Can you give an example for destructuring an object or an array?
+
+Destructuring is an expression available in ES6 which enables a succinct and convenient way to extract values of Objects or Arrays and place them into distinct variables.
+
+**Array destructuring**
+
+```js
+// Variable assignment.
+const foo = ['one', 'two', 'three'];
+
+const [one, two, three] = foo;
+console.log(one); // "one"
+console.log(two); // "two"
+console.log(three); // "three"
+```
+
+```js
+// Swapping variables
+let a = 1;
+let b = 3;
+
+[a, b] = [b, a];
+console.log(a); // 3
+console.log(b); // 1
+```
+
+**Object destructuring**
+
+```js
+// Variable assignment.
+const o = {p: 42, q: true};
+const {p, q} = o;
+
+console.log(p); // 42
+console.log(q); // true
+```
+
+###### References
+
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+- https://ponyfoo.com/articles/es6-destructuring-in-depth
+
+## Why is it called a Ternary expression, what does the word "Ternary" indicate?
+
+"Ternary" indicates three, and a ternary expression accepts three operands, the test condition, the "then" expression and the "else" expression. Ternary expressions are not specific to JavaScript and I'm not sure why it is even in this list.
+
+###### References
+
+- https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
+
+
+## ES6 Template Literals offer a lot of flexibility in generating strings, can you give an example?
+
+Template literals help make it simple to do string interpolation, or to include variables in a string. Before ES2015, it was common to do something like this:
+
+```js
+var person = {name: 'Tyler', age: 28};
+console.log(
+  'Hi, my name is ' + person.name + ' and I am ' + person.age + ' years old!',
+);
+// 'Hi, my name is Tyler and I am 28 years old!'
+```
+
+With template literals, you can now create that same output like this instead:
+
+```js
+const person = {name: 'Tyler', age: 28};
+console.log(`Hi, my name is ${person.name} and I am ${person.age} years old!`);
+// 'Hi, my name is Tyler and I am 28 years old!'
+```
+
+Note that you use backticks, not quotes, to indicate that you are using a template literal and that you can insert expressions inside the `${}` placeholders.
+
+A second helpful use case is in creating multi-line strings. Before ES2015, you could create a multi-line string like this:
+
+```js
+console.log('This is line one.\nThis is line two.');
+// This is line one.
+// This is line two.
+```
+
+Or if you wanted to break it up into multiple lines in your code so you didn't have to scroll to the right in your text editor to read a long string, you could also write it like this:
+
+```js
+console.log('This is line one.\n' + 'This is line two.');
+// This is line one.
+// This is line two.
+```
+
+Template literals, however, preserve whatever spacing you add to them. For example, to create that same multi-line output that we created above, you can simply do:
+
+```js
+console.log(`This is line one.
+This is line two.`);
+// This is line one.
+// This is line two.
+```
+
+Another use case of template literals would be to use as a substitute for templating libraries for simple variable interpolations:
+
+```js
+const person = {name: 'Tyler', age: 28};
+document.body.innerHTML = `
+  <div>
+    <p>Name: ${person.name}</p>
+    <p>Name: ${person.age}</p>
+  </div>
+`;
+```
+
+**Note that your code may be susceptible to XSS by using `.innerHTML`. Sanitize your data before displaying it if it came from a user!**
+
+###### References
+
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
 
 ## Explain event delegation
 
@@ -18,7 +447,7 @@ Event delegation is a technique involving adding event listeners to a parent ele
 
 [[↑] Back to top](#table-of-contents)
 
- Explain how `this` works in JavaScript
+## Explain how `this` works in JavaScript
 
 There's no simple explanation for `this`; it is one of the most confusing concepts in JavaScript. A hand-wavey explanation is that the value of `this` depends on how the function is called. I have read many explanations on `this` online, and I found [Arnav Aggrawal](https://medium.com/@arnav_aggarwal)'s explanation to be the clearest. The following rules are applied:
 
@@ -167,111 +596,6 @@ console.log(foo); // undefined
 - http://lucybain.com/blog/2014/immediately-invoked-function-expression/
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/void
 
-[[↑] Back to top](#table-of-contents)
-
-## What's the difference between a variable that is: `null`, `undefined` or undeclared? How would you go about checking for any of these states?
-
-**Undeclared** variables are created when you assign a value to an identifier that is not previously created using `var`, `let` or `const`. Undeclared variables will be defined globally, outside of the current scope. In strict mode, a `ReferenceError` will be thrown when you try to assign to an undeclared variable. Undeclared variables are bad just like how global variables are bad. Avoid them at all cost! To check for them, wrap its usage in a `try`/`catch` block.
-
-```js
-function foo() {
-  x = 1; // Throws a ReferenceError in strict mode
-}
-
-foo();
-console.log(x); // 1
-```
-
-A variable that is `undefined` is a variable that has been declared, but not assigned a value. It is of type `undefined`. If a function does not return any value as the result of executing it is assigned to a variable, the variable also has the value of `undefined`. To check for it, compare using the strict equality (`===`) operator or `typeof` which will give the `'undefined'` string. Note that you should not be using the abstract equality operator to check, as it will also return `true` if the value is `null`.
-
-```js
-var foo;
-console.log(foo); // undefined
-console.log(foo === undefined); // true
-console.log(typeof foo === 'undefined'); // true
-
-console.log(foo == null); // true. Wrong, don't use this to check!
-
-function bar() {}
-var baz = bar();
-console.log(baz); // undefined
-```
-
-A variable that is `null` will have been explicitly assigned to the `null` value. It represents no value and is different from `undefined` in the sense that it has been explicitly assigned. To check for `null,` simply compare using the strict equality operator. Note that like the above, you should not be using the abstract equality operator (`==`) to check, as it will also return `true` if the value is `undefined`.
-
-```js
-var foo = null;
-console.log(foo === null); // true
-console.log(typeof foo === 'object'); // true
-
-console.log(foo == undefined); // true. Wrong, don't use this to check!
-```
-
-As a personal habit, I never leave my variables undeclared or unassigned. I will explicitly assign `null` to them after declaring if I don't intend to use it yet. If you use a linter in your workflow, it will usually also be able to check that you are not referencing undeclared variables.
-
-###### References
-
-- https://stackoverflow.com/questions/15985875/effect-of-declared-and-undeclared-variables
-- https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/undefined
-
-[[↑] Back to top](#table-of-contents)
-
-## What is a closure, and how/why would you use one?
-
-A closure is the combination of a function and the lexical environment within which that function was declared. The word "lexical" refers to the fact that lexical scoping uses the location where a variable is declared within the source code to determine where that variable is available. Closures are functions that have access to the outer (enclosing) function's variables—scope chain even after the outer function has returned.
-
-**Why would you use one?**
-
-- Data privacy / emulating private methods with closures. Commonly used in the [module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#modulepatternjavascript).
-- [Partial applications or currying](https://medium.com/javascript-scene/curry-or-partial-application-8150044c78b8#.l4b6l1i3x).
-
-###### References
-
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
-- https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-closure-b2f0d2152b36
-
-[[↑] Back to top](#table-of-contents)
-
-## Can you describe the main difference between a `.forEach` loop and a `.map()` loop and why you would pick one versus the other?
-
-To understand the differences between the two, let's look at what each function does.
-
-**`forEach`**
-
-- Iterates through the elements in an array.
-- Executes a callback for each element.
-- Does not return a value.
-
-```js
-const a = [1, 2, 3];
-const doubled = a.forEach((num, index) => {
-  // Do something with num and/or index.
-});
-
-// doubled = undefined
-```
-
-**`map`**
-
-- Iterates through the elements in an array.
-- "Maps" each element to a new element by calling the function on each element, creating a new array as a result.
-
-```js
-const a = [1, 2, 3];
-const doubled = a.map((num) => {
-  return num * 2;
-});
-
-// doubled = [2, 4, 6]
-```
-
-The main difference between `.forEach` and `.map()` is that `.map()` returns a new array. If you need the result, but do not wish to mutate the original array, `.map()` is the clear choice. If you simply need to iterate over an array, `forEach` is a fine choice.
-
-###### References
-
-- https://codeburst.io/javascript-map-vs-foreach-f38111822c0f
-
-[[↑] Back to top](#table-of-contents)
 
 ## What's a typical use case for anonymous functions?
 
@@ -504,7 +828,6 @@ These days, [CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing) i
 
 - https://stackoverflow.com/a/2067584/1751946
 
-[[↑] Back to top](#table-of-contents)
 
 ## Have you ever used JavaScript templating? If so, what libraries have you used?
 
@@ -516,56 +839,6 @@ const template = `<div>My name is: ${name}</div>`;
 
 However, do be aware of a potential XSS in the above approach as the contents are not escaped for you, unlike in templating libraries.
 
-[[↑] Back to top](#table-of-contents)
-
-## Explain "hoisting".
-
-Hoisting is a term used to explain the behavior of variable declarations in your code. Variables declared or initialized with the `var` keyword will have their declaration "moved" up to the top of their module/function-level scope, which we refer to as hoisting. However, only the declaration is hoisted, the assignment (if there is one), will stay where it is.
-
-Note that the declaration is not actually moved - the JavaScript engine parses the declarations during compilation and becomes aware of declarations and their scopes. It is just easier to understand this behavior by visualizing the declarations as being hoisted to the top of their scope. Let's explain with a few examples.
-
-```js
-console.log(foo); // undefined
-var foo = 1;
-console.log(foo); // 1
-```
-
-Function declarations have the body hoisted while the function expressions (written in the form of variable declarations) only has the variable declaration hoisted.
-
-```js
-// Function Declaration
-console.log(foo); // [Function: foo]
-foo(); // 'FOOOOO'
-function foo() {
-  console.log('FOOOOO');
-}
-console.log(foo); // [Function: foo]
-
-// Function Expression
-console.log(bar); // undefined
-bar(); // Uncaught TypeError: bar is not a function
-var bar = function () {
-  console.log('BARRRR');
-};
-console.log(bar); // [Function: bar]
-```
-
-Variables declared via `let` and `const` are hoisted as well. However, unlike `var` and `function`, they are not initialized and accessing them before the declaration will result in a `ReferenceError` exception. The variable is in a "temporal dead zone" from the start of the block until the declaration is processed.
-
-```js
-x; // undefined
-y; // Reference error: y is not defined
-
-var x = 'local';
-let y = 'local';
-```
-
-###### References
-
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_Types#Variable_hoisting
-- https://stackoverflow.com/questions/31219420/are-variables-declared-with-let-or-const-not-hoisted-in-es6/31222689#31222689
-
-[[↑] Back to top](#table-of-contents)
 
 ## Describe event bubbling.
 
@@ -619,34 +892,6 @@ The `DOMContentLoaded` event is fired when the initial HTML document has been co
 - https://developer.mozilla.org/en-US/docs/Web/Events/DOMContentLoaded
 - https://developer.mozilla.org/en-US/docs/Web/Events/load
 
-[[↑] Back to top](#table-of-contents)
-
-## What is the difference between `==` and `===`?
-
-`==` is the abstract equality operator while `===` is the strict equality operator. The `==` operator will compare for equality after doing any necessary type conversions. The `===` operator will not do type conversion, so if two values are not the same type `===` will simply return `false`. When using `==`, funky things can happen, such as:
-
-```js
-1 == '1'; // true
-1 == [1]; // true
-1 == true; // true
-0 == ''; // true
-0 == '0'; // true
-0 == false; // true
-```
-
-My advice is never to use the `==` operator, except for convenience when comparing against `null` or `undefined`, where `a == null` will return `true` if `a` is `null` or `undefined`.
-
-```js
-var a = null;
-console.log(a == null); // true
-console.log(a == undefined); // true
-```
-
-###### References
-
-- https://stackoverflow.com/questions/359494/which-equals-operator-vs-should-be-used-in-javascript-comparisons
-
-[[↑] Back to top](#table-of-contents)
 
 ## Explain the same-origin policy with regards to JavaScript.
 
@@ -682,13 +927,6 @@ duplicate([1, 2, 3, 4, 5]); // [1,2,3,4,5,1,2,3,4,5]
 
 [[↑] Back to top](#table-of-contents)
 
-## Why is it called a Ternary expression, what does the word "Ternary" indicate?
-
-"Ternary" indicates three, and a ternary expression accepts three operands, the test condition, the "then" expression and the "else" expression. Ternary expressions are not specific to JavaScript and I'm not sure why it is even in this list.
-
-###### References
-
-- https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
 
 [[↑] Back to top](#table-of-contents)
 
@@ -1068,87 +1306,6 @@ var foo = function () {
 
 [[↑] Back to top](#table-of-contents)
 
-## What are the differences between variables created using `let`, `var` or `const`?
-
-Variables declared using the `var` keyword are scoped to the function in which they are created, or if created outside of any function, to the global object. `let` and `const` are _block scoped_, meaning they are only accessible within the nearest set of curly braces (function, if-else block, or for-loop).
-
-```js
-function foo() {
-  // All variables are accessible within functions.
-  var bar = 'bar';
-  let baz = 'baz';
-  const qux = 'qux';
-
-  console.log(bar); // bar
-  console.log(baz); // baz
-  console.log(qux); // qux
-}
-
-console.log(bar); // ReferenceError: bar is not defined
-console.log(baz); // ReferenceError: baz is not defined
-console.log(qux); // ReferenceError: qux is not defined
-```
-
-```js
-if (true) {
-  var bar = 'bar';
-  let baz = 'baz';
-  const qux = 'qux';
-}
-
-// var declared variables are accessible anywhere in the function scope.
-console.log(bar); // bar
-// let and const defined variables are not accessible outside of the block they were defined in.
-console.log(baz); // ReferenceError: baz is not defined
-console.log(qux); // ReferenceError: qux is not defined
-```
-
-`var` allows variables to be hoisted, meaning they can be referenced in code before they are declared. `let` and `const` will not allow this, instead throwing an error.
-
-```js
-console.log(foo); // undefined
-
-var foo = 'foo';
-
-console.log(baz); // ReferenceError: can't access lexical declaration 'baz' before initialization
-
-let baz = 'baz';
-
-console.log(bar); // ReferenceError: can't access lexical declaration 'bar' before initialization
-
-const bar = 'bar';
-```
-
-Redeclaring a variable with `var` will not throw an error, but `let` and `const` will.
-
-```js
-var foo = 'foo';
-var foo = 'bar';
-console.log(foo); // "bar"
-
-let baz = 'baz';
-let baz = 'qux'; // Uncaught SyntaxError: Identifier 'baz' has already been declared
-```
-
-`let` and `const` differ in that `let` allows reassigning the variable's value while `const` does not.
-
-```js
-// This is fine.
-let foo = 'foo';
-foo = 'bar';
-
-// This causes an exception.
-const baz = 'baz';
-baz = 'qux';
-```
-
-###### References
-
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const
-
-[[↑] Back to top](#table-of-contents)
 
 ## What are the differences between ES6 class and ES5 function constructors?
 
@@ -1298,118 +1455,6 @@ transformNamesToUppercase(names); // ['IRISH', 'DAISY', 'ANNA']
 - https://hackernoon.com/effective-functional-javascript-first-class-and-higher-order-functions-713fde8df50a
 - https://eloquentjavascript.net/05_higher_order.html
 
-[[↑] Back to top](#table-of-contents)
-
-## Can you give an example for destructuring an object or an array?
-
-Destructuring is an expression available in ES6 which enables a succinct and convenient way to extract values of Objects or Arrays and place them into distinct variables.
-
-**Array destructuring**
-
-```js
-// Variable assignment.
-const foo = ['one', 'two', 'three'];
-
-const [one, two, three] = foo;
-console.log(one); // "one"
-console.log(two); // "two"
-console.log(three); // "three"
-```
-
-```js
-// Swapping variables
-let a = 1;
-let b = 3;
-
-[a, b] = [b, a];
-console.log(a); // 3
-console.log(b); // 1
-```
-
-**Object destructuring**
-
-```js
-// Variable assignment.
-const o = {p: 42, q: true};
-const {p, q} = o;
-
-console.log(p); // 42
-console.log(q); // true
-```
-
-###### References
-
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
-- https://ponyfoo.com/articles/es6-destructuring-in-depth
-
-[[↑] Back to top](#table-of-contents)
-
-## ES6 Template Literals offer a lot of flexibility in generating strings, can you give an example?
-
-Template literals help make it simple to do string interpolation, or to include variables in a string. Before ES2015, it was common to do something like this:
-
-```js
-var person = {name: 'Tyler', age: 28};
-console.log(
-  'Hi, my name is ' + person.name + ' and I am ' + person.age + ' years old!',
-);
-// 'Hi, my name is Tyler and I am 28 years old!'
-```
-
-With template literals, you can now create that same output like this instead:
-
-```js
-const person = {name: 'Tyler', age: 28};
-console.log(`Hi, my name is ${person.name} and I am ${person.age} years old!`);
-// 'Hi, my name is Tyler and I am 28 years old!'
-```
-
-Note that you use backticks, not quotes, to indicate that you are using a template literal and that you can insert expressions inside the `${}` placeholders.
-
-A second helpful use case is in creating multi-line strings. Before ES2015, you could create a multi-line string like this:
-
-```js
-console.log('This is line one.\nThis is line two.');
-// This is line one.
-// This is line two.
-```
-
-Or if you wanted to break it up into multiple lines in your code so you didn't have to scroll to the right in your text editor to read a long string, you could also write it like this:
-
-```js
-console.log('This is line one.\n' + 'This is line two.');
-// This is line one.
-// This is line two.
-```
-
-Template literals, however, preserve whatever spacing you add to them. For example, to create that same multi-line output that we created above, you can simply do:
-
-```js
-console.log(`This is line one.
-This is line two.`);
-// This is line one.
-// This is line two.
-```
-
-Another use case of template literals would be to use as a substitute for templating libraries for simple variable interpolations:
-
-```js
-const person = {name: 'Tyler', age: 28};
-document.body.innerHTML = `
-  <div>
-    <p>Name: ${person.name}</p>
-    <p>Name: ${person.age}</p>
-  </div>
-`;
-```
-
-**Note that your code may be susceptible to XSS by using `.innerHTML`. Sanitize your data before displaying it if it came from a user!**
-
-###### References
-
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
-
-[[↑] Back to top](#table-of-contents)
 
 ## Can you give an example of a curry function and why this syntax offers an advantage?
 
@@ -1446,64 +1491,6 @@ var result = [0, 1, 2, 3, 4, 5].map(addFive); // [5, 6, 7, 8, 9, 10]
 ###### References
 
 - https://hackernoon.com/currying-in-js-d9ddc64f162e
-
-[[↑] Back to top](#table-of-contents)
-
-## What are the benefits of using spread syntax and how is it different from rest syntax?
-
-ES6's spread syntax is very useful when coding in a functional paradigm as we can easily create copies of arrays or objects without resorting to `Object.create`, `slice`, or a library function. This language feature is used often in Redux and RxJS projects.
-
-```js
-function putDookieInAnyArray(arr) {
-  return [...arr, 'dookie'];
-}
-
-const result = putDookieInAnyArray(['I', 'really', "don't", 'like']); // ["I", "really", "don't", "like", "dookie"]
-
-const person = {
-  name: 'Todd',
-  age: 29,
-};
-
-const copyOfTodd = {...person};
-```
-
-ES6's rest syntax offers a shorthand for including an arbitrary number of arguments to be passed to a function. It is like an inverse of the spread syntax, taking data and stuffing it into an array rather than unpacking an array of data, and it works in function arguments, as well as in array and object destructuring assignments.
-
-```js
-function addFiveToABunchOfNumbers(...numbers) {
-  return numbers.map((x) => x + 5);
-}
-
-const result = addFiveToABunchOfNumbers(4, 5, 6, 7, 8, 9, 10); // [9, 10, 11, 12, 13, 14, 15]
-
-const [a, b, ...rest] = [1, 2, 3, 4]; // a: 1, b: 2, rest: [3, 4]
-
-const {e, f, ...others} = {
-  e: 1,
-  f: 2,
-  g: 3,
-  h: 4,
-}; // e: 1, f: 2, others: { g: 3, h: 4 }
-```
-
-###### References
-
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
-
-[[↑] Back to top](#table-of-contents)
-
-## How can you share code between files?
-
-This depends on the JavaScript environment.
-
-On the client (browser environment), as long as the variables/functions are declared in the global scope (`window`), all scripts can refer to them. Alternatively, adopt the Asynchronous Module Definition (AMD) via RequireJS for a more modular approach.
-
-On the server (Node.js), the common way has been to use CommonJS. Each file is treated as a module and it can export variables and functions by attaching them to the `module.exports` object.
-
-ES2015 defines a module syntax which aims to replace both AMD and CommonJS. This will eventually be supported in both browser and Node environments.
 
 [[↑] Back to top](#table-of-contents)
 
