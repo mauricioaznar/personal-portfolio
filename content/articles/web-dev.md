@@ -2,7 +2,11 @@
 title: Web dev
 ---
 
-## Links to interviews
+## Resources
+
+<br />
+
+### Links to interviews
 
 * [https://epic-react-exercises.vercel.app/](https://epic-react-exercises.vercel.app/)
 * [https://dev.to/alexgurr/react-coding-challenges-for-interviews-beginners-1hlk](https://dev.to/alexgurr/react-coding-challenges-for-interviews-beginners-1hlk)
@@ -10,7 +14,34 @@ title: Web dev
 
 <br />
 
+### General
+
+
+* [Jonas schemdtmann resources](https://codingheroes.io/resources/)
+
+<br />
+
+## SVG
+
+* [Convert a map to an svg](https://www.openstreetmap.org/#map=6/23.944/-102.579)
+* [Pixabay free artwork](https://pixabay.com/)
+
+<br />
+
+### Articles
+
+* [How I stopped worrying and learned to animate SVG](https://medium.com/@aniboaz/animate-svg-4fa7dd00e860)
+* [Animate SVG with CSS](https://jonsuh.com/blog/animate-svg-with-css/)
+* [SVG ON THE WEB - A Practical Guide](https://svgontheweb.com/)
+* [Animating SVG with CSS - CSS-tricks](https://css-tricks.com/animating-svg-css/)
+
+
+<br />
+
+
 ## General
+
+<br />
 
 ### Mention your strengths and weaknesses
 ###  Why Do You Want to Work at This Company?
@@ -2030,6 +2061,10 @@ function ListOfTenThings() {
 
 ## Hooks 
 
+[Docs](https://reactjs.org/docs/hooks-reference.html)
+
+<br />
+
 * Hooks are functions that let you “hook into” React state and lifecycle features from function components. Hooks don’t work inside classes — they let you use React without classes.
 * Benefits:
   * No need to learn, memorize, implement lifecycle methods
@@ -2049,6 +2084,707 @@ function ListOfTenThings() {
 <br />
 
 
+### useState
+
+* Returns a stateful value, and a function to update it.
+* During the initial render, the returned state (state) is the same as the value passed as the first argument (initialState).
+* The setState function is used to update the state. It accepts a new state value and enqueues a re-render of the component.
+* During subsequent re-renders, the first value returned by useState will always be the most recent state after applying updates.
+* If your update function returns the exact same value as the current state, the subsequent rerender will be skipped completely.
+
+
+<br />
+
+#### Functional updates
+
+* If the new state is computed using the previous state, you can pass a function to setState. The function will receive the previous value, and return an updated value. Here’s an example of a counter component that uses both forms of setState
+
+```jsx
+function Counter({initialCount}) {
+  const [count, setCount] = useState(initialCount);
+  return (
+    <>
+      Count: {count}
+      <button onClick={() => setCount(initialCount)}>Reset</button>
+      <button onClick={() => setCount(prevCount => prevCount - 1)}>-</button>
+      <button onClick={() => setCount(prevCount => prevCount + 1)}>+</button>
+    </>
+  );
+}
+```
+
+<br />
+
+#### Lazy initial state
+
+* The initialState argument is the state used during the initial render. In subsequent renders, it is disregarded. If the initial state is the result of an expensive computation, you may provide a function instead, which will be executed only on the initial render:
+  
+```jsx
+const [state, setState] = useState(() => {
+  const initialState = someExpensiveComputation(props);
+  return initialState;
+});
+```
+
+
+<br />
+
+### useEffect
+
+* Mutations, subscriptions, timers, logging, and other side effects are not allowed inside the main body of a function component (referred to as React’s render phase). Doing so will lead to confusing bugs and inconsistencies in the UI. Instead, use useEffect. The function passed to useEffect will run after the render is committed to the screen. Think of effects as an escape hatch from React’s purely functional world into the imperative world.  By default, effects run after every completed render, but you can choose to fire them only when certain values have changed.
+* If you want to run an effect and clean it up only once (on mount and unmount), you can pass an empty array ([]) as a second argument. This tells React that your effect doesn’t depend on any values from props or state, so it never needs to re-run. If you pass an empty array ([]), the props and state inside the effect will always have their initial values. While passing [] as the second argument is closer to the familiar componentDidMount and componentWillUnmount mental model. 
+
+
+<br />
+
+#### Cleaning up an effect
+* Often, effects create resources that need to be cleaned up before the component leaves the screen, such as a subscription or timer ID. To do this, the function passed to useEffect may return a clean-up function. For example, to create a subscription:
+```jsx
+useEffect(() => {
+  const subscription = props.source.subscribe();
+  return () => {
+    // Clean up the subscription
+    subscription.unsubscribe();
+  };
+});
+```
+* The clean-up function runs before the component is removed from the UI to prevent memory leaks. Additionally, if a component renders multiple times (as they typically do), the previous effect is cleaned up before executing the next effect. In our example, this means a new subscription is created on every update. To avoid firing an effect on every update, refer to the next section.
+
+<br />
+
+#### Timing of effects
+
+* Unlike componentDidMount and componentDidUpdate, the function passed to useEffect fires after layout and paint, during a deferred event. This makes it suitable for the many common side effects, like setting up subscriptions and event handlers, because most types of work shouldn’t block the browser from updating the screen.
+* However, not all effects can be deferred. For example, a DOM mutation that is visible to the user must fire synchronously before the next paint so that the user does not perceive a visual inconsistency. (The distinction is conceptually similar to passive versus active event listeners.) For these types of effects, React provides one additional Hook called useLayoutEffect. It has the same signature as useEffect, and only differs in when it is fired.
+
+
+```jsx
+useEffect(
+  () => {
+    const subscription = props.source.subscribe();
+    return () => {
+      subscription.unsubscribe();
+    };
+  },
+  [props.source],
+);
+```
+
+<br />
+
+
+#### Conditionally firing an effect
+
+* The default behavior for effects is to fire the effect after every completed render. That way an effect is always recreated if one of its dependencies changes.
+* pass a second argument to useEffect that is the array of values that the effect depends on.
+
+<br />
+
+
+### useContext 
+
+* Accepts a context object (the value returned from React.createContext) and returns the current context value for that context. The current context value is determined by the value prop of the nearest <MyContext.Provider> above the calling component in the tree.
+* When the nearest <MyContext.Provider> above the component updates, this Hook will trigger a rerender with the latest context value passed to that MyContext provider. Even if an ancestor uses React.memo or shouldComponentUpdate, a rerender will still happen starting at the component itself using useContext.
+* Don’t forget that the argument to useContext must be the context object itself:
+  * Correct: useContext(MyContext)
+  * Incorrect: useContext(MyContext.Consumer)
+  * Incorrect: useContext(MyContext.Provider)
+* A component calling useContext will always re-render when the context value changes. If re-rendering the component is expensive, you can optimize it by using memoization.
+
+<br />
+
+```jsx
+const themes = {
+  light: {
+    foreground: "#000000",
+    background: "#eeeeee"
+  },
+  dark: {
+    foreground: "#ffffff",
+    background: "#222222"
+  }
+};
+
+const ThemeContext = React.createContext(themes.light);
+
+function App() {
+  return (
+    <ThemeContext.Provider value={themes.dark}>
+      <Toolbar />
+    </ThemeContext.Provider>
+  );
+}
+
+function Toolbar(props) {
+  return (
+    <div>
+      <ThemedButton />
+    </div>
+  );
+}
+
+function ThemedButton() {
+  const theme = useContext(ThemeContext);
+  return (
+    <button style={{ background: theme.background, color: theme.foreground }}>
+      I am styled by theme context!
+    </button>
+  );
+}
+```
+
+<br />
+
+### useReducer
+
+* useReducer is usually preferable to useState when you have complex state logic that involves multiple sub-values or when the next state depends on the previous one. useReducer also lets you optimize performance for components that trigger deep updates because you can pass dispatch down instead of callbacks.
+
+```jsx
+const initialState = {count: 0};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return {count: state.count + 1};
+    case 'decrement':
+      return {count: state.count - 1};
+    default:
+      throw new Error();
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+      <button onClick={() => dispatch({type: 'increment'})}>+</button>
+    </>
+  );
+}
+```
+
+<br />
+
+#### Lazy initialization
+
+* You can also create the initial state lazily. To do this, you can pass an init function as the third argument. The initial state will be set to init(initialArg).
+* It lets you extract the logic for calculating the initial state outside the reducer. This is also handy for resetting the state later in response to an action:
+
+```jsx
+function init(initialCount) {
+  return {count: initialCount};
+}
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return {count: state.count + 1};
+    case 'decrement':
+      return {count: state.count - 1};
+    case 'reset':
+      return init(action.payload);
+    default:
+      throw new Error();
+  }
+}
+
+function Counter({initialCount}) {
+  const [state, dispatch] = useReducer(reducer, initialCount, init);
+  return (
+    <>
+      Count: {state.count}
+      <button
+        onClick={() => dispatch({type: 'reset', payload: initialCount})}>
+        Reset
+      </button>
+      <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+      <button onClick={() => dispatch({type: 'increment'})}>+</button>
+    </>
+  );
+}
+```
+
+<br />
+
+#### Bailing out of a dispatch
+* If you return the same value from a Reducer Hook as the current state, React will bail out without rendering the children or firing effects. (React uses the Object.is comparison algorithm.)
+* Note that React may still need to render that specific component again before bailing out. That shouldn’t be a concern because React won’t unnecessarily go “deeper” into the tree. If you’re doing expensive calculations while rendering, you can optimize them with useMemo.
+
+<br />
+
+### useCallback
+
+```jsx
+const memoizedCallback = useCallback(
+  () => {
+    doSomething(a, b);
+  },
+  [a, b],
+);
+```
+
+<br />
+
+* Returns a memoized callback.
+* Pass an inline callback and an array of dependencies. useCallback will return a memoized version of the callback that only changes if one of the dependencies has changed. This is useful when passing callbacks to optimized child components that rely on reference equality to prevent unnecessary renders (e.g. shouldComponentUpdate).
+* useCallback(fn, deps) is equivalent to useMemo(() => fn, deps).
+
+<br />
+
+#### Practical example of useCallback
+
+
+<br />
+
+### useMemo
+
+```jsx
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+```
+
+* Returns a memoized value.
+* Pass a “create” function and an array of dependencies. useMemo will only recompute the memoized value when one of the dependencies has changed. This optimization helps to avoid expensive calculations on every render.
+* Remember that the function passed to useMemo runs during rendering. Don’t do anything there that you wouldn’t normally do while rendering. For example, side effects belong in useEffect, not useMemo.
+* If no array is provided, a new value will be computed on every render.
+* You may rely on useMemo as a performance optimization, not as a semantic guarantee. In the future, React may choose to “forget” some previously memoized values and recalculate them on next render, e.g. to free memory for offscreen components. Write your code so that it still works without useMemo — and then add it to optimize performance.
+
+
+<br />
+
+#### Practical example of useMemo
+
+
+<br />
+
+### useRef
+
+* `const refContainer = useRef(initialValue);`
+* useRef returns a mutable ref object whose .current property is initialized to the passed argument (initialValue). The returned object will persist for the full lifetime of the component.
+* A common use case is to access a child imperatively:
+```jsx
+function TextInputWithFocusButton() {
+  const inputEl = useRef(null);
+  const onButtonClick = () => {
+    // `current` points to the mounted text input element
+    inputEl.current.focus();
+  };
+  return (
+    <>
+      <input ref={inputEl} type="text" />
+      <button onClick={onButtonClick}>Focus the input</button>
+    </>
+  );
+}
+```
+* Essentially, useRef is like a “box” that can hold a mutable value in its .current property.
+* You might be familiar with refs primarily as a way to access the DOM. If you pass a ref object to React with <div ref={myRef} />, React will set its .current property to the corresponding DOM node whenever that node changes.
+* However, useRef() is useful for more than the ref attribute. It’s handy for keeping any mutable value around similar to how you’d use instance fields in classes.
+* This works because useRef() creates a plain JavaScript object. The only difference between useRef() and creating a {current: ...} object yourself is that useRef will give you the same ref object on every render.
+* Keep in mind that useRef doesn’t notify you when its content changes. Mutating the .current property doesn’t cause a re-render. If you want to run some code when React attaches or detaches a ref to a DOM node, you may want to use a callback ref instead.
+
+
+<br />
+
+
+### useImperativeHandle
+
+* `useImperativeHandle(ref, createHandle, [deps])`
+* useImperativeHandle customizes the instance value that is exposed to parent components when using ref. As always, imperative code using refs should be avoided in most cases. useImperativeHandle should be used with forwardRef:
+```jsx
+function FancyInput(props, ref) {
+  const inputRef = useRef();
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      inputRef.current.focus();
+    }
+  }));
+  return <input ref={inputRef} />;
+}
+FancyInput = forwardRef(FancyInput);
+```
+* In this example, a parent component that renders <FancyInput ref={inputRef} /> would be able to call inputRef.current.focus().
+
+<br />
+
+### useLayoutEffect
+
+* The signature is identical to useEffect, but it fires synchronously after all DOM mutations. Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside useLayoutEffect will be flushed synchronously, before the browser has a chance to paint.
+* Prefer the standard useEffect when possible to avoid blocking visual updates. 
+* If you use server rendering, keep in mind that neither useLayoutEffect nor useEffect can run until the JavaScript is downloaded. This is why React warns when a server-rendered component contains useLayoutEffect. To fix this, either move that logic to useEffect (if it isn’t necessary for the first render), or delay showing that component until after the client renders (if the HTML looks broken until useLayoutEffect runs).
+* To exclude a component that needs layout effects from the server-rendered HTML, render it conditionally with showChild && <Child /> and defer showing it with useEffect(() => { setShowChild(true); }, []). This way, the UI doesn’t appear broken before hydration.
+
+<br />
+
+### useDebugValue
+
+* `useDebugValue(value)`
+* useDebugValue can be used to display a label for custom hooks in React DevTools.
+* We don’t recommend adding debug values to every custom Hook. It’s most valuable for custom Hooks that are part of shared libraries.
+
+```jsx
+function useFriendStatus(friendID) {
+  const [isOnline, setIsOnline] = useState(null);
+
+  // ...
+
+  // Show a label in DevTools next to this Hook
+  // e.g. "FriendStatus: Online"
+  useDebugValue(isOnline ? 'Online' : 'Offline');
+
+  return isOnline;
+}
+```
+
+<br />
+
+#### Defer formatting debug values
+
+* In some cases formatting a value for display might be an expensive operation. It’s also unnecessary unless a Hook is actually inspected.
+* For this reason useDebugValue accepts a formatting function as an optional second parameter. This function is only called if the Hooks are inspected. It receives the debug value as a parameter and should return a formatted display value.
+* For example a custom Hook that returned a Date value could avoid calling the toDateString function unnecessarily by passing the following formatter:
+
+```jsx
+useDebugValue(date, date => date.toDateString());
+```
+
+<br />
+
+### Custom hooks
+
+* [Custom hooks](https://reactjs.org/docs/hooks-custom.html)
+
+<br />
+
+
+* A custom Hook is a JavaScript function whose name starts with ”use” and that may call other Hooks.
+* We can decide what it takes as arguments, and what, if anything, it should return. In other words, it’s just like a normal function. Its name should always start with use so that you can tell at a glance that the rules of Hooks apply to it.
+* Custom Hooks are a convention that naturally follows from the design of Hooks, rather than a React feature.
+* Custom Hooks are a mechanism to reuse stateful logic (such as setting up a subscription and remembering the current value), but every time you use a custom Hook, all state and effects inside of it are fully isolated.
+* spotting cases where a custom Hook could hide complex logic behind a simple interface, or help untangle a messy component.
+* Tip: Pass Information Between Hooks
+
+
+<br />
+
+
+## Events & events handling
+
+
+<br />
+
+### Synthetic events
+
+* [Events](https://reactjs.org/docs/events.html)
+
+<br />
+
+* Your event handlers will be passed instances of SyntheticEvent, a cross-browser wrapper around the browser’s native event. It has the same interface as the browser’s native event, including stopPropagation() and preventDefault(), except the events work identically across all browsers.
+* If you find that you need the underlying browser event for some reason, simply use the nativeEvent attribute to get it. The synthetic events are different from, and do not map directly to, the browser’s native events. For example in onMouseLeave event.nativeEvent will point to a mouseout event. The specific mapping is not part of the public API and may change at any time. Every SyntheticEvent object has the following attributes: 
+
+<br />
+
+#### Difference between onChange and onInput 
+
+* The change event fires in most browsers when content is changed and the element loses focus. It's basically an aggregate of changes. It will not fire for every single change as in the case input event.
+* The input event fires synchronously on change of the content for the element. As such, the event listener tends to fire more frequently.
+
+<br />
+
+### Handler Functions & Callback handlers
+
+* [Difference between event handlers and callbacks](https://stackoverflow.com/questions/2069763/difference-between-event-handlers-and-callbacks)
+
+<br />
+
+* A callback is procedure you pass as an argument to another procedure. The procedure receiving the parameter can call it, or share it so some other procedures in the system can call it. 
+* An event handler is a procedure called when an event happens. It can be a callback.
+
+<br />
+
+* [Handling events](https://reactjs.org/docs/handling-events.html)
+
+<br />
+
+```jsx
+<button onClick={(e) => this.deleteRow(id, e)}>Delete Row</button>
+<button onClick={this.deleteRow.bind(this, id)}>Delete Row</button>
+```
+
+<br />
+
+
+## Styling components
+
+<br />
+
+### CSS/SASS
+
+<br />
+
+#### inline styling
+
+* The style attribute accepts a JavaScript object with camelCased properties rather than a CSS string. This is consistent with the DOM style JavaScript property, is more efficient, and prevents XSS security holes. For example:
+
+```jsx
+const divStyle = {
+  color: 'blue',
+  backgroundImage: 'url(' + imgUrl + ')',
+};
+
+function HelloWorldComponent() {
+  return <div style={divStyle}>
+    Hello World!
+    <div style={{ height: 10 }}>
+      Hello World!
+    </div>
+    <div style={{ height: '10%' }}>
+      Hello World!
+    </div>
+  </div>;
+}
+```
+
+<br />
+
+#### ClassNames
+
+* A simple JavaScript utility for conditionally joining classNames together.
+
+```jsx
+classNames('foo', 'bar'); // => 'foo bar'
+classNames('foo', { bar: true }); // => 'foo bar'
+classNames({ 'foo-bar': true }); // => 'foo-bar'
+classNames({ 'foo-bar': false }); // => ''
+classNames({ foo: true }, { bar: true }); // => 'foo bar'
+classNames({ foo: true, bar: true }); // => 'foo bar'
+
+// lots of arguments of various types
+classNames('foo', { bar: true, duck: false }, 'baz', { quux: true }); // => 'foo bar baz quux'
+
+// other falsy values are just ignored
+classNames(null, false, 'bar', undefined, 0, 1, { baz: null }, ''); // => 'bar 1'
+```
+
+<br />
+
+### CssInJS / JSS
+
+* “CSS-in-JS” refers to a pattern where CSS is composed using JavaScript instead of defined in external files.
+* Note that this functionality is not a part of React, but provided by third-party libraries. React does not have an opinion about how styles are defined; if in doubt, a good starting point is to define your styles in a separate *.css file as usual and refer to them using className.
+* JSS is an authoring tool for CSS which allows you to use JavaScript to describe styles in a declarative, conflict-free and reusable way. It can compile in the browser, server-side or at build time in Node.
+
+<br />
+
+#### JSS
+
+
+```jsx
+import jss from 'jss'
+import preset from 'jss-preset-default'
+import color from 'color'
+
+// One time setup with default plugins and settings.
+jss.setup(preset())
+
+const styles = {
+  '@global': {
+    body: {
+      color: 'green'
+    },
+    a: {
+      textDecoration: 'underline'
+    }
+  },
+  withTemplates: `
+    border-radius: 3px;
+    background-color: green;
+    color: red;
+    margin: 20px 40px;
+    padding: 10px;
+  `,
+  button: {
+    fontSize: 12,
+    '&:hover': {
+      background: 'blue'
+    }
+  },
+  ctaButton: {
+    extend: 'button',
+    '&:hover': {
+      background: color('blue')
+        .darken(0.3)
+        .hex()
+    }
+  },
+  '@media (min-width: 1024px)': {
+    button: {
+      width: 200
+    }
+  }
+}
+
+const {classes} = jss.createStyleSheet(styles).attach()
+
+document.body.innerHTML = `
+  <button class="${classes.button}">Button</button>
+  <button class="${classes.ctaButton}">CTA Button</button>
+```
+
+<br />
+
+#### React-JSS
+```jsx
+import React from 'react'
+import {render} from 'react-dom'
+import {createUseStyles} from 'react-jss'
+
+// Create your Styles. Remember, since React-JSS uses the default preset,
+// most plugins are available without further configuration needed.
+const useStyles = createUseStyles({
+  myButton: {
+    color: 'green',
+    margin: {
+      // jss-expand gives more readable syntax
+      top: 5, // jss-default-unit makes this 5px
+      right: 0,
+      bottom: 0,
+      left: '1rem'
+    },
+    '& span': {
+      // jss-nested applies this to a child span
+      fontWeight: 'bold' // jss-camel-case turns this into 'font-weight'
+    }
+  },
+  myLabel: {
+    fontStyle: 'italic'
+  }
+})
+
+const Button = ({children}) => {
+  const classes = useStyles()
+  return (
+    <button className={classes.myButton}>
+      <span className={classes.myLabel}>{children}</span>
+    </button>
+  )
+}
+
+const App = () => <Button>Submit</Button>
+
+render(<App />, document.getElementById('root'))
+```
+
+<br />
+
+### Material UI and component frameworks
+
+*
+
+<br />
+
+
+## State management
+
+<br />
+
+### State design & lifting state
+
+
+
+<br />
+
+
+### Redux
+
+* Redux is a predictable state container for JavaScript apps.
+* Imagine your app’s state is described as a plain object. This object is like a “model” except that there are no setters. This is so that different parts of the code can’t change the state arbitrarily, causing hard-to-reproduce bugs.
+* To change something in the state, you need to dispatch an action. An action is a plain JavaScript object (notice how we don’t introduce any magic?) that describes what happened.
+* Enforcing that every change is described as an action lets us have a clear understanding of what’s going on in the app. If something changed, we know why it changed. Actions are like breadcrumbs of what has happened. Finally, to tie state and actions together, we write a function called a reducer. Again, nothing magical about it—it’s just a function that takes state and action as arguments, and returns the next state of the app. It would be hard to write such a function for a big app, so we write smaller functions managing parts of the state.
+
+<br />
+
+### Redux-Saga
+
+
+<br />
+
+### Redux-toolkit
+
+
+<br />
+
+## React Router
+
+<br />
+
+### Router
+
+<br />
+
+### Route
+
+<br />
+
+### BrowserRouter
+
+<br />
+
+### Link & NavLink
+
+<br />
+
+### Redirect
+
+<br />
+
+
+### Switch
+
+<br />
+
+
+### history, location & match
+
+
+<br />
+
+
+## Consuming REST APIs
+
+<br />
+
+
+### Where to execute REST requests?
+
+* I would suggest you to make api call in life cycle method componentDidMount and when api call returns some data set it to your state and let your user interface update accordingly.
+
+<br />
+
+### axios
+
+<br />
+
+### isomorphic-fetch
+
+
+
+<br />
+
+### Async requests
+
+
+<br />
+
+
+## React performance
+
+<br />
+
+### Code splitting
+
+<br />
 
 ## Excercises
 
