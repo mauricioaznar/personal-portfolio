@@ -199,7 +199,7 @@ title: Interview HTML
 <br />
 
 
-# How to optimize for SEO?
+## How to optimize for SEO?
 
 * Keywords
   * Identify and target a specific keyword phrase for each page on your website. Think about how your reader might search for that specific page with search terms like
