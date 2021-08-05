@@ -6,10 +6,11 @@
       </v-col>
     </v-row>
     <v-row justify="center">
-      <v-col sm="auto">
+      <v-col sm="12" md="auto">
         <img
           v-for="image of links"
           :key="image.name"
+          :class="imageClass"
           :src="image.download_url"
           alt="triangle with all three sides equal"
         />
@@ -26,6 +27,11 @@ export default Vue.extend({
     return {
       links: [],
     }
+  },
+  computed: {
+    imageClass() {
+      return this.$vuetify.breakpoint.smAndDown ? 'img__big' : 'img__small'
+    },
   },
   created() {
     this.customFetch()
@@ -48,9 +54,14 @@ export default Vue.extend({
   flex-wrap: wrap;
 }
 
-img {
+.img__small {
   max-height: 15rem;
   margin: 1rem 2rem;
   min-height: 15rem;
+}
+.img__big {
+  max-width: 80vw;
+  max-height: 70vh;
+  margin: 0.5rem 0;
 }
 </style>
