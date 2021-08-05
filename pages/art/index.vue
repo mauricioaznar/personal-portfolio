@@ -1,18 +1,18 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="flex-container">
+    <v-row>
+      <v-col>
+        <h1>Art</h1>
+      </v-col>
+    </v-row>
     <v-row justify="center">
-      <v-col sm="auto" md="8">
-        <div>
-          <h1>Art</h1>
-          <div v-for="image of links" :key="image.name">
-            <img
-              :src="image.download_url"
-              alt="triangle with all three sides equal"
-              width="100%"
-            />
-          </div>
-        </div>
-        <NuxtChild />
+      <v-col sm="auto">
+        <img
+          v-for="image of links"
+          :key="image.name"
+          :src="image.download_url"
+          alt="triangle with all three sides equal"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -42,3 +42,15 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style scoped>
+.flex-container {
+  flex-wrap: wrap;
+}
+
+img {
+  max-height: 15rem;
+  margin: 1rem 2rem;
+  min-height: 15rem;
+}
+</style>

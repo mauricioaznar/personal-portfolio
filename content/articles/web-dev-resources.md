@@ -12,6 +12,7 @@ title: Web dev resources
 * [https://epic-react-exercises.vercel.app/](https://epic-react-exercises.vercel.app/)
 * [https://dev.to/alexgurr/react-coding-challenges-for-interviews-beginners-1hlk](https://dev.to/alexgurr/react-coding-challenges-for-interviews-beginners-1hlk)
 * [https://www.reddit.com/r/reactjs/comments/frklcv/react_coding_challenges_for_interviewsbeginners/]([https://www.reddit.com/r/reactjs/comments/frklcv/react_coding_challenges_for_interviewsbeginners/])
+* [React interview questions - Alex Booker](https://dev.to/scrimba/react-interview-questions-to-expect-in-2021-with-answers-dfl)
 
 <br />
 
