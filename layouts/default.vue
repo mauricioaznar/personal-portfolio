@@ -109,6 +109,11 @@ export default {
           title: 'Art',
           to: '/art',
         },
+        {
+          icon: 'mdi-flask-outline',
+          title: 'Tests',
+          to: '/tests',
+        },
       ],
       miniVariant: false,
       title: 'Personal portfolio - Mauricio Aznar',
