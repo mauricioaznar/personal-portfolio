@@ -1,5 +1,5 @@
 ---
-title: Node process management
+title: Linux app management
 ---
 
 # Introduction
@@ -104,13 +104,31 @@ systemctl | grep running
 
 <br />
 
-Real time processes view
+Real time processes view 
+* shift + m = order by memory usage 
 ```shell
 top 
 ```
 
 
 <br />
+
+Count the number of files in one directory
+
+```shell
+ls -1 | wc -l
+```
+
+<br />
+
+Disk usage (human readable form)
+
+```shell
+du -sh file_path
+```
+
+<br />
+
 
 ## Cleaning (kill processes)
 
