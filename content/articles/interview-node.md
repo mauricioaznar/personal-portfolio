@@ -2,6 +2,14 @@
 title: Interview NodeJs
 ---
 
+## What is node?
+
+* Node.js is a web application framework built on Google Chrome's JavaScript Engine(V8 Engine). Node.js comes with runtime environment on which a Javascript based script can be interpreted and executed (It is analogus to JVM to JAVA byte code). This runtime allows to execute a JavaScript code on any machine outside a browser. Because of this runtime of Node.js, JavaScript is now can be executed on server as well.  Node.js also provides a rich library of various javascript modules which eases the developement of web application using Node.js to great extents.
+
+## What do you mean by Asynchrounous API?
+
+* All APIs of Node.js library are asynchronous that is non-blocking. It essentially means a Node.js based server never waits for a API to return data. Server moves to next API after calling it and a notification mechanism of Events of Node.js helps server to get response from the previous API call.
+
 ## What happens after you await an already awaited function?
 
 <br />
@@ -14,6 +22,12 @@ title: Interview NodeJs
 
 * Using the JSON Web Token this information is signed and stored on the client. The information cannot be changed without knowing the secret, so in this design it is considered secure provided a "strong enough" secret key is used.
 * The client does need to store the token and therefore carries state. However, the server does not, meaning the implementation on the server side can be considered stateless.
+
+## What's your favourite HTTP framework and why?
+
+* There is no right answer for this. The goal here is to understand how deeply one knows the framework she/he uses, if can reason about it, knows the pros, cons.
+
+
 
 
 ## What's the oAuth procedure?
@@ -89,3 +103,60 @@ This is used to expose functions of a particular module or file to be used elsew
 * authentication is the process of verifying who a user is, while authorization is the process of verifying what they have access to.
 * a 401 Unauthorized response should be used for missing or bad authentication, and a 403 Forbidden response should be used afterwards, when the user is authenticated but isn’t authorized to perform the requested operation on the given resource.
 
+
+## What is the difference between dependencies and devDependencies?
+
+* Both are defined in the package.json. dependencies lists the packages that the project is dependent on. devDependencies lists the dependencies which are only required during testing and development.
+
+## What is libuv?
+
+* The C library that implements the event loop and all of the asynchronous behaviors.
+
+## What is __dirname?
+
+* A global variable which returns the absolute path of the directory containing the currently executing file.
+
+## Which global variable can be used to access information about the app and the environment that it runs in?
+
+* The process variable.
+
+## What is a blocking function?
+
+* Unlike non-blocking functions, a blocking function's execution must be completed before other statements are executed.?
+
+
+## How are objects that generate events called and which class from the events module are they instances of?
+
+* These objects are called event emitters and are instances of the EventEmitter class.
+
+## What is the event loop? 
+
+* Node js is a single threaded application but it support concurrency via concept of event and callbacks. As every API of Node js are asynchronous and being a single thread, it uses async function calls to maintain the concurrency. Node uses observer pattern. Node thread keeps an event loop and whenever any task get completed, it fires the corresponding event which signals the event listener function to get executed.
+
+### What will the output be?
+
+```javascript
+console.log("first");
+setTimeout(() => {
+    console.log("second");
+}, 0);
+console.log("third");
+```
+
+## What is a callback?
+
+* Callback is an asynchronous equivalent for a function. A callback function is called at the completion of a given task. Node makes heavy use of callbacks. All APIs of Node are written is such a way that they supports callbacks. For example, a function to read a file may start reading file and return the control to execution environment immidiately so that next instruction can be executed. Once file I/O is complete, it will call the callback function while passing the callback function, the content of the file as parameter. So there is no blocking or wait for File I/O. This makes Node.js highly scalable, as it can process high number of request without waiting for any function to return result.
+
+
+## What is the purpose of Buffer in Node?
+
+* Buffer class is a global class and can be accessed in application without importing buffer module. A Buffer is a kind of an array of integers and corresponds to a raw memory allocation outside the V8 heap. A Buffer cannot be resized.
+
+## What is difference between synchronous and asynchronous method of fs module?  
+
+* Every method in fs module have synchronous as well as asynchronous form. Asynchronous methods takes a last parameter as completion function callback and first parameter of the callback function is error. It is preferred to use asynchronous method instead of synchronous method as former never block the program execution where the latter one does.
+
+
+## What are streams?
+
+* Streams are objects that let you read data from a source or write data to a destination in continuous fashion.

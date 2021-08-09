@@ -8,7 +8,7 @@
     />
     <v-navigation-drawer
       v-model="drawer"
-      :mini-variant="miniVariant"
+      :mini-variant="$vuetify.breakpoint.mdAndUp ? miniVariant : true"
       :clipped="false"
       fixed
       app
@@ -26,9 +26,16 @@
     </v-navigation-drawer>
     <v-app-bar :clipped-left="false" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
+      <v-slide-y-transition>
+        <v-btn
+          v-if="$vuetify.breakpoint.mdAndUp && drawer"
+          transition="scroll-y-transition"
+          icon
+          @click.stop="miniVariant = !miniVariant"
+        >
+          <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
+        </v-btn>
+      </v-slide-y-transition>
       <v-spacer></v-spacer>
       <v-toolbar-title v-text="title" />
       <v-spacer />
