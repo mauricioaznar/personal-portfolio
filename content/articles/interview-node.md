@@ -86,6 +86,8 @@ title: Interview NodeJs
 
 ### Json web tokens
 
+* [JWT.IO allows you to decode, verify and generate JWT.](https://jwt.io/)
+
 * Using the JSON Web Token this information is signed and stored on the client. The information cannot be changed
   without knowing the secret, so in this design it is considered secure provided a "strong enough" secret key is used.
 * The client does need to store the token and therefore carries state. However, the server does not, meaning the

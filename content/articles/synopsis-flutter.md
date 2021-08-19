@@ -13,7 +13,22 @@ title: Synopsis Flutter
 
 ### Stateless vs stateful 
 
+### Inherited Widget
+
+### Scoped Models
+
+### Prop drilling
+
 <br />
+
+## Forms
+
+### GlobalKey FormState
+
+### Controller
+
+### onSaved()
+
 
 ## Software design patterns
 
