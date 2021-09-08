@@ -1,20 +1,6 @@
 # personal-portfolio
 
-## Build Setup
+## new topics to review 
 
-```bash
-# install dependencies
-$ npm install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+### currying javascript
+* Currying is an advanced technique of working with functions. It's used not only in JavaScript, but in other languages as well. Currying is a transformation of functions that translates a function from callable as f(a, b, c) into callable as f(a)(b)(c) . The result of curry(func) is a wrapper function(a) 
