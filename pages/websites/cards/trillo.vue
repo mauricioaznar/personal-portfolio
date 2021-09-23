@@ -41,7 +41,7 @@
 
       <div class="d-flex flex-wrap flex-column justify-center">
         <v-avatar class="ma-3 elevation-4" size="200" tile>
-          <v-img src="/websites/img/trillo.png"></v-img>
+          <v-img src="/websites/img/trillo-small.png"></v-img>
         </v-avatar>
       </div>
     </div>

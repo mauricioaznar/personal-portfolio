@@ -8,13 +8,13 @@
           <v-card-title class="nexter-heading">Nexter</v-card-title>
 
           <v-card-subtitle
-            ><b>Description: </b>A website about real state
-            <br />
+          ><b>Description: </b>A website about real state
+            <br/>
             <i
-              >Credits to: Jonas Schmedtmann (<a
-                href="https://www.udemy.com/course/advanced-css-and-sass/"
-                >Advanced CSS and Sass Course</a
-              >)
+            >Credits to: Jonas Schmedtmann (<a
+              href="https://www.udemy.com/course/advanced-css-and-sass/"
+            >Advanced CSS and Sass Course</a
+            >)
             </i>
           </v-card-subtitle>
 
@@ -26,7 +26,7 @@
         </div>
 
         <div>
-          <v-divider dark />
+          <v-divider dark/>
           <v-card-actions>
             <a
               class="nexter-btn"
@@ -41,7 +41,7 @@
 
       <div class="d-flex flex-wrap flex-column justify-center">
         <v-avatar class="ma-3 elevation-4" size="200" tile>
-          <v-img src="/websites/img/nexter.png" position="top left"></v-img>
+          <v-img src="/websites/img/nexter-small.png" position="top left"></v-img>
         </v-avatar>
       </div>
     </div>

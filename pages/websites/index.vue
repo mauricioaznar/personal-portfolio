@@ -20,6 +20,10 @@
       <v-col sm="12" md="6" lg="4">
         <PersonalPortfolioCard />
       </v-col>
+
+      <v-col sm="12" md="6" lg="4">
+        <GatsbyCard />
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -30,9 +34,11 @@ import TrilloCard from './cards/trillo.vue'
 import NexterCard from './cards/nexter.vue'
 import SieteCenotesCard from './cards/7cenotes'
 import PersonalPortfolioCard from './cards/personal-portfolio'
+import GatsbyCard from './cards/gatsby'
 
 export default {
   components: {
+    GatsbyCard,
     PersonalPortfolioCard,
     SieteCenotesCard,
     TrilloCard,

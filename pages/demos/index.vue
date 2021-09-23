@@ -108,10 +108,10 @@
                     class="d-flex flex-wrap flex-row flex-md-column justify-space-around"
                   >
                     <v-avatar class="ma-3 ml-0" size="300" tile>
-                      <v-img src="/demos/img/img.png"></v-img>
+                      <v-img src="/demos/img/notary-3-small.png"></v-img>
                     </v-avatar>
                     <v-avatar class="ma-3 ml-0" size="300" tile>
-                      <v-img src="/demos/img/img.png"></v-img>
+                      <v-img src="/demos/img/notary-1-small.png"></v-img>
                     </v-avatar>
                   </div>
                 </div>
@@ -244,14 +244,14 @@
                   >
                     <v-avatar class="ma-3 ml-0" size="300" tile>
                       <v-img
-                        src="/demos/img/performance.png"
+                        src="/demos/img/performance-1-small.png"
                         gradient="to top right, rgba(100,115,201,.2), rgba(25,32,72,.4)"
                       ></v-img>
                     </v-avatar>
                     <v-avatar class="ma-3 ml-0" size="300" tile>
                       <v-img
                         position="95% 50%"
-                        src="/demos/img/performance-zoom.png"
+                        src="/demos/img/performance-2-small.png"
                         gradient="to top right, rgba(100,115,201,.2), rgba(25,32,72,.4)"
                       ></v-img>
                     </v-avatar>

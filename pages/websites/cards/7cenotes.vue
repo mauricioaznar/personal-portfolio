@@ -45,7 +45,7 @@
           size="200"
           tile
         >
-          <v-img src="/websites/img/siete-1.png"></v-img>
+          <v-img src="/websites/img/7cenotes-1-small.png"></v-img>
         </v-avatar>
         <v-avatar
           :class="{ active: stackHovered }"
@@ -53,7 +53,7 @@
           size="200"
           tile
         >
-          <v-img src="/websites/img/siete-2.png"></v-img>
+          <v-img src="/websites/img/7cenotes-2-small.png"></v-img>
         </v-avatar>
         <v-avatar
           :class="{ active: stackHovered }"
@@ -61,7 +61,7 @@
           size="200"
           tile
         >
-          <v-img src="/websites/img/siete-3.png"></v-img>
+          <v-img src="/websites/img/7cenotes-3-small.png"></v-img>
         </v-avatar>
       </div>
     </div>
