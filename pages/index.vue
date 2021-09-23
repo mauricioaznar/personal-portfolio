@@ -27,14 +27,9 @@
           </li>
           <li class="mt-3">
             <v-icon>mdi-script-text</v-icon>
-            <b>Articles: </b> this section is about guides or opinions about
-            full stack technologies.
-          </li>
-          <li class="mt-3">
-            <v-icon>mdi-code-braces</v-icon>
-            <b> Snippets: </b> this section is about a reference (mostly for
-            myself) of small pieces of code that I can copy paste into new
-            projects.
+            <b>Articles: </b> this section is about walkthrough setups for tech
+            projects and it is also a reference (mostly for myself) of small
+            pieces of code that I can copy paste into new projects..
           </li>
         </ul>
       </v-col>

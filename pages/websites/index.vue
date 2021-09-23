@@ -1,27 +1,27 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col sm="12" md="6" lg="4">
+      <v-col sm="12" md="6" lg="6" xl="4">
         <NatoursCard />
       </v-col>
 
-      <v-col sm="12" md="6" lg="4">
+      <v-col sm="12" md="6" lg="6" xl="4">
         <TrilloCard />
       </v-col>
 
-      <v-col sm="12" md="6" lg="4">
+      <v-col sm="12" md="6" lg="6" xl="4">
         <NexterCard />
       </v-col>
 
-      <v-col sm="12" md="6" lg="4">
+      <v-col sm="12" md="6" lg="6" xl="4">
         <SieteCenotesCard />
       </v-col>
 
-      <v-col sm="12" md="6" lg="4">
+      <v-col sm="12" md="6" lg="6" xl="4">
         <PersonalPortfolioCard />
       </v-col>
 
-      <v-col sm="12" md="6" lg="4">
+      <v-col sm="12" md="6" lg="6" xl="4">
         <GatsbyCard />
       </v-col>
     </v-row>
