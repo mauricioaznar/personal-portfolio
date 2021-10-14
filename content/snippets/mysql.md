@@ -34,6 +34,39 @@ mysqldump -u root -p backend > backend.sql
 drop database inopack;
 ```
 
+### list all foreign keys for a table
+
+```sql
+SELECT
+  TABLE_NAME,COLUMN_NAME,CONSTRAINT_NAME, REFERENCED_TABLE_NAME,REFERENCED_COLUMN_NAME
+FROM
+  INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+WHERE
+  REFERENCED_TABLE_SCHEMA = '<database>' AND
+  REFERENCED_TABLE_NAME = '<table>';
+```
+
+### List all foreign keys for a column
+
+```sql
+SELECT 
+  TABLE_NAME,COLUMN_NAME,CONSTRAINT_NAME, REFERENCED_TABLE_NAME,REFERENCED_COLUMN_NAME
+FROM
+  INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+WHERE
+  REFERENCED_TABLE_SCHEMA = '<database>' AND
+  REFERENCED_TABLE_NAME = '<table>' AND
+  REFERENCED_COLUMN_NAME = '<column>';
+```
+
+
+### Drop column in table
+
+```sql
+ALTER TABLE table_name
+  DROP COLUMN column_name;
+```
+
 
 ### run script
 
