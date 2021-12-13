@@ -1,42 +1,55 @@
 <template>
   <v-container fluid>
-    <v-row justify="center">
-      <v-col sm="12" md="6">
-        <div>
-          <h1>Articles</h1>
-          <ul>
-            <li v-for="article of articles" :key="article.title">
-              <NuxtLink
-                :to="{
-                  path: $route.path + article.path,
-                }"
-              >
-                <div>
-                  <h2>{{ article.title }}</h2>
-                </div>
-              </NuxtLink>
-            </li>
-          </ul>
-        </div>
-      </v-col>
-      <v-col sm="12" md="6">
-        <div>
-          <h1>Snippets</h1>
-          <ul>
-            <li v-for="snippet of snippets" :key="snippet.title">
-              <NuxtLink
-                :to="{
+    <v-tabs v-model="tab" class="mb-4">
+      <v-tab>Articles</v-tab>
+      <v-tab>Snippets</v-tab>
+    </v-tabs>
+      <v-tabs-items v-model="tab">
+        <v-tab-item>
+          <v-row justify="center">
+            <v-col sm="12">
+              <div>
+                <h1>Articles</h1>
+                <ul>
+                  <li v-for="article of articles" :key="article.title">
+                    <NuxtLink
+                      :to="{ path: $route.path + article.path }"
+                    >
+                      <div>
+                        <h2>{{ article.title }}</h2>
+                      </div>
+                    </NuxtLink>
+                  </li>
+                </ul>
+              </div>
+            </v-col>
+          </v-row>
+        </v-tab-item>
+        <v-tab-item>
+          <v-row justify="center">
+            <v-col sm="12">
+              <div>
+                <h1>Snippets</h1>
+                <ul>
+                  <li v-for="snippet of snippets" :key="snippet.title">
+                    <NuxtLink
+                      :to="{
                   path: $route.path + snippet.path,
                 }"
-              >
-                <div>
-                  <h2>{{ snippet.title }}</h2>
-                </div>
-              </NuxtLink>
-            </li>
-          </ul>
-        </div>
-      </v-col>
+                    >
+                      <div>
+                        <h2>{{ snippet.title }}</h2>
+                      </div>
+                    </NuxtLink>
+                  </li>
+                </ul>
+              </div>
+            </v-col>
+          </v-row>
+        </v-tab-item>
+      </v-tabs-items>
+
+
     </v-row>
   </v-container>
 </template>
@@ -45,6 +58,20 @@
 import Vue from 'vue'
 
 export default Vue.extend({
+  data() {
+    return {
+      tab: 0,
+    }
+  },
+  watch: {
+    tab() {
+      window.localStorage.setItem('post_tab', this.tab)
+    },
+  },
+  mounted() {
+    const postTab = window.localStorage.getItem('post_tab')
+    this.tab = postTab ? Number(postTab) : 0
+  },
   async asyncData(ctx) {
     const retrievePosts = async (category) => {
       let posts = []
