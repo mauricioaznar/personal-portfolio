@@ -1,5 +1,5 @@
 <template>
-  <v-card color="blue darken-4" dark class="pa-2">
+  <v-card color="red darken-4" dark class="pa-2">
     <div
       class="d-flex flex-no-wrap flex-column flex-md-row justify-space-between align-stretch"
     >
@@ -30,16 +30,12 @@
         <v-card-text>
           <p class="mt-2 text-h6">Technical details</p>
           <ul>
-            <li>UI made with react and chakra ui. Hosted on netlfiy</li>
+            <li>UI made with react and material ui. Hosted on netlfiy</li>
             <li>
-              Client made with express. Hosted on the desired machine (mac,
-              windows or linux)
-            </li>
-            <li>
-              Server api made with express, nestjs and mongodb. Hosted on
+              Server api made with nestjs and mongodb. Hosted on
               digitalocean
             </li>
-            <li>Server database hosted on mongoatlas</li>
+            <li>Apollo across front and back end.</li>
           </ul>
         </v-card-text>
 
@@ -51,7 +47,7 @@
               <v-btn
                 color="accent"
                 link
-                href="https://performance.mauaznar.com/"
+                href="https://sandbox.mauaznar.com/"
                 target="_blank"
               >
                 Go to app
@@ -62,19 +58,7 @@
                 color="#4078c0"
                 dark
                 link
-                href="https://github.com/mauricioaznar/performance-ui/"
-                target="_blank"
-              >
-                UI
-                <v-icon right>mdi-github</v-icon>
-              </v-btn>
-            </v-col>
-            <v-col cols="auto">
-              <v-btn
-                color="#4078c0"
-                dark
-                link
-                href="https://github.com/mauricioaznar/performance-client/"
+                href="https://github.com/mauricioaznar/react-s-todo/"
                 target="_blank"
               >
                 Client
@@ -86,7 +70,7 @@
                 color="#4078c0"
                 dark
                 link
-                href="https://github.com/mauricioaznar/performance-server/"
+                href="https://github.com/mauricioaznar/nestjs-s-todo/"
                 target="_blank"
               >
                 Server

@@ -11,6 +11,10 @@
             <v-col sm="12" xl="6">
               <Performance />
             </v-col>
+
+            <v-col sm="12" xl="6">
+              <Sandbox />
+            </v-col>
           </v-row>
         </v-container>
       </v-col>
@@ -21,8 +25,9 @@
 <script>
 import Notary from '@/pages/demos/cards/notary'
 import Performance from '@/pages/demos/cards/performance'
+import Sandbox from '@/pages/demos/cards/sandbox'
 export default {
-  components: { Performance, Notary },
+  components: { Performance, Notary, Sandbox },
 }
 </script>
 
