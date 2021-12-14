@@ -6,7 +6,7 @@
           <v-row justify="center">
             <v-col cols="auto">
               <h1>
-                {{ article.title }}
+                {{ posts.title }}
               </h1>
             </v-col>
           </v-row>
@@ -14,25 +14,25 @@
             <v-col cols="1" class="text-center">
               <v-tooltip bottom>
                 <template #activator="{ on, attrs }">
-                  <v-btn icon small exact link nuxt :to="{ path: '/posts' }">
+                  <v-btn icon small exact link nuxt :to="{ path: `/posts/${category}` }">
                     <v-icon color="primary" dark v-bind="attrs" v-on="on">
                       mdi-home
                     </v-icon>
                   </v-btn>
                 </template>
-                <span>{{ 'posts' }}</span>
+                <span>{{ category }}</span>
               </v-tooltip>
               <span>&nbsp;</span>
             </v-col>
           </v-row>
           <v-row justify="center">
             <v-col>
-              <table-of-content :toc="article.toc" />
+              <table-of-content :toc="posts.toc" />
             </v-col>
           </v-row>
           <v-row justify="center">
             <v-col>
-              <nuxt-content :document="article"></nuxt-content>
+              <nuxt-content :document="posts"></nuxt-content>
             </v-col>
           </v-row>
         </v-container>
@@ -48,12 +48,13 @@ import { IContentDocument } from '@nuxt/content/types/content'
 
 export default Vue.extend({
   async asyncData(ctx) {
-    let article = null
+    let posts = null
     const prev = null
     const next = null
 
+    const category = ctx.params.category
     try {
-      const path = `/${ctx.params.pathMatch || 'index'}`
+      const path = `/${category}/${ctx.params.pathMatch || 'index'}`
 
       const [art] = (await ctx
         .$content({ deep: true })
@@ -61,10 +62,10 @@ export default Vue.extend({
         .fetch()) as IContentDocument[]
 
       if (!art) {
-        return ctx.error({ statusCode: 404, message: 'Article not found' })
+        return ctx.error({ statusCode: 404, message: 'Post not found' })
       }
 
-      article = art
+      posts = art
     } catch (e) {
       ctx.error({
         statusCode: 404,
@@ -73,7 +74,8 @@ export default Vue.extend({
     }
 
     return {
-      article,
+      category,
+      posts,
       prev,
       next,
     }
@@ -83,3 +85,5 @@ export default Vue.extend({
   },
 })
 </script>
+
+

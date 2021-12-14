@@ -1,5 +1,11 @@
 <template>
-  <v-card color="red darken-4" dark class="pa-2">
+  <v-card 
+    dark 
+    class="pa-2"
+    color="#614A39"
+  >
+
+    
     <div
       class="d-flex flex-no-wrap flex-column flex-md-row justify-space-between align-stretch"
     >
@@ -8,7 +14,7 @@
           <v-card-title class="text-h5"> Sandbox </v-card-title>
 
           <v-card-subtitle
-            ><b>Description: </b>App made to test graphql and react features.
+            ><b>Description: </b>App made to test react, graphql and ui engineering ideas.
             <br />
           </v-card-subtitle>
         </div>
@@ -35,7 +41,7 @@
               Server api made with nestjs and mongodb. Hosted on
               digitalocean
             </li>
-            <li>Apollo across front and back end.</li>
+            <li>Apollographql used in front and back end.</li>
           </ul>
         </v-card-text>
 
@@ -58,7 +64,7 @@
                 color="#4078c0"
                 dark
                 link
-                href="https://github.com/mauricioaznar/react-s-todo/"
+                href="https://github.com/mauricioaznar/sandbox/"
                 target="_blank"
               >
                 Client
@@ -70,7 +76,7 @@
                 color="#4078c0"
                 dark
                 link
-                href="https://github.com/mauricioaznar/nestjs-s-todo/"
+                href="https://github.com/mauricioaznar/sandbox-server/"
                 target="_blank"
               >
                 Server
@@ -86,15 +92,15 @@
       >
         <v-avatar class="ma-3" :size="smallDown ? 200 : 300" tile>
           <v-img
-            src="/demos/img/performance-1-small.png"
-            gradient="to top right, rgba(100,115,201,.2), rgba(25,32,72,.4)"
+            src="/demos/img/sandbox-1-small.png"
+            gradient="to top right, rgba(100,115,201,.1), rgba(25,32,72,.1)"
           ></v-img>
         </v-avatar>
         <v-avatar class="ma-3" :size="smallDown ? 200 : 300" tile>
           <v-img
             position="95% 50%"
-            src="/demos/img/performance-2-small.png"
-            gradient="to top right, rgba(100,115,201,.2), rgba(25,32,72,.4)"
+            src="/demos/img/sandbox-2-small.png"
+            gradient="to top right, rgba(100,115,201,.1), rgba(25,32,72,.1)"
           ></v-img>
         </v-avatar>
       </div>

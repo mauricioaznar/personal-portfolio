@@ -103,8 +103,13 @@ export default {
         },
         {
           icon: 'mdi-script-text',
-          title: 'Posts',
-          to: '/posts',
+          title: 'Articles',
+          to: '/posts/articles',
+        },
+               {
+          icon: 'mdi-script-text',
+          title: 'Snippets',
+          to: '/posts/snippets',
         },
         {
           icon: 'mdi-palette',
