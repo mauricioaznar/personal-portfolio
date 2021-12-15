@@ -106,7 +106,7 @@ export default {
           title: 'Articles',
           to: '/posts/articles',
         },
-               {
+        {
           icon: 'mdi-script-text',
           title: 'Snippets',
           to: '/posts/snippets',
@@ -115,11 +115,6 @@ export default {
           icon: 'mdi-palette',
           title: 'Art',
           to: '/art',
-        },
-        {
-          icon: 'mdi-flask-outline',
-          title: 'Tests',
-          to: '/tests',
         },
       ],
       miniVariant: false,

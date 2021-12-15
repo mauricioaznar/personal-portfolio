@@ -1,21 +1,27 @@
 <template>
-  <v-container fluid>
-    <v-row justify="start">
-      <v-col sm="12">
-        <h1>{{ title }}</h1>
-      </v-col>
-      <v-col v-for="snippet of posts" :key="snippet.title" sm="12" md="6">
-        <NuxtLink
-          :to="{
-            path: $route.path + '/' + snippet.slug,
-          }"
-          style="text-decoration: none"
-          class="d-flex"
-        >
-          <v-icon>mdi-circle-small</v-icon>
-          <h2>{{ snippet.title }}</h2>
-          <span>{{ log(snippet) }}</span>
-        </NuxtLink>
+  <v-container>
+    <v-row justify="center">
+      <v-col sm="12" md="6">
+        <v-row>
+          <v-col sm="12">
+            <h1>{{ title }}</h1>
+          </v-col>
+        </v-row>
+        <v-row justify="center">
+          <v-col v-for="snippet of posts" :key="snippet.title" sm="12" md="12">
+            <NuxtLink
+              :to="{
+                path: $route.path + '/' + snippet.slug,
+              }"
+              style="text-decoration: none"
+              class="d-flex"
+            >
+              <v-icon>mdi-circle-small</v-icon>
+              <h2>{{ snippet.title }}</h2>
+              <span>{{ log(snippet) }}</span>
+            </NuxtLink>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
@@ -25,12 +31,6 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  methods: {
-    log: function (item) {
-      console.log(item)
-      return ''
-    }
-  },
   async asyncData(ctx) {
     const retrievePosts = async (category) => {
       let posts = []
@@ -61,11 +61,16 @@ export default Vue.extend({
 
     return {
       posts: posts.sort(compare),
-      title: category.charAt(0).toUpperCase() + category.slice(1)
+      title: category.charAt(0).toUpperCase() + category.slice(1),
     }
+  },
+  methods: {
+    log(item) {
+      console.log(item)
+      return ''
+    },
   },
 })
 </script>
 
-<style>
-</style>
+<style></style>
