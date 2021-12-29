@@ -60,7 +60,7 @@ export * from './middlewares/validate-request'
 }
 ```
 
-* set this properties in tsconfig.json
+* set these properties in tsconfig.json
 ```json
 {
   "declaration": true,
