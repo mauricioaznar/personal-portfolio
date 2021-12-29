@@ -7,7 +7,7 @@ title: postgresql
 ### dump database into file
 
 ```shell
-pg_dump -U postgres mydb > mydb.pgsql
+pg_dump -U postgres --format=c  note_dev > note_dev
 ```
 
 <br />
@@ -15,7 +15,7 @@ pg_dump -U postgres mydb > mydb.pgsql
 ### insert dump into database
 
 ```shell
- mysql -u root -p inopack < backend.sql
+ pg_restore -U postgres -v -d note_prod note_dev
 ```
 
 <br />
