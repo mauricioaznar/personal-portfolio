@@ -267,3 +267,8 @@ ExecStart=/usr/bin/npm run start:prod --prefix /root/nestjs-inopack
 WantedBy=multi-user.target
 Alias=inopack.service
 ```
+
+
+### Postgres
+
+
