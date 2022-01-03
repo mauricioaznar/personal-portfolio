@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-row justify="center">
+  <v-container fluid>
+    <v-row justify="start">
       <v-col sm="12" md="6">
         <v-row>
           <v-col sm="12">
@@ -8,7 +8,13 @@
           </v-col>
         </v-row>
         <v-row justify="center">
-          <v-col v-for="snippet of posts" :key="snippet.title" sm="12" md="12">
+          <v-col
+            v-for="snippet of posts"
+            :key="snippet.title"
+            class="py-0"
+            sm="12"
+            md="12"
+          >
             <NuxtLink
               :to="{
                 path: $route.path + '/' + snippet.slug,
@@ -18,7 +24,6 @@
             >
               <v-icon>mdi-circle-small</v-icon>
               <h2>{{ snippet.title }}</h2>
-              <span>{{ log(snippet) }}</span>
             </NuxtLink>
           </v-col>
         </v-row>
@@ -63,12 +68,6 @@ export default Vue.extend({
       posts: posts.sort(compare),
       title: category.charAt(0).toUpperCase() + category.slice(1),
     }
-  },
-  methods: {
-    log(item) {
-      console.log(item)
-      return ''
-    },
   },
 })
 </script>

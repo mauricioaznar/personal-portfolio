@@ -7,7 +7,7 @@ title: POSTMAN
 
 ## Config
 
-##W Allow postman to use files in collection runners
+### Allow postman to use files in collection runners
 
 1. go to settings > general > location > check "allow reading files outside working directory"
 

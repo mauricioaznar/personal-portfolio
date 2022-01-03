@@ -1,5 +1,5 @@
 ---
-title: mysql
+title: Mysql
 ---
 
 ## Quick commands

@@ -13,23 +13,33 @@
           pieces of code that have proven to be useful, also by displaying my
           progress to the outside world.
         </p>
-        <p>This website is divided in four main sections.</p>
+        <p>This website is divided in five main sections.</p>
         <ul>
           <li>
             <v-icon>mdi-apps</v-icon>
-            <b> App demos: </b>this section is about displaying examples that
-            integrate full stack technologies (back-end and front-end service).
+            <b> App demos: </b>this section is about web application examples
+            that display full stack integration technologies.
           </li>
           <li class="mt-3">
             <v-icon>mdi-web</v-icon>
-            <b> Websites: </b> This sections is about website design that I have
-            made myself or through a course.
+            <b> Websites: </b> This section is about website designs that I have
+            come to life.
           </li>
           <li class="mt-3">
             <v-icon>mdi-script-text</v-icon>
-            <b>Articles: </b> this section is about walkthrough setups for tech
-            projects and it is also a reference (mostly for myself) of small
-            pieces of code that I can copy paste into new projects..
+            <b>Articles: </b> this section is about walk-through setups for tech
+            projects.
+          </li>
+          <li class="mt-3">
+            <v-icon>mdi-script-text</v-icon>
+            <b>Snippets: </b> this section is about different reusable pieces
+            that have helped me through programming. I often use them as a
+            reference when I am coding or when I forget commands.
+          </li>
+          <li class="mt-3">
+            <v-icon>mdi-palette</v-icon>
+            <b>Art: </b> this section is about art that I have created following
+            art-by-uk tutorials
           </li>
         </ul>
       </v-col>

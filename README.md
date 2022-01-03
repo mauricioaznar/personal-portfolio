@@ -3,8 +3,13 @@
 
 ## Currently working
 
-* re-do home page
+
 * remove unused articles and snippets.
+* re-do sandbox description
+* add more info to postgres.md
+* solve npm questions
+* create eslint.md
+* add more to jest.md
 
 
 ## Investigation
@@ -17,4 +22,5 @@
 ## Done
 
 
+* re-do home page
 * added gatsby mauaznar.com to websites

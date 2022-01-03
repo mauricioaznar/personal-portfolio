@@ -1,5 +1,5 @@
 ---
-title: postgresql
+title: Postgresql
 ---
 
 ## Quick commands
