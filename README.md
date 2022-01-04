@@ -3,7 +3,6 @@
 
 ## Currently working
 
-* add more to jest.md
 * re-do sandbox description
 * add more info to postgres.md
 * solve npm questions
@@ -16,7 +15,8 @@
 
 ## Done
 
-* reorganizing file
+* add more to jest.md
+* reorganizing conent numbers
 * add javascript copy to clipboard
 * remove unused articles and snippets.
 * re-do home page

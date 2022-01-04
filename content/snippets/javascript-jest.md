@@ -1,9 +1,8 @@
 ---
-title: Jest
+title: Javascript jest
 ---
 
-
-## Introduction 
+## Introduction
 
 Jest is a delightful JavaScript Testing Framework with a focus on simplicity.
 ([Jest docs](https://jestjs.io/docs/getting-started))
@@ -17,10 +16,10 @@ The following instructions use the @sendgrid package as an example `"@sendgrid/m
 1. name the mocks folder `__mocks__`
 2. use the same folder structure where the mockfile that is getting mocked (e.g. `__mocks__/@sendgrid/mail.js`)
 
-
 ### Example #1
 
 mail.js
+
 ```javascript
 module.exports = {
   setApiKey() {
@@ -32,23 +31,83 @@ module.exports = {
 }
 ```
 
+<br />
+
+## Base package.json config
+
+### With global setup
+
+
+```json
+{
+  "jest": {
+    "globalSetup": "<rootDir>/__tests__/setup.ts",
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".*\\.test\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  }
+}
+
+```
+
+
+## Expectations
+
+### To equal array with object containing
+
+```javascript
+expect(response.body.operations).toEqual(
+  expect.arrayContaining([
+    expect.objectContaining({ id: operation1.id }),
+  ]),
+);
+```
+
+<br />
+
+### To equal array with string matching
+
+```javascript
+expect(response.body.message).toEqual(
+  expect.arrayContaining([expect.stringMatching(/banned/)]),
+);
+
+
+```
+
+<br />
+
+
 
 ## Moxios
 
 integration.test.js
+
 ```javascript
 import React from 'react'
-import {mount} from 'enzyme'
+import { mount } from 'enzyme'
 import moxios from 'moxios'
 import Root from 'Root'
 import App from 'components/App'
-import {createMemoryHistory} from "history";
+import { createMemoryHistory } from "history";
 
 beforeEach(() => {
   moxios.install()
   moxios.stubRequest('http://jsonplaceholder.typicode.com/comments', {
     status: 200,
-    response: Array(5).fill({name: 'Comment'})
+    response: Array(5).fill({ name: 'Comment' })
   })
 })
 
@@ -59,7 +118,7 @@ afterEach(() => {
 it('can fetch a list of comments and display them', (done) => {
   const wrapped = mount(
     <Root initialRoute={['/post']}>
-      <App />
+      <App/>
     </Root>
   )
   wrapped.find('li').at(1).simulate('click')

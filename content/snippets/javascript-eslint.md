@@ -1,5 +1,5 @@
 ---
-title: ESLint
+title: Javascript ESLint
 ---
 
 ## Introduction
