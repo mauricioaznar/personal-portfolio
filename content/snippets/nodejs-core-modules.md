@@ -1,5 +1,5 @@
 ---
-title: Express
+title: Nodejs core modules
 ---
 
 ## Introduction 
@@ -14,8 +14,9 @@ code outside a web browser. ([nodejs docs](https://nodejs.org/en/docs/))
 ## Set up
 
 index.js
+
 ```javascript
-const express = require('express')
+const express = require('content/snippets/nodejs-express')
 const mongoose = require('mongoose')
 const cookieSession = require('cookie-session')
 const passport = require('passport')
@@ -429,9 +430,10 @@ values from an input object.
 ### Usage
 
 app.js
+
 ```javascript
 const path = require('path')
-const express = require('express')
+const express = require('content/snippets/nodejs-express')
 const hbs = require('hbs')
 const geocode = require('./geocode')
 const forecast = require('./forecast')
@@ -487,13 +489,13 @@ app.get('/weather', (req, res) => {
       res.send(err)
       return
     }
-    const {latitude, longitude} = geoData
+    const { latitude, longitude } = geoData
     forecast(latitude, longitude, (err, forecastData) => {
       if (err) {
         res.send(err)
         return
       }
-      res.send({forecastData, geoData})
+      res.send({ forecastData, geoData })
       console.log(forecastData)
     })
   })
@@ -506,7 +508,7 @@ app.get('/products', (req, res) => {
       error: 'You must provide a search term'
     })
   }
-  res.send({somedata: ''})
+  res.send({ somedata: '' })
 })
 
 app.get('*', (req, res) => {
@@ -1247,82 +1249,83 @@ router.get('/tasks', authMiddleware, async (req, res) => {
 ### Server
 
 app.js
+
 ```javascript
-const express = require('express')
+const express = require('content/snippets/nodejs-express')
 const http = require('http')
 const path = require('path')
 const socketio = require('socket.io')
 const Filter = require('bad-words')
 
-const {generateMessage, generateLocationMessage} = require('./utils/messages')
-const {addUser, removeUser, getUsersInRoom, getUser} = require('./utils/users')
+const { generateMessage, generateLocationMessage } = require('./utils/messages')
+const { addUser, removeUser, getUsersInRoom, getUser } = require('./utils/users')
 
 const app = express()
 const server = http.createServer(app)
 const io = socketio(server)
 
-app.use(express.static(path.join(__dirname, '../' , 'public')))
+app.use(express.static(path.join(__dirname, '../', 'public')))
 
 let count = 0
 
 io.on('connection', (socket) => {
 
-    socket.on('join', ({username, room}, callback) => {
-        const {error, user} = addUser({ id: socket.id, username, room })
+  socket.on('join', ({ username, room }, callback) => {
+    const { error, user } = addUser({ id: socket.id, username, room })
 
-        if (error) {
-            return callback(error)
-        }
+    if (error) {
+      return callback(error)
+    }
 
-        socket.join(user.room)
+    socket.join(user.room)
 
-        socket.emit('message', generateMessage('Admin', 'Welcome!'))
-        socket.broadcast.to(user.room).emit('message', generateMessage('Admin', `${user.username} has joined`))
-        io.to(user.room).emit('roomData', {
-            room: user.room,
-            users: getUsersInRoom(user.room)
-        })
-
-        callback()
+    socket.emit('message', generateMessage('Admin', 'Welcome!'))
+    socket.broadcast.to(user.room).emit('message', generateMessage('Admin', `${user.username} has joined`))
+    io.to(user.room).emit('roomData', {
+      room: user.room,
+      users: getUsersInRoom(user.room)
     })
 
+    callback()
+  })
 
-    socket.on('sendMessage', (message, callback) => {
 
-        const user = getUser(socket.id)
+  socket.on('sendMessage', (message, callback) => {
 
-        const filter = new Filter()
-        if (filter.isProfane(message)) {
-            return callback('Profanity is not allowed')
-        }
+    const user = getUser(socket.id)
 
-        io.to(user.room).emit('message', generateMessage(user.username, message))
-        callback()
-    })
-    socket.on('disconnect', () => {
-        const user = removeUser(socket.id)
+    const filter = new Filter()
+    if (filter.isProfane(message)) {
+      return callback('Profanity is not allowed')
+    }
 
-        if (user) {
-            io.to(user.room).emit('message', generateMessage('Admin', `${user.username} has left`))
-            io.to(user.room).emit('roomData', {
-                room: user.room,
-                users: getUsersInRoom(user.room)
-            })
-        }
-    })
+    io.to(user.room).emit('message', generateMessage(user.username, message))
+    callback()
+  })
+  socket.on('disconnect', () => {
+    const user = removeUser(socket.id)
 
-    socket.on('sendLocation', (coordinates, callback) => {
-        const user = getUser(socket.id)
+    if (user) {
+      io.to(user.room).emit('message', generateMessage('Admin', `${user.username} has left`))
+      io.to(user.room).emit('roomData', {
+        room: user.room,
+        users: getUsersInRoom(user.room)
+      })
+    }
+  })
 
-        io.to(user.room).emit('locationMessage', generateLocationMessage(user.username, coordinates))
-        callback()
-    })
+  socket.on('sendLocation', (coordinates, callback) => {
+    const user = getUser(socket.id)
+
+    io.to(user.room).emit('locationMessage', generateLocationMessage(user.username, coordinates))
+    callback()
+  })
 })
 
 const port = process.env.PORT || 3000
 
 server.listen(port, () => {
-    console.log('App is running on port ' + port)
+  console.log('App is running on port ' + port)
 })
 ```
 
@@ -1574,8 +1577,9 @@ router.post(
 ## Client served from the server
 
 server.js
+
 ```javascript
-const express = require('express')
+const express = require('content/snippets/nodejs-express')
 const connectDB = require('./config/db')
 
 const app = express()

@@ -1,5 +1,5 @@
 ---
-title: Electron
+title: Javascript electron
 ---
 
 ## Introduction
@@ -46,17 +46,17 @@ setup
 *use `loadFile` instead of` loadURL`*
 
 ```javascript
-const {app, BrowserWindow} = require('electron')
+const { app, BrowserWindow } = require('content/snippets/javascript-electron')
 
 let mainWindow
 
-function createWindow () {
+function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1000, height: 800,
     webPreferences: { ndoeIntegration: true }
   })
 
-  mainWindow.loadFile('index.html') 
+  mainWindow.loadFile('index.html')
 }
 
 app.on('ready', createWindow)
@@ -228,12 +228,12 @@ function createWindow () {
 
 ```javascript
 
-const { app, BrowserWindow, webContents } = require('electron')
+const { app, BrowserWindow, webContents } = require('content/snippets/javascript-electron')
 
 let mainWindow
 
-function createWindow () {
-  
+function createWindow() {
+
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 1000,
@@ -243,12 +243,12 @@ function createWindow () {
   })
 
   mainWindow.loadFile('index.html')
-  
+
   // mainWindow.webContents.openDevTools()
-  
+
   // web content instance
   let wc = mainWindow.webContents
-  
+
   wc.on('did-finish-load', () => {
     console.log('All content (images or others content included)')
   })
@@ -256,10 +256,10 @@ function createWindow () {
   wc.on('dom-ready', () => {
     console.log('Dom loaded (all tags)')
   })
-  
+
   // static method (from all web content instatnces)
   webContents.getAllWebContents()
-  
+
   mainWindow.on('closed', () => {
     mainWindow = null
   })
@@ -364,7 +364,7 @@ let defaultsSes = session.defaultSession
 Custom session
 
 ```javascript
-const {session} = require('electron')
+const { session } = require('content/snippets/javascript-electron')
 
 let customSession = session.fromPartition('part1')
 
@@ -378,8 +378,8 @@ const mainWindow = new BrowserWindow({
   x: 100,
   y: 100,
   webPreferences: {
-    ndoeIntegration: true, 
-    session: customSession 
+    ndoeIntegration: true,
+    session: customSession
   },
 })
 
@@ -428,36 +428,37 @@ clear on instance
 [Cookies](https://www.electronjs.org/docs/api/cookies)
 
 ```javascript
-const {session} = require('electron')
+const { session } = require('content/snippets/javascript-electron')
 
 let mainWindow
 
 let customSession = session.fromPartition('part1')
 
-function createWindow () {
+function createWindow() {
 
   let ses = session.defaultSession
-  
+
   // read cookies
   ses.cookies.get({})
     .then(cookies => {
-      
+
     })
-    .catch(e => {})
-  
+    .catch(e => {
+    })
+
   let cookie = {
     url: "https://myappdomain.com",
     name: 'cookie1',
     value: 'electron',
     expirationDate: 1622818789
   }
-  
+
   // set cookie
   ses.cookies.set(cookie)
     .then(() => {
       console.log('Cookie 1 set')
     })
-  
+
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 1000,
@@ -465,17 +466,18 @@ function createWindow () {
     y: 100,
     webPreferences: { ndoeIntegration: true },
   })
-  
+
   // get by name
   set.cookies.get({
     name: 'cookie1'
   })
-  
+
   // remove cookie (url and name of cookie)
   ses.cookies.remove("https://myappdomain.com", 'cookie1')
-    .then(() => {})
-    
-  
+    .then(() => {
+    })
+
+
 }
 
 
@@ -489,25 +491,25 @@ function createWindow () {
 
 Use html attribute property `download` on a `a` tag
 
-
 ```javascript
-const {session} = require('electron')
+const { session } = require('content/snippets/javascript-electron')
 
 let mainWindow
 
 let customSession = session.fromPartition('part1')
 
-function createWindow () {
+function createWindow() {
 
   let ses = session.defaultSession
-  
+
   // read cookies
   ses.cookies.get({})
     .then(cookies => {
-      
+
     })
-    .catch(e => {})
-  
+    .catch(e => {
+    })
+
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 1000,
@@ -515,29 +517,29 @@ function createWindow () {
     y: 100,
     webPreferences: { ndoeIntegration: true },
   })
-  
+
   // download item without any prompt (small file)
   ses.on(`will-download`, (e, downloadItem, webContents) => {
     console.log('starting download')
     let filename = downloadItem.getFilename()
     let filesize = downloadItem.getTotalBytes()
-    
+
     // save to desktop
     downloadItem.setSavePath(app.getPath('desktop') + `/${filename}`)
-    
+
     downloadItem.on('updated', (e, state) => {
-      
+
       let received = downloadItem.getReceivedBytes()
-      
+
       if (state === 'progressing' && received) {
-        let progress = Math.Round((received/filesize) * 100)
+        let progress = Math.Round((received / filesize) * 100)
         webContents.executeJavascript(`window.progress.value = ${progress}`)
       }
-      
+
     })
   })
-    
-  
+
+
 }
 
 
@@ -550,13 +552,13 @@ function createWindow () {
 [Dialog](https://www.electronjs.org/docs/api/dialog)
 
 ```javascript
-const {Dialog} = require('electron')
+const { Dialog } = require('content/snippets/javascript-electron')
 
 let mainWindow
 
 
-function createWindow () {
-  
+function createWindow() {
+
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 1000,
@@ -564,14 +566,14 @@ function createWindow () {
     y: 100,
     webPreferences: { ndoeIntegration: true },
   })
-  
+
   mainWindow.loadFile('index.html')
-  
+
 
   // file explorer dialog
-  
+
   mainWindow.webContents.on('did-finish-load', () => {
-    
+
     Dialog.showOpenDialog(mainWindow, {
       buttonLabel: 'Select a photo',
       defaultPath: app.getPath('home'),
@@ -612,7 +614,7 @@ function createWindow () {
 ## accelerators & global shortcuts
 
 ```javascript
-const {globalShortcut} = require('electron')
+const { globalShortcut } = require('content/snippets/javascript-electron')
 
 globalShortcut.register('G', () => {
   console.log('user pressed g')
@@ -639,7 +641,7 @@ globalShortcut.register('CommandOrControl+G', () => {
 * shortcuts are only triggered when app is in focus
 
 ```javascript
-const {app, BrowserWindow, Menu, MenuItem} = require('electron')
+const { app, BrowserWindow, Menu, MenuItem } = require('content/snippets/javascript-electron')
 
 let mainWindow
 
@@ -649,14 +651,14 @@ let mainMenu = new Menu()
 let menuItem1 = new MenuItem({
   label: 'Electron',
   submenu: [
-    { 
+    {
       label: 'Item 1',
       click: () => {
         console.log('item clicked')
       },
       accelerator: 'Shift + Alt + g'
     },
-    { 
+    {
       label: 'Item 2',
       submenu: {
         label: "Sub item 1"
@@ -677,7 +679,7 @@ let menuItem1 = new MenuItem({
     {
       role: 'paste'
     },
-    { 
+    {
       label: 'Item 3',
       enabled: false
     }
@@ -691,14 +693,14 @@ let mainMenu2 = Menu.buildFromTemplate([
   {
     label: 'Electron',
     submenu: [
-      { label: 'Item 1'},
+      { label: 'Item 1' },
       {
         label: 'Item 2',
         submenu: {
           label: "Sub item 1"
         }
       },
-      { label: 'Item 3'}
+      { label: 'Item 3' }
     ]
   },
   {
@@ -710,14 +712,14 @@ let mainMenu2 = Menu.buildFromTemplate([
 ])
 
 
-function createWindow () {
+function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1000, height: 800,
     webPreferences: { ndoeIntegration: true }
   })
 
   mainWindow.loadFile('index.html')
-  
+
   Menu.setApplicationMenu(mainMenu)
 }
 
@@ -731,7 +733,7 @@ app.on('ready', createWindow)
 ### Context menu
 
 ```javascript
-const {app, BrowserWindow, Menu, MenuItem} = require('electron')
+const { app, BrowserWindow, Menu, MenuItem } = require('content/snippets/javascript-electron')
 
 let mainWindow
 
@@ -744,14 +746,14 @@ let contextMenu = new Menu.buildFromTemplate([
   }
 ])
 
-function createWindow () {
+function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1000, height: 800,
     webPreferences: { ndoeIntegration: true }
   })
 
   mainWindow.loadFile('index.html')
-  
+
   mainWindow.webContents.on('context-menu', () => {
     contextMenu.popup()
   })
@@ -769,30 +771,30 @@ app.on('ready', createWindow)
 [Native images](https://www.electronjs.org/docs/api/native-image)
 
 ```javascript
-const {app, BrowserWindow, Menu, MenuItem, Tray} = require('electron')
+const { app, BrowserWindow, Menu, MenuItem, Tray } = require('content/snippets/javascript-electron')
 
 let tray
 let mainWindow
 
 
 let trayMenu = Meny.buildFromTemplate([
-  { label: 'Item 1'},
-  { role: 'quit'}
+  { label: 'Item 1' },
+  { role: 'quit' }
 ])
 
-function createTray () {
+function createTray() {
   tray = new Tray('trayTemplate@2x.png')
   tray.setTooltip('Tray details')
-  
+
   tray.on('click', (e) => {
-    
+
     if (e.shiftKey) {
       app.quit()
     } else {
-      mainWindow.isVisible ? mainWindow.hide() : mainWindow.show() 
+      mainWindow.isVisible ? mainWindow.hide() : mainWindow.show()
     }
   })
-  
+
   tray.setContextMeny(trayMenu)
 }
 
@@ -805,14 +807,14 @@ let contextMenu = new Menu.buildFromTemplate([
   }
 ])
 
-function createWindow () {
+function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1000, height: 800,
     webPreferences: { ndoeIntegration: true }
   })
 
   mainWindow.loadFile('index.html')
-  
+
   mainWindow.webContents.on('context-menu', () => {
     contextMenu.popup()
   })
@@ -828,15 +830,14 @@ app.on('ready', createWindow)
 
 [Power monitor](https://www.electronjs.org/docs/api/power-monitor)
 
-
 ```javascript
-const electron = require('electron')
-const {app, BrowserWindow, Menu, MenuItem, Tray} = electron
+const electron = require('content/snippets/javascript-electron')
+const { app, BrowserWindow, Menu, MenuItem, Tray } = electron
 
 let tray
 let mainWindow
 
-function createWindow () {
+function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1000, height: 800,
     webPreferences: { ndoeIntegration: true }
@@ -869,15 +870,15 @@ app.on('ready', createWindow)
 [Screen](https://www.electronjs.org/docs/api/screen)
 
 ```javascript
-const electron = require('electron')
-const {app, BrowserWindow, screen} = electron
+const electron = require('content/snippets/javascript-electron')
+const { app, BrowserWindow, screen } = electron
 
 let primaryDisplay = screen.getPrimaryDisplay()
 
 let tray
 let mainWindow
 
-function createWindow () {
+function createWindow() {
   mainWindow = new BrowserWindow({
     width: primaryDisplay.size.width / 2,
     height: primaryDisplay.size.height,
@@ -887,7 +888,7 @@ function createWindow () {
   })
 
   mainWindow.loadFile('index.html')
-  
+
 }
 
 app.on('ready', createWindow)
@@ -928,8 +929,8 @@ const closeWin = () => {
 [Web frame](https://www.electronjs.org/docs/api/web-frame)
 
 ```javascript
-const electron = require('electron')
-const {webFrame} = electron
+const electron = require('content/snippets/javascript-electron')
+const { webFrame } = electron
 
 webFrame.getZoomFactor() // 1 === 100%, 2 === 200%
 ```
@@ -939,11 +940,11 @@ webFrame.getZoomFactor() // 1 === 100%, 2 === 200%
 ### Desktop capturer
 
 ```javascript
-const electron = require('electron')
-const {desktopCapturer} = electron
+const electron = require('content/snippets/javascript-electron')
+const { desktopCapturer } = electron
 
 
-desktopCapturer,getSources({
+desktopCapturer, getSources({
   type
 })
 
@@ -959,16 +960,17 @@ desktopCapturer,getSources({
 * inter process communication
 
 main.js
+
 ```javascript
-const electron = require('electron')
-const {app, BrowserWindow, ipcMain} = electron
+const electron = require('content/snippets/javascript-electron')
+const { app, BrowserWindow, ipcMain } = electron
 
 let primaryDisplay = screen.getPrimaryDisplay()
 
 let tray
 let mainWindow
 
-function createWindow () {
+function createWindow() {
   mainWindow = new BrowserWindow({
     width: primaryDisplay.size.width / 2,
     height: primaryDisplay.size.height,
@@ -978,12 +980,12 @@ function createWindow () {
   })
 
   mainWindow.loadFile('index.html')
-  
-  
+
+
   mainWindow.webContents.on('did-finish-load', (e) => {
     mainWindow.webContents.send('mailbox', 'you have mail')
   })
-  
+
 }
 
 ipcMain.on('channel1', (e, args) => {
@@ -1005,15 +1007,15 @@ app.on('ready', createWindow)
 renderer.js
 
 ```javascript
-const electron = require('electron')
-const {ipcRenderer} = electron
+const electron = require('content/snippets/javascript-electron')
+const { ipcRenderer } = electron
 
 ipcRenderer.send('channel1', 'Message')
 
 const response = ipcRenderer.sendSync('sync-message', 'Message')
 
 ipcRenderer.on('channel1-response', (e, args) => {
-  
+
 })
 
 ipcRenderer.on('mailbox', (e, args) => {
@@ -1034,16 +1036,17 @@ app.on('ready', createWindow)
 * accessing electron node modules in renderer process
 
 main.js
+
 ```javascript
-const electron = require('electron')
-const {app, BrowserWindow, ipcMain} = electron
+const electron = require('content/snippets/javascript-electron')
+const { app, BrowserWindow, ipcMain } = electron
 
 let primaryDisplay = screen.getPrimaryDisplay()
 
 let tray
 let mainWindow
 
-function createWindow () {
+function createWindow() {
   mainWindow = new BrowserWindow({
     width: primaryDisplay.size.width / 2,
     height: primaryDisplay.size.height,
@@ -1056,12 +1059,12 @@ function createWindow () {
   })
 
   mainWindow.loadFile('index.html')
-  
-  
+
+
   mainWindow.webContents.on('did-finish-load', (e) => {
     mainWindow.webContents.send('mailbox', 'you have mail')
   })
-  
+
 }
 
 
@@ -1074,31 +1077,31 @@ app.on('ready', createWindow)
 renderer.js
 
 ```javascript
-const electron = require('electron')
-const {remote} = electron
-const {dialog, BrowserWindow} = remote
+const electron = require('content/snippets/javascript-electron')
+const { remote } = electron
+const { dialog, BrowserWindow } = remote
 
 setTimeout(() => {
   dialog.showMessageBox({
     message: 'Dialog from renderer',
     buttons: ['One', 'Two']
-  }).renderer( res => {
+  }).renderer(res => {
     console.log(res)
   })
-  
+
   let win = new BrowserWindow({
     x: 50,
     y: 50,
     width: 300,
     height: 250
   })
-  
+
   const app = remote.app
-  
+
   let mainWindow = remote.getCurrentWindow()
-  
+
   mainWindow.maximize()
-},2000)
+}, 2000)
 
 ```
 
@@ -1107,9 +1110,10 @@ setTimeout(() => {
 ### Disabled remote and calling electron modules from renderer
 
 main.js
+
 ```javascript
-const electron = require('electron')
-const {app, BrowserWindow, ipcMain, dialog} = electron
+const electron = require('content/snippets/javascript-electron')
+const { app, BrowserWindow, ipcMain, dialog } = electron
 
 let primaryDisplay = screen.getPrimaryDisplay()
 
@@ -1127,20 +1131,20 @@ ipcMain.handle('ask-fruit2', (e) => {
   return callDialog()
 })
 
-async function callDialog () {
+async function callDialog() {
   const buttons = ['One', 'Two']
-  
-  const index = await  dialog.showMessageBox({
+
+  const index = await dialog.showMessageBox({
     message: 'Dialog from renderer',
     buttons: buttons
-  }).renderer( res => {
+  }).renderer(res => {
     console.log(res)
   })
-  
+
   return buttons[index]
 }
 
-function createWindow () {
+function createWindow() {
   mainWindow = new BrowserWindow({
     width: primaryDisplay.size.width / 2,
     height: primaryDisplay.size.height,
@@ -1153,12 +1157,12 @@ function createWindow () {
   })
 
   mainWindow.loadFile('index.html')
-  
-  
+
+
   mainWindow.webContents.on('did-finish-load', (e) => {
     mainWindow.webContents.send('mailbox', 'you have mail')
   })
-  
+
 }
 
 
@@ -1171,8 +1175,8 @@ app.on('ready', createWindow)
 renderer.js
 
 ```javascript
-const electron = require('electron')
-const {ipcRenderer} = electro
+const electron = require('content/snippets/javascript-electron')
+const { ipcRenderer } = electro
 
 ipcRenderer.send('ask-fruit')
 
@@ -1216,7 +1220,7 @@ use default applications for resource usage
 * moveItemToTrash
 
 ```javascript
-const {shell} = require('electron')
+const { shell } = require('content/snippets/javascript-electron')
 ```
 
 <br />
@@ -1226,8 +1230,9 @@ const {shell} = require('electron')
 [native images](https://www.electronjs.org/docs/api/native-image)
 
 main.js
+
 ```javascript
-const {nativeImage, ipcMain} = require('electron')
+const { nativeImage, ipcMain } = require('content/snippets/javascript-electron')
 
 let mainWindow
 
@@ -1241,8 +1246,9 @@ ipcMain.handle('app-path', () => {
 <br />
 
 renderer.js
+
 ```javascript
-const {nativeImage, ipcRenderer} = require('electron')
+const { nativeImage, ipcRenderer } = require('content/snippets/javascript-electron')
 const fs = require('fs')
 const splash = nativeImage.createFromPath(`${__dirname}/splash.png`)
 console.log(splash.getSize())
@@ -1253,19 +1259,19 @@ const toJpg = e => {
   let pngSplash = splash.toJPEG(100)
 }
 const toTag = e => {
-  
+
   let size = splash.getSize()
-  
-  const resizedImage = splash.resize({ width: Math.round(size.width / 4), height: Math.round(size.height / 4)})
-  
+
+  const resizedImage = splash.resize({ width: Math.round(size.width / 4), height: Math.round(size.height / 4) })
+
   let splashUrl = resizedImage.getDataUrl()
-  document.getElementById('preview').src = splashUrl 
-  
+  document.getElementById('preview').src = splashUrl
+
 }
 const saveToDesktop = async (data, extension) => {
   let desktopPath = await ipcRenderer.invoke('app-path')
   fs.writeFile(desktopPath + '/' + extension, data, console.log)
-} 
+}
 
 ```
 
@@ -1278,7 +1284,7 @@ const saveToDesktop = async (data, extension) => {
 [Clipboard](https://www.electronjs.org/docs/api/clipboard)
 
 ```javascript
-const {clipboard} = require('electron')
+const { clipboard } = require('content/snippets/javascript-electron')
 
 console.log(clipboard.readText())
 
@@ -1306,9 +1312,10 @@ image.toDataUrl()
 [offscreen rendering](https://www.electronjs.org/docs/tutorial/offscreen-rendering)
 
 main.js
+
 ```javascript
-const electron = require('electron')
-const {app, BrowserWindow} = electron
+const electron = require('content/snippets/javascript-electron')
+const { app, BrowserWindow } = electron
 const fs = require('fs')
 
 
@@ -1319,7 +1326,7 @@ let primaryDisplay = screen.getPrimaryDisplay()
 
 let mainWindow
 
-function createWindow () {
+function createWindow() {
   mainWindow = new BrowserWindow({
     width: primaryDisplay.size.width / 2,
     height: primaryDisplay.size.height,
@@ -1333,22 +1340,22 @@ function createWindow () {
   })
 
   mainWindow.loadUrl('https://electronjs.org')
-  
-  
+
+
   let i = 1
   mainWindow.webContents.on('paint', (e, dirty, image) => {
     let screenshot = image.toPNG()
     fs.writeFile(app.getPath('desktop') + `/screenshot_${i}.png`, screenshot, console.log)
     i++
   })
-  
-  
+
+
   mainWindow.webContents.on('did-finish-load', () => {
     console.log(mainWindow.getTitle())
     mainWindow.close()
     mainWindow = null
   })
-  
+
 }
 
 
@@ -1381,7 +1388,7 @@ const isOnline = navigator.onLine ? 'online' : 'offline'
 * clicking the notification focuses the app
 
 ```javascript
-const {remote} = require('electron')
+const { remote } = require('content/snippets/javascript-electron')
 const self = remote.getCurrentWindow()
 
 let notification = new Notification('Electron app', {
@@ -1418,14 +1425,15 @@ window.versions = {
 <br />
 
 main.js
+
 ```javascript
-const electron = require('electron')
-const {app, BrowserWindow} = electron
+const electron = require('content/snippets/javascript-electron')
+const { app, BrowserWindow } = electron
 const fs = require('fs')
 
 let mainWindow
 
-function createWindow () {
+function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 1000,
@@ -1437,7 +1445,7 @@ function createWindow () {
   })
 
   mainWindow.loadUrl('https://electronjs.org')
-  
+
 }
 
 
@@ -1455,16 +1463,14 @@ app.on('ready', createWindow)
 
 [Progress bar](https://www.electronjs.org/docs/tutorial/progress-bar)
 
-
-
 ```javascript
-const electron = require('electron')
-const {app, BrowserWindow} = electron
+const electron = require('content/snippets/javascript-electron')
+const { app, BrowserWindow } = electron
 const fs = require('fs')
 
 let mainWindow
 
-function createWindow () {
+function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 1000,
@@ -1474,7 +1480,7 @@ function createWindow () {
       preload: __dirname + 'preload.js'
     }
   })
-  
+
   mainWindow.setProgressBar(0.25)
 
   mainWindow.loadUrl('https://electronjs.org')

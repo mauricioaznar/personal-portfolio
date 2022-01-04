@@ -1,5 +1,5 @@
 ---
-title: Material UI
+title: React material UI
 ---
 
 ## Introduction

@@ -58,6 +58,24 @@ const drawer = (
 * [pushjs](https://pushjs.org/)
 * [MDN notifications](https://developer.mozilla.org/en-US/docs/Web/API/notification)
 
+<br />
+
+## Copy to clipboard
+
+```javascript
+function copy(text) {
+    var input = document.createElement('textarea');
+    input.innerHTML = text;
+    document.body.appendChild(input);
+    input.select();
+    var result = document.execCommand('copy');
+    document.body.removeChild(input);
+    return result;
+}
+```
+
+<br />
+
 
 ## Exercises
 
