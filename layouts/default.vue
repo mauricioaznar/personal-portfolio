@@ -104,12 +104,12 @@ export default {
         {
           icon: 'mdi-script-text',
           title: 'Articles',
-          to: '/articles',
+          to: '/posts/articles',
         },
-        {
-          icon: 'mdi-code-braces',
+               {
+          icon: 'mdi-script-text',
           title: 'Snippets',
-          to: '/snippets',
+          to: '/posts/snippets',
         },
         {
           icon: 'mdi-palette',

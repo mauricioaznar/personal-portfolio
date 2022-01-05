@@ -22,7 +22,7 @@
       <div class="d-flex flex-wrap flex-column justify-center">
         <v-avatar class="ma-3 elevation-4" size="200" tile>
           <v-img
-            src="/websites/img/personal-portfolio.png"
+            src="/websites/img/personal-portfolio-small.png"
             position="center left"
           ></v-img>
         </v-avatar>

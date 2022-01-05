@@ -41,7 +41,7 @@
 
       <div class="d-flex flex-wrap flex-column justify-center">
         <v-avatar class="ma-3 ml-0 elevation-4" size="200" tile>
-          <v-img src="/websites/img/natours.png"></v-img>
+          <v-img src="/websites/img/natours-small.png"></v-img>
         </v-avatar>
       </div>
     </div>
