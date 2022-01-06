@@ -1,5 +1,5 @@
 ---
-title: Synopsis Javascript
+title: Summary - Javascript
 ---
 
 ## Javascript overview

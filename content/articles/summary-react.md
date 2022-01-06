@@ -1,5 +1,5 @@
 ---
-title: Synopsis React
+title: Summary - React
 ---
 
 ## React

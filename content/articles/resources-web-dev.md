@@ -1,5 +1,5 @@
 ---
-title: Web dev resources
+title: Resources - Web dev
 ---
 
 

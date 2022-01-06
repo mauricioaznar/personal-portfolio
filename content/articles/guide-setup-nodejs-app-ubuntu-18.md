@@ -1,5 +1,5 @@
 ---
-title: How to set up a nodejs application on ubuntu 18
+title: Guide - How to set up a nodejs application on ubuntu 18?
 ---
 
 ## Introduction
@@ -19,7 +19,6 @@ You will need to have the following prepared:
 <!--more-->
 
 ## Install nodejs
-[How To Install Node.js on Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04)
 
 
 1. First, install the PPA in order to get access to its contents.
@@ -54,7 +53,6 @@ nodejs -v
 <br />
 
 ## Install Nginx
-[How to install nginx on ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04)
 
 1. Refresh our local package index first
 

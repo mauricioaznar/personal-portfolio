@@ -1,5 +1,5 @@
 ---
-title: SEO guide for react
+title: Guide - SEO for react
 ---
 
 ## Introduction

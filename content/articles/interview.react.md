@@ -1,5 +1,5 @@
 ---
-title: Interview React
+title: Interview topics - React
 ---
 
 ## Outside of React, what’s a component as an abstraction?

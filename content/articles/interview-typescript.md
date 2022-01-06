@@ -1,5 +1,5 @@
 ---
-title: Synopsis Typescript
+title: Interview topics - Typescript
 ---
 
 

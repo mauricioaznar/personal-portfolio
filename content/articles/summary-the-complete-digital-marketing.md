@@ -1,5 +1,5 @@
 ---
-title: The complete digital marketing course summary
+title: Summary - The complete digital marketing course summary
 ---
 
 ## Intruduction 
