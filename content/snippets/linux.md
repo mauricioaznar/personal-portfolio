@@ -179,6 +179,16 @@ passwd sammy
 
 <br />
 
+deleting user linux
+
+* `-r` to delete user home directory and email queue 
+
+```shell
+userdel -r sammy
+```
+
+<br />
+
 ## security
 
 ### Disabling password authentication
@@ -197,6 +207,20 @@ sudo systemctl restart ssh
 ```
 
 <br />
+
+### allowing certain users to run sudo commands without password
+
+* [Failed to reload nginx service interactive authentication required](https://stackoverflow.com/questions/51500748/failed-to-reload-nginx-service-interactive-authentication-required)
+
+<br />
+
+/etc/sudoers.d/jenkins
+```shell
+jenkins ALL=(ALL) NOPASSWD: /usr/sbin/service mau-sandbox start,/usr/sbin/service mau-sandbox stop,/usr/sbin/service mau-sandbox restart
+```
+
+<br />
+
 
 ### Disabling root ssh
 
@@ -254,3 +278,22 @@ enable https
 ```shell
 ufw enable https
 ```
+<br />
+
+
+
+
+## Jenkins
+
+
+
+<br />
+
+* installment [How to install jenkins on ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-jenkins-on-ubuntu-18-04)
+* ssl [How to configure jenkins with SSL](https://www.digitalocean.com/community/tutorials/how-to-configure-jenkins-with-ssl-using-an-nginx-reverse-proxy-on-ubuntu-18-04)
+* credentials problem (something about upgrading)
+  * [Unable to install jenkins on ubuntu 16.04](https://stackoverflow.com/questions/68821316/unable-to-install-jenkins-on-ubuntu-16-04)
+  * [Server certificate verification failed. CAfile: /etc/ssl/certs/ca-certificates.crt CRLfile: none](https://stackoverflow.com/questions/21181231/server-certificate-verification-failed-cafile-etc-ssl-certs-ca-certificates-c)
+* creation of a pipeline
+  * create webhook first on github
+  * create pipeline

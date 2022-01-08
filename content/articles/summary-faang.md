@@ -1,5 +1,5 @@
 ---
-title: Guide to fang (summary)
+title: Summary - fang
 ---
 
 
