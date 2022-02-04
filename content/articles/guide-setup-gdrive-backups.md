@@ -13,7 +13,7 @@ title: GDrive backups in ubuntu 18
 
 tutorials:
 * [gdrive installment in linux 1](https://medium.com/geekculture/how-to-upload-file-to-google-drive-from-linux-command-line-69668fbe4937)
-* [gdrive installment in linux 2](https://andypalmer.me/blog/linux/mysql-database-backups-google-drive/)
+* [gdrive installment in linux 2] (https://andypalmer.me/blog/linux/mysql-database-backups-google-drive/)
 * [gdrive installment in linux 3](https://allaboutdjango.com/auto-backup-mysql-database-to-google-drive/)
 * [crontabs](https://www.cyberciti.biz/faq/how-do-i-add-jobs-to-cron-under-linux-or-unix-oses/)
 
@@ -95,7 +95,7 @@ crontab -e
 
 
 ```
-* * * * *  /bin/sh /home/mau/generate-inopack-backup.sh >> /home/mau/log 2>&1
+0 3 * * *  /bin/sh /home/mau/generate-inopack-backup.sh >> /home/mau/log 2>&1
 ```
 
 
