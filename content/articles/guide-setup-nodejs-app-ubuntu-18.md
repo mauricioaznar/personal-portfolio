@@ -18,37 +18,43 @@ You will need to have the following prepared:
 
 <!--more-->
 
-## Install nodejs
+## Install nvm
 
+[nvm installment](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04)
 
-1. First, install the PPA in order to get access to its contents.
-   From your home directory, use curl to retrieve the installation script for your preferred
-   version, making sure to replace 10.x with your preferred version string (if different):
+1. Source the .bashrc file
 
-```bash
-curl -sL https://deb.nodesource.com/setup_10.x -o nodesource_setup.sh
+```shell
+source ~/.bashrc
 ```
 
-2. Run the script under sudo:
+
+2. This installs the nvm script to your user account.
 
 ```bash
-sudo bash nodesource_setup.sh
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+
 ```
 
-3. The PPA will be added to your configuration and your local package cache will
-   be updated automatically. After running the setup script from Nodesource,
-   you can install the Node.js package in the same way you did above
+4. List all node versions
+```shell
+nvm ls-remote
+```
+
+6. Install a version of node:
 
 ```bash
-sudo apt install nodejs
+nvm install v16.13.1
 ```
 
-4. Check node is installed
-```bash
-nodejs -v
+7. Create symlinks for npm and node
+```shell
+sudo rm -f /usr/bin/node
+sudo rm -f /usr/bin/npm
+sudo ln -s $(which node) /usr/bin/
+sudo ln -s $(which npm) /usr/bin/
 ```
 
-*Optional: you could also install it using nvm for better nodejs version management*
 
 <br />
 

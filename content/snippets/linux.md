@@ -4,9 +4,12 @@ title: Linux
 
 ## Systemd app management
 
+
+
 systemd is a suite of basic building blocks for a Linux system. It provides a system and service manager that runs as
 PID 1 and starts the rest of the system.
 [Systemd.io](https://systemd.io/)
+[journal ctl not logging ](https://stackoverflow.com/questions/30783134/systemd-user-journals-not-being-created)
 
 
 <br />
