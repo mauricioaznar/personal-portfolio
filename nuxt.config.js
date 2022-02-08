@@ -30,7 +30,7 @@ export default {
       { property: 'og:type', content: 'website' },
       { property: 'og:image:width', content: '1086' },
       { property: 'og:image:height', content: '724' },
-      { property: 'og:image:alt', content: 'Website app demos' },
+      { property: 'og:image:alt', content: 'Me' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
