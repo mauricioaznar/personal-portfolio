@@ -150,12 +150,33 @@ sudo nano /etc/nginx/sites-available/default
 sudo nginx -t
 ```
 
-6. Reload nginx config
+6. Enabling new site
+```shell
+sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/test.com /etc/nginx/sites-enabled/
+```
+
+*Optionally check if conf allows for more sites names and set the value correctly
+```shell
+sudo nano /etc/nginx/nginx.conf
+```
+```conf
+http {
+    . . .
+
+    server_names_hash_bucket_size 64;
+
+    . . .
+}
+```
+
+
+7.Reload nginx config
 ```bash
 sudo systemctl reload nginx
 ```
 
-7. Obtaining a ssl certificate. 'example.com' and 'www.example.com' should be substituted for
+8. Obtaining a ssl certificate. 'example.com' and 'www.example.com' should be substituted for
 your website
 ```bash
 sudo certbot --nginx -d example.com -d www.example.com
